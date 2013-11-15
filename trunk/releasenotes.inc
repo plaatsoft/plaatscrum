@@ -18,9 +18,15 @@
 
 $releasenotes = '
 
-<h2>14-01-2013 PlaatScrum v1.0</h2>
+<h2>14-11-2013 PlaatScrum v1.0</h2>
 <ul>
+<li>Update Maintenance release</li>
+<li>Improve backup cron.</li>
 <li>Maintenance release</li>
+<li>Update jquery to 10.2.0.</li>
+<li>Update jquery-ui to 10.3.0.</li>
+<li>update jquery-css smooth to 10.3.0.</li>
+<li>Added source code to google code.</li>
 <li>Fixed some minor issues</li>
 </ul>
 
