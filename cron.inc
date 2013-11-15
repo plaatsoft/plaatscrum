@@ -28,55 +28,6 @@
 ** ------------------
 */
 
-/** 
- * Make mysql backup of all existing tables 
- */
-function plaatscrum_backup_do($filename, $host, $user, $pass, $name) {
-  
-	$return="";
-  
-	$link = mysql_connect($host,$user,$pass);
-	mysql_select_db($name, $link);
-  
-	$tables = array();
-   $result = mysql_query('SHOW TABLES');
-   while($row = mysql_fetch_row($result)) {
-		$tables[] = $row[0];
-	}
-  
-	foreach($tables as $table) {
-	
-		$result = mysql_query('SELECT * FROM '.$table);
-		$num_fields = mysql_num_fields($result);
-    
-		$return.= 'DROP TABLE '.$table.';';
-		$row2 = mysql_fetch_row(mysql_query('SHOW CREATE TABLE '.$table));
-		$return.= "\n\n".$row2[1].";\n\n";
-    
-		for ($i = 0; $i < $num_fields; $i++) {
-      
-			while($row = mysql_fetch_row($result)) {
-				
-				$return .= 'INSERT INTO '.$table.' VALUES(';
-				
-				for($j=0; $j<$num_fields; $j++) {
-					$row[$j] = addslashes($row[$j]);
-          
-					if (isset($row[$j])) { $return.= '"'.$row[$j].'"' ; } else { $return.= '""'; }
-					if ($j<($num_fields-1)) { $return.= ','; }
-				}
-				$return.= ");\n";
-			}
-		}
-		$return.="\n\n\n";
-	}
-  
-	/* save file */
-	$handle = fopen($filename,'w+');
-	fwrite($handle,$return);
-	fclose($handle);
-}
-
 /**
  * Cron backup job 
  */
@@ -91,10 +42,13 @@ function plaatscrum_cron_backup() {
 	plaatscrum_info('Remove old backup file '.$filename);
 	@unlink($filename);			
 	
-	/* Create new database backup file */
 	$filename = 'backup/scrumboard-'.date("Ymd").'.sql';
-	plaatscrum_backup_do($filename, $config["dbhost"], $config["dbuser"], $config["dbpass"], $config["dbname"]);
-		
+	
+	/* Create new database backup file */
+	$backupFile = 'database_backup_'.date("YmdHis").'.sql';
+	$command = 'mysqldump --user='.$config["dbuser"].' --password='.$config["dbpass"].' '.$config["dbname"].' > '.$filename;
+	system($command);
+			
 	$message = 'Create new backup file '.$filename.'<br/>';
 	plaatscrum_info($message);
 }
