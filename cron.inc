@@ -46,7 +46,7 @@ function plaatscrum_cron_backup() {
 	
 	/* Create new database backup file */
 	$backupFile = 'database_backup_'.date("YmdHis").'.sql';
-	$command = 'mysqldump --user='.$config["dbuser"].' --password='.$config["dbpass"].' '.$config["dbname"].' > '.$filename;
+	$command = 'mysqldump --user='.$config["dbuser"].' --password='.$config["dbpass"].' --host='.$config["dbhost"].' '.$config["dbname"].' > '.$filename;
 	system($command);
 			
 	$message = 'Create new backup file '.$filename.'<br/>';
@@ -72,7 +72,7 @@ function plaatscrum_cron() {
 	
 	$query  = 'select cron_id, description from cron where DATE(last_run)!="'.date("Y-m-d").'"'; 
 	$result = plaatscrum_db_query($query);	
-	
+		
 	if ($data = plaatscrum_db_fetch_object($result)) {
 	
 		/* Event handler */
