@@ -169,9 +169,17 @@ function plaatscrum_backlog_form() {
 		$page .= '<tr ';
 		
 		if ((++$count % 2 ) == 1 ) {
-			$page .= 'class="light" ';
+			if ($data->type==TYPE_STORY) {
+				$page .= 'class="light bold" ';
+			} else {
+				$page .= 'class="light" ';
+			}
 		} else {
-			$page .= 'class="dark" ';
+			if ($data->type==TYPE_STORY) {
+				$page .= 'class="dark bold" ';
+			} else {
+				$page .= 'class="dark" ';
+			}
 		} 
 		$page .='>';
 		

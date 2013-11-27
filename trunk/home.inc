@@ -147,16 +147,24 @@ function plaatscrum_home_form() {
 	$count=0;
 		
 	while ($data=plaatscrum_db_fetch_object($result)) {		
-				
+					
 		$page .= '<tr ';
 		
 		if ((++$count % 2 ) == 1 ) {
-			$page .= 'class="light" ';
+			if ($data->type==TYPE_STORY) {
+				$page .= 'class="light bold" ';
+			} else {
+				$page .= 'class="light" ';
+			}
 		} else {
-			$page .= 'class="dark" ';
+			if ($data->type==TYPE_STORY) {
+				$page .= 'class="dark bold" ';
+			} else {
+				$page .= 'class="dark" ';
+			}
 		} 
 		$page .='>';
-		
+				
 		$page .= '<td>';		
 		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, $data->number);
 		$page .= '</td>';

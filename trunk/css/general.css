@@ -420,13 +420,21 @@ img{
 
 .justify{text-align:justify;}
 
-.bold{font-weight:bold;}
+.bold{
+	font-weight:bold;
+}
 
-.center{text-align:center;}
+.center{
+	text-align:center;
+}
 
-.right{text-align:right;}
+.right{
+	text-align:right;
+}
 
-.nostart {list-style-type:none; margin:0; padding:0;}
+.nostart {
+	list-style-type:none; margin:0; padding:0;
+}
 
 .clear{clear: both;}
 
