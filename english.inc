@@ -447,7 +447,7 @@ $lang['SPRINT_DELETE_CONFIRM'] = 'Are you sure you want to delete this sprint?';
 $lang['SPRINT_DELETED'] = 'Sprint deleted!';
 $lang['SPRINT_NUMBER_NOT_SET'] = 'Sprint number not set!';
 $lang['SPRINT_RELEASE_NOT_SET'] = 'Release not set!'; 
-$lang['SPRINT_LOCKED_NOTE' ] = 'Lock a sprint to freeze current state (readonly view).';
+$lang['SPRINT_LOCKED_NOTE' ] = 'Lock sprint to freeze current state (readonly view).';
 $lang['SPRINT_IS_USED'] = 'Sprint is used in %s stories, bugs, tasks and epics. Delete aborted!';
 
 $lang['RELEASE_TITLE'] = 'RELEASES';

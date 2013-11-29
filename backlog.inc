@@ -64,7 +64,8 @@ function plaatscrum_backlog_form() {
 	$page .= '</p>';
 	
 	$query  = 'select a.story_id, a.type, a.number, a.summary, a.sprint_id, a.story_story_id, d.number as sprint_number, ';
-	$query .= 'a.points, a.status, a.user_id, c.name, c.user_id ';
+	$query .= 'a.points, a.status, a.user_id, c.name, c.user_id, ';
+	$query .= 'if(a.story_story_id=0,a.story_id, a.story_story_id) as sort2 ';
 	$query .= 'from story a left join project b on a.project_id=b.project_id left join tuser c on a.user_id=c.user_id ';
 	$query .= 'left join sprint d on d.sprint_id=a.sprint_id where a.deleted=0 ';
 	$query .= 'and a.project_id='.$user->project_id.' ';	
@@ -94,25 +95,26 @@ function plaatscrum_backlog_form() {
 	}
 
 	switch ($sort) {
-	
-	    default:
-		 case 0: $query .= 'order by a.number';
+	    
+		 default:$query .= 'order by sort2 asc, a.story_id';
 				   break;
-
-	    case 1: 
-					$query .= 'order by sprint_number, a.number';
+	
+		 case 1: $query .= 'order by a.number';
+				   break;
+					
+	    case 2: $query .= 'order by sprint_number, a.number';
 				   break;					
 
-	    case 2: $query .= 'order by a.points desc';
+	    case 3: $query .= 'order by a.points desc';
 				   break;
 					
-		 case 3: $query .= 'order by a.type';
+		 case 4: $query .= 'order by a.type';
 				   break;
 					
-		 case 4: $query .= 'order by a.status';
+		 case 5: $query .= 'order by a.status';
 				   break;
 					
-		 case 5: $query .= 'order by a.user_id';
+		 case 6: $query .= 'order by a.user_id';
 				   break;
 	}
 		
@@ -127,31 +129,31 @@ function plaatscrum_backlog_form() {
 	$page .= '<tr>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=0', t('GENERAL_US'));
+	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=1', t('GENERAL_US'));
 	$page .= '</th>';
 		
 	$page .= '<th>';
-	$page	.= t('GENERAL_SUMMARY');	
+	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=0', t('GENERAL_SUMMARY'));	
 	$page .= '</th>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=1', t('GENERAL_SPRINT'));
+	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=2', t('GENERAL_SPRINT'));
 	$page .= '</th>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=2', t('GENERAL_SP_WORK'));
+	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=3', t('GENERAL_SP_WORK'));
 	$page .= '</th>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=3', t('GENERAL_TYPE'));
+	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=4', t('GENERAL_TYPE'));
 	$page .= '</th>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=4', t('GENERAL_STATUS'));
+	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=5', t('GENERAL_STATUS'));
 	$page .= '</th>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=5', t('GENERAL_OWNER'));
+	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=6', t('GENERAL_OWNER'));
 	$page .= '</th>';
 	
 	$page .= '<th>';
