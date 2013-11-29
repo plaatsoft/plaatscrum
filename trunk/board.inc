@@ -510,7 +510,7 @@ function plaatscrum_taskboard_ticket($id) {
 	$query  = 'select a.story_id, a.type, a.number, a.summary, b.number as sprint_number, a.points, a.status, a.user_id, c.name ';
 	$query .= 'from story a left join sprint b on b.sprint_id=a.sprint_id left join tuser c on a.user_id=c.user_id ';
 	$query .= 'left join project d on a.project_id=d.project_id where a.deleted=0 and a.story_story_id='.$id.' ';	
-	$query .= 'and a.type!='.TYPE_STORY.' order by a.status';
+	$query .= 'and a.type!='.TYPE_STORY.' order by a.number';
 	
 	$result = plaatscrum_db_query($query);
 		
