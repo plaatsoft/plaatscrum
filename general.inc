@@ -1174,7 +1174,7 @@ function plaatscrum_ui_footer($renderTime, $queryCount) {
 	$page .= '</p>';
 	
 	$page .= '<p class="fl_right">';
-	$page .= 'Render time '.$renderTime.'ms - '.$queryCount.' Queries';
+	$page .= 'Render time '.$renderTime.'ms - '.$queryCount.' Queries - '.memory_format(memory_get_peak_usage(true)).'';
 	$page .= '</p>';
 	$page .= '</div>';
 	
@@ -1216,6 +1216,16 @@ function convert_number($value) {
 	return number_format($value,0,",",".");
 }
 
+/*
+** ---------------------
+** FORMATTERS
+** ---------------------
+*/
+
+function memory_format($size) {
+    $unit=array('b','kb','mb','gb','tb','pb');
+    return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
+}
 
 /*
 ** ---------------------
