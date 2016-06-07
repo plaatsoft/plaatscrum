@@ -428,7 +428,7 @@ function plaatscrum_db_project_delete($project_id) {
 
 function plaatscrum_db_project_insert($name, $public, $days, $history) {
 
-	$query  = 'insert into project (name, public, days) ';
+	$query  = 'insert into project (name, public, days, history) ';
 	$query .= 'values ("'.plaatscrum_db_escape($name).'",'.$public.',"'.plaatscrum_db_escape($days).'",'.$history.')';
 	
 	plaatscrum_db_query($query);

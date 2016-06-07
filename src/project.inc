@@ -140,6 +140,8 @@ function plaatscrum_project_save_do() {
 		
 			/* Create project and return id */
 			$id = plaatscrum_db_project_insert($project_name, $project_public, $project_days, $project_history);
+			$user->role_id= ROLE_SCRUM_MASTER;
+		        plaatscrum_db_project_user_insert($id, $user->user_id, $user->role_id, 0);
 		}
 		
 		plaatscrum_ui_box('info', t('PROJECT_SAVED'));
