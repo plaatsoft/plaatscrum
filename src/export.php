@@ -35,10 +35,8 @@ function plaatscrum_export_json_do($result) {
 
 	$posts = array();
 	
-	if (mysql_num_rows($result)) {
-		while($post = mysql_fetch_assoc($result)) {
-			$posts[] = array('story'=>$post);
-		}
+	while($post = plaatscrum_db_fetch_object($result)) {
+		$posts[] = array('story'=>$post);
 	}
 
 	/* output in necessary format */
@@ -50,10 +48,8 @@ function plaatscrum_export_xml_do($result) {
 
 	$posts = array();
 	
-	if(mysql_num_rows($result)) {
-		while($post = mysql_fetch_assoc($result)) {
-			$posts[] = array('story'=>$post);
-		}
+	while($post = plaatscrum_db_fetch_object($result)) {
+		$posts[] = array('story'=>$post);
 	}
 
 	header('Content-type: text/xml');

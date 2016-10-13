@@ -264,10 +264,14 @@ function plaatscrum_import_form() {
 	$page .= '<h1>'.t('IMPORT_TITLE').'</h1>';	
 	
 	$page .= '<p>';
-	$page .= '<label>'.t('GENERAL_FILE').':</label>';
+	$page .= '<label>'.t('GENERAL_FILE').':</label> ';
 	$page .= '<input name="file" id="file" type="file" size="60"/> ';
 	
 	if ($access->story_import) {	
+		
+		$page .= '<br/>';
+		$page .= '<br/>';
+	
 		$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_IMPORT, t('LINK_IMPORT'));
 	}
 	

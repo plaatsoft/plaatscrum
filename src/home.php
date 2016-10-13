@@ -83,9 +83,7 @@ function plaatscrum_home_form() {
 	
 	if (strlen($user->type) > 0) {
 		$query .= 'and a.type in ('.$user->type.') ';	
-	} else {
-		$query .= 'and a.type!='.TYPE_STORY.' ';	
-	}
+	} 
 	
 	switch ($sort) {
 	

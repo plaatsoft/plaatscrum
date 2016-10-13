@@ -31,12 +31,13 @@ function plaatscrum_help_instructions_form() {
 	$title = t('HELP_INSTRUCTIONS_TITLE');
 	
 	$page .= '<div id="content">';
-	
- 	$page .= '<h1>'.$title.'</h1>';
-			
+ 	$page .= '<h1>'.$title.'</h1>';			
 	$page .= t('HELP_INSTRUCTIONS');
-	
 	$page .= '</div>';
+	
+	$page .= '<div id="column">';
+   $page .= '<img class="imgr" src="images/help.svg" width="256" height="256" alt="" />';
+	$page .= '</div>';	
 }
 
 function plaatscrum_help_releasenotes_form() {
@@ -51,12 +52,13 @@ function plaatscrum_help_releasenotes_form() {
 	$title = t('HELP_RELEASENOTES_TITLE');
 	
 	$page .= '<div id="content">';
-	
  	$page .= '<h1>'.$title.'</h1>';
-			
 	$page .= $releasenotes;
-	
 	$page .= '</div>';
+	
+	$page .= '<div id="column">';
+   $page .= '<img class="imgr" src="images/info.svg" width="256" height="256" alt="" />';
+	$page .= '</div>';	
 }
 	
 function plaatscrum_help_credits_form() {
@@ -70,13 +72,14 @@ function plaatscrum_help_credits_form() {
 	
 	$title = t('HELP_CREDITS_TITLE');
 	
-	$page .= '<div id="content">';
-	
- 	$page .= '<h1>'.$title.'</h1>';
-			
-	$page .= t('HELP_CREDITS');
-	
+	$page .= '<div id="content">';	
+ 	$page .= '<h1>'.$title.'</h1>';			
+	$page .= t('HELP_CREDITS');	
 	$page .= '</div>';
+	
+	$page .= '<div id="column">';
+   $page .= '<img class="imgr" src="images/info.svg" width="256" height="256" alt="" />';
+	$page .= '</div>';	
 }
 
 function plaatscrum_help_donate_form() {
@@ -103,19 +106,24 @@ function plaatscrum_help_donate_form() {
 	$page .= '</p>';
 	
 	$page .=	'</form>';
-		
+
 	$page .=	'<form action="https://www.paypal.com/cgi-bin/webscr" method="post">';
-	   
+	$page .=	'<center>';	   
 	$page .=	'<input type="hidden" name="cmd" value="_s-xclick">';
-	$page .=	'<input type="hidden" name="item_name" value="'.$config['applName'].'">';
+	$page .=	'<input type="hidden" name="item_name" value="PlaatScrum">';
 	$page .=	'<input type="hidden" name="hosted_button_id" value="HYE3BQFZPBDFJ">';
 	$page .=	'<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="">';
 	$page .=	'<img alt="" border="0" src="https://www.paypalobjects.com/nl_NL/i/scr/pixel.gif" width="1" height="1">';
+	$page .=	'</center>';
 	$page .=	'</form>';
 				
 	$page .= '<br/>';
 				
 	$page .= '</div>';
+	
+	$page .= '<div id="column">';
+   $page .= '<img class="imgr" src="images/donate.png" width="256" height="256" alt="" />';
+	$page .= '</div>';	
 }
 
 function plaatscrum_help_about_form() {
@@ -127,11 +135,13 @@ function plaatscrum_help_about_form() {
 	$title = t('HELP_ABOUT_TITLE');
 	
 	$page .= '<div id="content">';
- 	$page .= '<h1>'.$title.'</h1>';
-			
-	$page .= t('HELP_ABOUT');
-	
+ 	$page .= '<h1>'.$title.'</h1>';			
+	$page .= t('HELP_ABOUT');	
 	$page .= '</div>';
+	
+	$page .= '<div id="column">';
+   $page .= '<img class="imgr" src="images/help.svg" width="256" height="256" alt="" />';
+	$page .= '</div>';	
 }
 
 /*

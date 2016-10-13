@@ -18,23 +18,20 @@
 
 /*
 ** ---------------------------------------------------------------- 
-** VARIABLE CONFIG ITEMS
+** CONFIG ITEMS
 ** ---------------------------------------------------------------- 
 */
 
 define('DEBUG', 0);
-define('MYSQL', 1);
 
-/* Database Localhost Server */
+/* Database Settings */
 $config['dbuser']			 		= "plaatscrum";
 $config['dbpass']			 		= "plaatscrum";
 $config['dbname']			 		= "plaatscrum";
 $config['dbhost']					= "127.0.0.1";
 $config['content_url']	 	 	= "";
 
-/* Server version */
-$config['applName']		 	 	= 'PlaatScrum';
-$config['applVersion']	 	 	= 'v1.1 (Build 01-01-2016)';
+/* Other Setttings */
 $config['from_email']    	 	= 'info@plaatsoft.nl'; 
 $config['base_url'] 		 		= 'http://scrum.plaatsoft.nl';
 $config['backup_period']    	 = 30;

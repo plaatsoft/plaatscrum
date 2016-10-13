@@ -56,14 +56,14 @@ function plaatscrum_recover_mail($to, $username, $password) {
 	/* input */
 	global $config;
 	
-	$subject = 'Password reset of '.$config["applName"];
+	$subject = 'Password reset of PlaatScrum';
 	
 	$body  = 'Your password is reset!'."\r\n\r\n";
 	$body .= 'Your username = '.$username."\r\n";
 	$body .= 'Your new password = '.$password."\r\n\r\n";
-	$body .= 'Visit '.$config["base_url"].' and login to continue working with '.$config["applName"]."\r\n";
+	$body .= 'Visit '.$config["base_url"].' and login to continue working with PlaatScrum'."\r\n";
 		
-	$header = 'From: '.$config["applName"]. '<'.$config['from_email'].">\r\n";
+	$header = 'From: PlaatScrum <'.$config['from_email'].">\r\n";
 
 	@mail($to, $subject, $body, $header);
 	plaatscrum_info("Send email [".$to."] Password reset");
@@ -113,9 +113,9 @@ function plaatscrum_register_mail($to, $username, $id) {
 	/* input */
 	global $config;
 	
-	$subject = 'Welcome to '.$config["applName"];
+	$subject = 'Welcome to PlaatScrum';
 	
-	$body  = 'Welcome to '.$config["applName"]."\r\n\r\n";
+	$body  = 'Welcome to PlaatScrum'."\r\n\r\n";
 	$body .= 'Thanks you for registrating!'."\r\n\r\n";
 	$body .= 'Your username = '.$username."\r\n\r\n";
 
@@ -123,7 +123,7 @@ function plaatscrum_register_mail($to, $username, $id) {
 	
 	$body .= $config["base_url"].'?action='.EVENT_EMAIL_CONFIRM.'&key='.$id.'-'.md5($to);
 	
-	$header = 'From: '.$config["applName"]. '<'.$config['from_email'].">\r\n";
+	$header = 'From: PlaatScrum <'.$config['from_email'].">\r\n";
 
 	@mail($to, $subject, $body, $header);
 	plaatscrum_info("Send email [".$to."] Welcome message");

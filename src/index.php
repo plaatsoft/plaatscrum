@@ -20,13 +20,13 @@ $lang = array();
 
 $time_start = microtime(true);
 
-include "config.inc";
-include "database.inc";
-include "general.inc";
-include "menu.inc";
-include "english.inc";
-include "filter.inc";
-include "cron.inc";
+include "config.php";
+include "database.php";
+include "general.php";
+include "menu.php";
+include "english.php";
+include "filter.php";
+include "cron.php";
 
 /*
 ** ---------------------------------------------------------------- 
@@ -67,7 +67,7 @@ if (strlen($token)>0) {
 	
 	foreach ($tokens as $item) {
 		$items = preg_split ("/=/", $item);				
-		$$items[0] = $items[1];	
+		${$items[0]} = $items[1];	
 	}
 }
 
@@ -78,7 +78,31 @@ if (strlen($token)>0) {
 */
 
 /* connect to database */
-plaatscrum_db_connect($config["dbhost"], $config["dbuser"], $config["dbpass"], $config["dbname"]);
+if (@plaatscrum_db_connect($config["dbhost"], $config["dbuser"], $config["dbpass"], $config["dbname"]) == false) {
+
+	echo plaatscrum_ui_header();	
+	echo plaatscrum_ui_banner("");
+
+	$page  = '<h1>'.t('GENERAL_WARNING').'</h1>';
+	$page .= '<br/>';
+   $page .= t('DATABASE_CONNECTION_FAILED');
+	$page .= '<br/>';
+	
+	echo '<div id="container">'.$page.'</div>';
+	
+	$time_end = microtime(true);
+	$time = $time_end - $time_start;
+	
+	echo plaatscrum_ui_footer($time, 0 );
+
+	exit;
+}
+
+/* create / patch database if needed */
+plaatscrum_db_check_version();
+
+/* Set default timezone */
+date_default_timezone_set ( plaatscrum_db_config_get("timezone" ) );
 
 /*
 ** ---------------------------------------------------------------- 
@@ -104,7 +128,7 @@ if ( $user_id == 0 ) {
 	}
 	
 	if ($user->language==1) {
-		include "nederlands.inc";
+		include "nederlands.php";
 	}
 }
 
@@ -164,52 +188,52 @@ switch ($eid) {
 switch ($mid) {
 	
 	case MENU_LOGIN: 	
-				include "login.inc";
-				include "story.inc";
-				include "home.inc";
+				include "login.php";
+				include "story.php";
+				include "home.php";
 				plaatscrum_login();
 				break;
 	
 	case MENU_HOME:
-				include "story.inc";
-				include "home.inc";				
+				include "story.php";
+				include "home.php";				
 				plaatscrum_home();
 				break;
 	
 	case MENU_BACKLOG:
-				include "story.inc";				
-				include "export.inc";
-				include "import.inc";
-				include "backlog.inc";
+				include "story.php";				
+				include "export.php";
+				include "import.php";
+				include "backlog.php";
 				plaatscrum_backlog();
 				break;
 				
 	case MENU_BOARD:
-				include "story.inc";	
-				include "board.inc";
+				include "story.php";	
+				include "board.php";
 				plaatscrum_board();
 				break;
 			  
    case MENU_CHART:
-				include "story.inc";	
-				include "graph.php";
-				include "calender.inc";
-				include "chart.inc";
+				include "story.php";	
+				include "PHPGraphLib.php";
+				include "calender.php";
+				include "chart.php";
 				plaatscrum_chart();
 				break;
 				
 	case MENU_SETTINGS:
-				include "settings.inc";				
-				include "user.inc";
-				include "project.inc";
-				include "release.inc";	
-				include "sprint.inc";				
+				include "settings.php";				
+				include "user.php";
+				include "project.php";
+				include "release.php";	
+				include "sprint.php";				
 				plaatscrum_settings();
 				break;
 				
 	case MENU_HELP:
-				include "releasenotes.inc";
-				include "help.inc";
+				include "releasenotes.php";
+				include "help.php";
 				plaatscrum_help();
 				break;
 }

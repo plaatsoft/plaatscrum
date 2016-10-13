@@ -57,12 +57,8 @@ function draw_stories( $date ) {
 		$query .= 'and a.type in ('.$user->type.') ';	
 	}
 	
-	if (MYSQL==1) {
-		$query .= 'and CAST(`date` AS date)="'.convert_date_mysql($date).'"';
-	} else {
-		$query .= 'and date::date="'.convert_date_mysql($date).'"';
-	}
-		
+	$query .= 'and CAST(`date` AS date)="'.convert_date_mysql($date).'"';
+			
 	$result = plaatscrum_db_query($query);
 	while ($data=plaatscrum_db_fetch_object($result))	{
 		

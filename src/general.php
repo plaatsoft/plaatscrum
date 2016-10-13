@@ -30,9 +30,11 @@ define("ROLE_TEAM_MEMBER", 4);
 define("ROLE_ADMINISTRATOR", 5);
 define("ROLE_USER", 6);
 
-define("PRIO_MINOR", 1);
-define("PRIO_MAJOR", 2);
-define("PRIO_CRITICAL", 3);
+define("PRIO_TRIVIAL", 1);
+define("PRIO_MINOR", 2);
+define("PRIO_MAJOR", 3);
+define("PRIO_CRITICAL", 4);
+define("PRIO_BLOCKER", 5);
 
 define("TYPE_STORY", 1);
 define("TYPE_BUG", 2);
@@ -126,6 +128,26 @@ define("EVENT_EXPORT", 329);
 define("EVENT_SEARCH", 330);
 define("EVENT_SETTING_SAVE", 331);
 define("EVENT_EMAIL_CONFIRM", 332);
+
+/*
+** ---------------------------------------------------------------- 
+** PASSWORD
+** ---------------------------------------------------------------- 
+*/
+
+function plaatscrum_password_hash($raw) {
+
+	$options = [
+		'cost' => 12,
+	];
+	return password_hash($raw, PASSWORD_BCRYPT, $options);
+}
+
+function plaatscrum_password_verify( $password, $hash) {
+
+	return password_verify ( $password, $hash );
+}
+
 
 /*
 ** ---------------------------------------------------------------- 
@@ -533,16 +555,17 @@ function plaatscrum_ui_project($tag, $project_id, $readonly=false) {
 	
 		$query  = 'select a.project_id, a.name, a.public from project a  ';	
 		$query .= 'where a.deleted=0 ';
+		$query .= 'order by a.name';
 	
 	} else {
 	
 		$query  = 'select a.project_id, a.name, a.public from project a  ';	
 		$query .= 'left join project_user b on b.project_id=a.project_id ';
 		$query .= 'where a.deleted=0 ';
-		$query .= 'and (b.user_id='.$user->user_id.' or a.public=1)';
-				
+		$query .= 'and (b.user_id='.$user->user_id.' or a.public=1) ';		
+		$query .= 'group by a.project_id ';
+		$query .= 'order by a.name ';
 	}	
-	$query .= 'order by a.name';
 	
 	$result = plaatscrum_db_query($query);
 	
@@ -800,11 +823,11 @@ function plaatscrum_ui_prio($tag, $id, $readonly=false, $empty=false) {
 	
 	if ($empty) {
 	
-		$values = array(0, PRIO_MINOR, PRIO_MAJOR, PRIO_CRITICAL);
+		$values = array(0, PRIO_TRIVIAL, PRIO_MINOR, PRIO_MAJOR, PRIO_CRITICAL, PRIO_BLOCKER);
 		
 	} else {
 	
-		$values = array(PRIO_MINOR, PRIO_MAJOR, PRIO_CRITICAL);
+		$values = array(PRIO_TRIVIAL, PRIO_MINOR, PRIO_MAJOR, PRIO_CRITICAL, PRIO_BLOCKER);
 	
 	}
 	
@@ -1037,7 +1060,7 @@ function plaatscrum_ui_header( $title = "") {
 	global $player;
 	global $session;
 	
-	$page  = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+	$page  = '<!DOCTYPE HTML>';
 	$page .= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" lang="EN" dir="ltr">';
 	$page .= '<head profile="http://gmpg.org/xfn/11">';
 
@@ -1065,9 +1088,9 @@ function plaatscrum_ui_header( $title = "") {
 	
 	/* Add HTML Title */
 	if ($title=="") {
-		$page .= '<title>'.$config["applName"].'</title>';
+		$page .= '<title>PlaatScrum</title>';
 	} else {
-		$page .= '<title>'.$config["applName"].' - '.strtolower($title).'</title>';
+		$page .= '<title>PlaatScrum - '.strtolower($title).'</title>';
 	}
 	$page .= "</head>";
 
@@ -1103,9 +1126,9 @@ function plaatscrum_ui_banner($menu) {
 	
    $page .= '<h1>';
 	if ($mid==MENU_LOGIN) { 
-		$page .= plaatscrum_link('mid='.MENU_LOGIN.'&sid='.PAGE_LOGIN, $config["applName"]);
+		$page .= plaatscrum_link('mid='.MENU_LOGIN.'&sid='.PAGE_LOGIN, 'PlaatScrum');
 	} else {	
-		$page .= plaatscrum_link('mid='.MENU_HOME.'&sid='.PAGE_HOME, $config["applName"]);
+		$page .= plaatscrum_link('mid='.MENU_HOME.'&sid='.PAGE_HOME, 'PlaatScrum');
 	}
 	$page .= '</h1>';
 	
@@ -1123,7 +1146,13 @@ function plaatscrum_ui_banner($menu) {
 		$page .= ']';
 		
 	} else {
-		$page .= $config['applVersion'];
+	
+		$data1 = plaatscrum_db_config("database_version");		
+		if (isset($data1->id)) {
+			$page .= '<div class="version">';	
+			$page .= 'v'.$data1->value.' '.plaatscrum_db_config_get('build_number');
+			$page .= '</div>';
+		}
 	}
 	$page .= '</p>';
   
@@ -1174,7 +1203,7 @@ function plaatscrum_ui_footer($renderTime, $queryCount) {
 	$page .= '</p>';
 	
 	$page .= '<p class="fl_right">';
-	$page .= 'Render time '.$renderTime.'ms - '.$queryCount.' Queries - '.memory_format(memory_get_peak_usage(true)).'';
+	$page .= 'Render time '.round($renderTime).'ms - '.$queryCount.' Queries - '.memory_format(memory_get_peak_usage(true)).'';
 	$page .= '</p>';
 	$page .= '</div>';
 	

@@ -48,7 +48,7 @@ $lang['LINK_HOME']  = 'Home';
 $lang['LINK_BACKLOG'] = 'BackLog'; 
 $lang['LINK_BOARD'] = 'Board'; 
 $lang['LINK_TASKBOARD'] = 'Task'; 
-$lang['LINK_STATUSBOARD'] = 'Status'; 
+$lang['LINK_STATUSBOARD'] = 'Story Status'; 
 $lang['LINK_RESOURCEBOARD'] = 'Resource'; 
 $lang['LINK_COST'] = 'Cost'; 
 $lang['LINK_CHART'] = 'Chart';
@@ -161,6 +161,7 @@ $lang['GENERAL_ONHOLD_HOURS'] = 'OnHold Hours';
 $lang['GENERAL_RESOURCE'] = 'Resource';
 $lang['GENERAL_BCR'] = 'Cost Rate';
 $lang['GENERAL_LOCKED'] = 'Locked';
+$lang['GENERAL_EURO'] = 'Euro';
 
 $lang['GENERAL_REQUIRED_FIELD'] = '* Required field'; 
 
@@ -205,9 +206,11 @@ $lang['STATUS_5'] = 'OnHold';
 $lang['STATUS_6'] = 'Review';
 
 $lang['PRIO_0'] = '';
-$lang['PRIO_1'] = 'Minor';
-$lang['PRIO_2'] = 'Major';
-$lang['PRIO_3'] = 'Critical';
+$lang['PRIO_1'] = 'Trivial';
+$lang['PRIO_2'] = 'Minor';
+$lang['PRIO_3'] = 'Major';
+$lang['PRIO_4'] = 'Critical';
+$lang['PRIO_5'] = 'Blocker';
 
 $lang['TYPE_0'] = '';
 $lang['TYPE_1'] = 'Story';
@@ -231,6 +234,8 @@ $lang['DAY_6'] = 'Saturday';
 **  LOGIN
 ** ------------------
 */
+
+$lang['DATABASE_CONNECTION_FAILED' ] = 'The connection to the database failed. Please check if config.php settings!';
 
 $lang['LOGIN_TITLE'] = 'LOGIN';
 
@@ -565,60 +570,46 @@ $lang['HELP_CREDITS_TITLE'] = 'CREDITS';
 
 $lang['HELP_CREDITS'] = '
 
-<h2>Business Analist</h2>
+<p>
+Many thanks to the following people who helped creating <b>PlaatScrum</b>.
+</p>
+
+<h2>Analist</h2>
 <p>
 <ul>
 <li>wplaat</li>
 </ul>
 </p>
 
-<h2>Software Architect</h2>
+<h2>Architect</h2>
 <p>
 <ul>
 <li>wplaat</li>
 </ul>
 </p>
 
-<h2>Software Developer</h2>
+<h2>Developer</h2>
 <p>
 <ul>
 <li>wplaat</li>
 </ul>
 </p>
 
-<h2>Graphics & Information</h2>
-<p>
-<ul>
-<li>Wikipedia</li>
-<li>Google</li>
-<li>OS Templates</li>
-<li>jQuery scene members</li>
-</ul>
-</p>
-
-<h2>Software Tester</h2>
+<h2>Tester</h2>
 <p>
 <ul>
 <li>wplaat</li>
+<li>tzijling</li>
+<li>bscharmann</li>
 </ul>
 </p>
 
-<h2>Translator</h2>
+<h2>Others</h2>
 <p>
 <ul>
-<li>English</li>
-<ul>
-<li>wplaat</li>
-</ul>
-</ul>
-<ul>
-<li>Dutch</li>
-<ul>
-<li>wplaat</li>
-</ul>
+<li>and of course all other users who sent great feedback to improve this application</li>
 </ul>
 </p>
-
 ';
 
 /*
@@ -653,17 +644,19 @@ $lang['HELP_ABOUT'] = '
 <h2>Background</h2>
 <p>
 PlaatScrum is created by <a target="new" href="http://www.plaatsoft.nl">PlaatSoft</a>. 
-The main reason to create this tool is to create a digital scrumboard based on php (v5.3 or higher) and mysql.
+PlaatSoft is a small christian non profit organization with as mission to created high quality 
+software. All created software is open source and may be copied, distributed or modified under 
+the terms of the GNU General Public License (GPL) Version 3. If you want more information about 
+us, please send an email to info@plaatsoft.nl
 </p>
 
 <h2>Supported Browsers</h2>
 <p>
 <ul>
-<li>Microsoft Internet Explorer 6.x and higher<br/>
-<li>Mozilla Firefox 3.x and higher</li>
-<li>Apple Safari 5.x and higher</li>
-<li>Opera 11.x and higher</li>
-<li>Google Chrome 10.x and higher</li>
+<li>Microsoft Internet Explorer<br/>
+<li>Firefox</li>
+<li>Safari </li>
+<li>Chrome</li>
 </ul>
 </p>
 
@@ -672,6 +665,14 @@ The main reason to create this tool is to create a digital scrumboard based on p
 The program is provided AS IT IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN,
 MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 </p>
+
+<h2>License</h2>
+<p>
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
+</p>
+
 ';
 
 /*

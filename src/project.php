@@ -140,8 +140,6 @@ function plaatscrum_project_save_do() {
 		
 			/* Create project and return id */
 			$id = plaatscrum_db_project_insert($project_name, $project_public, $project_days, $project_history);
-			$user->role_id= ROLE_SCRUM_MASTER;
-		        plaatscrum_db_project_user_insert($id, $user->user_id, $user->role_id, 0);
 		}
 		
 		plaatscrum_ui_box('info', t('PROJECT_SAVED'));
@@ -155,6 +153,7 @@ function plaatscrum_project_delete_do() {
 	global $mid;
 	global $sid;
 	global $id;
+	global $user;
 				
 	$data = plaatscrum_db_project($id);
 	
@@ -188,7 +187,7 @@ function plaatscrum_project_user_assign() {
 	global $user_bcr;
 	
 	$readonly = true;
-	if ($access->project_edit) {
+	if (($access->project_edit) || ($user->role_id==ROLE_ADMINISTRATOR)) {
 		$readonly = false;
 	}
 	
@@ -218,6 +217,7 @@ function plaatscrum_project_user_assign() {
 		$page .= '<p>';
 		$page .= '<label>'.t('GENERAL_BCR').':</label>';
 		$page .= plaatscrum_ui_input("user_bcr", 5, 10, $user_bcr, $readonly);
+		$page .= ' '.t('GENERAL_EURO');
 		$page .= '</p>';
 	}
 	
@@ -277,7 +277,7 @@ function plaatscrum_project_userlist_form() {
 	if ($access->role_id==ROLE_SCRUM_MASTER) {
 
 		$page .= '<th>';
-		$page	.= t('GENERAL_BCR');
+		$page	.= t('GENERAL_BCR').' ['.t('GENERAL_EURO').']';
 		$page .= '</th>';
 	}
 		
@@ -472,7 +472,8 @@ function plaatscrum_projectlist_form() {
 		$query  = 'select a.project_id, a.name, a.public, a.history from project a  ';	
 		$query .= 'left join project_user b on b.project_id=a.project_id ';
 		$query .= 'where a.deleted=0 ';
-		$query .= 'and (b.user_id='.$user->user_id.' or a.public=1)';
+		$query .= 'and (b.user_id='.$user->user_id.' or a.public=1) ';
+		$query .= 'group by a.project_id ';
 	}
 	
 	switch ($sort) {
@@ -554,7 +555,12 @@ function plaatscrum_projectlist_form() {
 		$page .= '</td>';
 				
 		$page .= '<td>';
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_PROJECT_FORM.'&id='.$data->project_id, t('LINK_VIEW'));
+
+		$data1 = plaatscrum_db_project_user($data->project_id, $user->user_id);
+		// If User is member of project of user has admin right. User can see details.
+		if (isset($data1) || ($user->role_id==ROLE_ADMINISTRATOR))  {		
+			$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_PROJECT_FORM.'&id='.$data->project_id, t('LINK_VIEW'));
+		}
 		$page .= '</td>';
 		
 		$page .= '</tr>';	
@@ -614,7 +620,7 @@ function plaatscrum_project_page_handler() {
 					break;		
 				  
 		case PAGE_PROJECT_FORM: 
-					plaatscrum_project_form(false);
+					plaatscrum_project_form();
 					break;
 					
 		case PAGE_PROJECT_USER_ASSIGN:

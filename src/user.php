@@ -256,7 +256,9 @@ function plaatscrum_user_form() {
 	if (($id==$user->user_id) || ($user->role_id==ROLE_ADMINISTRATOR)) {
 		$readonly = false;
 	}
-		
+	
+	$user_valid = 0;
+	
 	if ((strlen($user_name)==0) && ($id!=0)) {
 	
 		$data = plaatscrum_db_user($id);		
@@ -346,7 +348,7 @@ function plaatscrum_user_form() {
 	$page .= plaatscrum_link('mid='.$mid.'&eid='.EVENT_USER_CANCEL, t('LINK_CANCEL'));
 	$page .= ' ';
 	
-	if ($user->role_id==ROLE_ADMINISTRATOR) {
+	if (($user->role_id==ROLE_ADMINISTRATOR) && (isset($data->user_id))) {
 		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_USERLIST.'&eid='.EVENT_USER_HACK.'&id='.$data->user_id, t('LINK_HACK'));
 	}
 	

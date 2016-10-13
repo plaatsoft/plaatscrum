@@ -22,116 +22,246 @@
 ** ----------------- 
 */
 
+/**
+ * connect to database
+ * @param $dbhost database hostname
+ * @param $dbuser database username
+ * @param $dbpass database password
+ * @param $dbname database name
+ * @return connect result (true = successfull connected | false = connection failed)
+ */
 function plaatscrum_db_connect($dbhost, $dbuser, $dbpass, $dbname) {
 
-	if (MYSQL == 1) {
-	
-		$handle = mysql_connect($dbhost, $dbuser, $dbpass);
-		mysql_select_db($dbname);
-		
-	} else {
-	
-		$handle = pg_connect('host='.$dbhost.' dbname='.$dbname.' user='.$dbuser.' password='.$dbpass);
+	global $db;
+
+   $db = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);	
+	if (mysqli_connect_errno()) {
+		plaatscrum_db_error();
+		return false;		
 	}
-	
-	if(!$handle) {
-		
-		$message = plaatscrum_db_error();
-		
-		plaatscrum_ui_box("error", $message);
-		plaatscrum_error($message);	
-	}
+	return true;
 }
 
+/**
+ * Disconnect from database  
+ * @return disconnect result
+ */
 function plaatscrum_db_close() {
 
-	if (MYSQL == 1) {
+	global $db;
 
-		mysql_close();
+	mysqli_close($db);
 
-	} else {
-	
-		pg_close();
-	}
+	return true;
 }
 
+/**
+ * Show SQL error 
+ * @return HTML formatted SQL error
+ */
 function plaatscrum_db_error() {
 
-	if (MYSQL == 1) {
-	
-		$error = mysql_error();
-		
-	} else {
-	
-		$error = pg_last_error();
+	if (DEBUG == 1) {
+		echo mysqli_connect_error(). "<br/>\n\r";
 	}
-	
-	return $error;
 }
 
-$queryCount=0;
+/**
+ * Count queries 
+ * @return queries count
+ */
+$query_count=0;
+function plaatscrum_db_count() {
+
+	global $query_count;
+	return $query_count;
+}
+
+/**
+ * Execute database multi query
+ */
+function plaatscrum_db_multi_query($queries) {
+
+	$tokens = @preg_split("/;/", $queries);
+	foreach ($tokens as $token) {
+	
+		$token=trim($token);
+		if (strlen($token)>3) {
+			plaatscrum_db_query($token);		
+		}
+	}
+}
+
+/**
+ * Execute database query
+ * @param $query SQL query with will be executed.
+ * @return Database result
+ */
 function plaatscrum_db_query($query) {
 			
-	global $queryCount;	
-	$queryCount++;
-		
-	plaatscrum_debug($query);
+	global $query_count;
+	global $db;
 	
-	if (MYSQL == 1) {
-	
-		$result = mysql_query($query);
-		
-	} else {
+	$query_count++;
 
-		$query = str_replace('"', '\'', $query); 
-	
-		$result = pg_query($query);
+	if (DEBUG == 1) {
+		echo $query."<br/>\r\n";
 	}
-		
-	if (!$result) {
 
-		$message = plaatscrum_db_error().' - '.$query;
-		
-		plaatscrum_ui_box("error", $message);
-		plaatscrum_error($message);
+	@$result = mysqli_query($db, $query);
+
+	if (!$result) {
+		plaatscrum_db_error();		
 	}
 	
 	return $result;
 }
 
+/**
+ * escap database string
+ * @param $data  input.
+ * @return $data escaped
+ */
+function plaatscrum_db_escape($data) {
+
+	global $db;
+	
+	return mysqli_real_escape_string($db, $data);
+}
+
+/**
+ * Fetch query result 
+ * @return mysql data set if any
+ */
 function plaatscrum_db_fetch_object($result) {
 	
-	if (MYSQL == 1) {
+	$row="";
 	
-		$data = @mysql_fetch_object($result);	
-		
-	} else {
-	
-		$data = @pg_fetch_object($result);
+	if (isset($result)) {
+		$row = $result->fetch_object();
 	}
-	
-	return $data;
+	return $row;
 }
+
+/**
+ * Return number of rows
+ * @return number of row in dataset
+ */
+function plaatscrum_db_num_rows($result) {
 	
-function plaatscrum_db_escape($value) {
+	return mysqli_num_rows($result);
+}
+
+/*
+** ------------------------
+** CREATED / PATCH DATABASE
+** ------------------------
+*/
+
+function startsWith($haystack, $needle){
+    $length = strlen($needle);
+    return (substr($haystack, 0, $length) === $needle);
+}
+
+/**
+ * Execute SQL script
+ * @param $version Version of sql patch file
+ */
+function plaatscrum_db_execute_sql_file($version) {
+
+    $filename = 'database/patch-'.$version.'.sql';
+
+    $commands = file_get_contents($filename);
+
+    //delete comments
+    $lines = explode("\n",$commands);
+    $commands = '';
+    foreach($lines as $line){
+        $line = trim($line);
+        if( $line && !startsWith($line,'--') ){
+            $commands .= $line . "\n";
+        }
+    }
+
+    //convert to array
+    $commands = explode(";\n", $commands);
+
+    //run commands
+    $total = $success = 0;
+    foreach($commands as $command){
+        if(trim($command)){
+	         $success += (@plaatscrum_db_query($command)==false ? 0 : 1);
+            $total += 1;
+        }
+    }
+
+    //return number of successful queries and total number of queries found
+    return array(
+        "success" => $success,
+        "total" => $total
+    );
+}
+
+/**
+ * Check db version and upgrade if needed!
+ */
+function plaatscrum_db_check_version() {
+
+   // Create database if needed	
+   $sql = "select 1 FROM config limit 1" ;
+   $result = plaatscrum_db_query($sql);
+   if (!$result) {
+		$version="1.1";
+      plaatscrum_db_execute_sql_file($version);
+   }
+
+   // Path database if needed	
+	$query = "SHOW TABLES LIKE 'config'";
+	$result = plaatscrum_db_query($query);
+   if (plaatscrum_db_num_rows($result)==0) {
+		$version="1.2";
+      plaatscrum_db_execute_sql_file($version);		
+   }
+}
+
+
+/*
+** -----------------
+** CONFIG
+** -----------------
+*/
+
+function plaatscrum_db_config($token) {
 	
-	if (MYSQL == 1) {
-	
-		$value = mysql_real_escape_string($value);
+	$query  = 'select id, token, category, value, options, last_update, readonly from config where token="'.$token.'"';	
 		
-	} else {
+	$result = plaatscrum_db_query($query);
+	$data = plaatscrum_db_fetch_object($result);
 	
-		$value = pg_escape_string($value);
+	return $data;	
+}
+
+function plaatscrum_db_config_get($token) {
+	
+	$query  = 'select value from config where token="'.$token.'"';	
+	$result = plaatscrum_db_query($query);
+	$data = plaatscrum_db_fetch_object($result);
+	
+	$value = "";
+	if (isset($data->value)) {
+		$value = $data->value;	
 	}
-	
 	return $value;
 }
 
-function plaatscrum_db_count() {
+function plaatscrum_db_config_update($data) {
+		
+	$query  = 'update config set '; 
+	$query .= 'value="'.$data->value.'", ';
+	$query .= 'last_update="'.date("Y-m-d H:i:s").'" ';
+	$query .= 'where id='.$data->id; 
 	
-	global $queryCount;	
-	
-	return $queryCount;
+	plaatscrum_db_query($query);
 }
 
 /*
@@ -242,10 +372,10 @@ function plaatscrum_db_story_delete($story_id) {
 
 function plaatscrum_db_story_insert($number, $summary, $description, $status, $points, $reference, $sprint_id, $project_id, $user_id, $date, $prio, $type, $story_story_id) {
 
-	$query  = 'insert into story (number, summary, description, status, points, reference, sprint_id, project_id, user_id, date, prio, type, story_story_id) ';
+	$query  = 'insert into story (number, summary, description, status, points, reference, sprint_id, project_id, user_id, date, deleted, prio, type, story_story_id) ';
 	$query .= 'values ('.$number.',"'.plaatscrum_db_escape($summary).'","'.plaatscrum_db_escape($description);
 	$query .= '",'.$status.','.$points.',"'.plaatscrum_db_escape($reference).'",'.$sprint_id.','.$project_id.','.$user_id.',';
-	$query .= '"'.$date.'",'.$prio.','.$type.','.$story_story_id.')';
+	$query .= '"'.$date.'",0 ,'.$prio.','.$type.','.$story_story_id.')';
 		
 	plaatscrum_db_query($query);
 		
@@ -364,9 +494,9 @@ function plaatscrum_db_sprint_delete($sprint_id) {
 
 function plaatscrum_db_sprint_insert($number, $description, $start_date, $end_date, $project_id, $release_id, $locked) {
 
-	$query  = 'insert into sprint (number, description, start_date, end_date, project_id, release_id, locked) ';
+	$query  = 'insert into sprint (number, description, start_date, end_date, project_id, release_id, locked, deleted) ';
 	$query .= 'values ('.$number.',"'.plaatscrum_db_escape($description).'","'.$start_date.'","'.$end_date;
-	$query .= '",'.$project_id.','.$release_id.','.$locked.')';
+	$query .= '",'.$project_id.','.$release_id.','.$locked.',0)';
 			
 	plaatscrum_db_query($query);
 }
@@ -428,8 +558,8 @@ function plaatscrum_db_project_delete($project_id) {
 
 function plaatscrum_db_project_insert($name, $public, $days, $history) {
 
-	$query  = 'insert into project (name, public, days, history) ';
-	$query .= 'values ("'.plaatscrum_db_escape($name).'",'.$public.',"'.plaatscrum_db_escape($days).'",'.$history.')';
+	$query  = 'insert into project (name, public, days, history, deleted) ';
+	$query .= 'values ("'.plaatscrum_db_escape($name).'",'.$public.',"'.plaatscrum_db_escape($days).'",'.$history.',0)';
 	
 	plaatscrum_db_query($query);
 	
@@ -491,8 +621,8 @@ function plaatscrum_db_release_delete($release_id) {
 
 function plaatscrum_db_release_insert($name, $note, $project_id) {
 
-	$query  = 'insert into released (name, note, project_id) values ("';
-	$query .= plaatscrum_db_escape($name).'","'.plaatscrum_db_escape($note).'",'.$project_id.')';
+	$query  = 'insert into released (project_id, name, note, deleted) values (';
+	$query .= $project_id.',"'.plaatscrum_db_escape($name).'","'.plaatscrum_db_escape($note).'",0)';
 			
 	plaatscrum_db_query($query);
 }
@@ -527,12 +657,16 @@ function plaatscrum_db_member_id($username, $password) {
 
 	$member_id=0;
 
-	$query  = 'select member_id from member where username="'.$username.'" and password="'.md5($password).'" and deleted=0';	
+	$query  = 'select member_id, password from member where username="'.$username.'"' ;	
 		
 	$result = plaatscrum_db_query($query);
 	$data = plaatscrum_db_fetch_object($result);
-	if (isset ($data->member_id)) {	
-		$member_id = $data->member_id;
+	if (isset($data->member_id)) {	
+		
+		if (plaatscrum_password_verify($password, $data->password)) {
+			$member_id = $data->member_id;
+			
+		}
 	}	
 	
 	return $member_id;
@@ -540,8 +674,8 @@ function plaatscrum_db_member_id($username, $password) {
 
 function plaatscrum_db_member_insert($username, $password) {
 
-	$query  = 'insert into member (username, password) ';
-	$query .= 'values ("'.plaatscrum_db_escape($username).'","'.md5($password).'")';
+	$query  = 'insert into member (username, password, user_id, last_login, last_activity, requests, deleted) ';
+	$query .= 'values ("'.plaatscrum_db_escape($username).'","'.plaatscrum_password_hash($password).'", 0, sysdate(), sysdate(), 0, 0)';
 	plaatscrum_db_query($query);
 		
 	/* user_id = member_id */
@@ -559,7 +693,7 @@ function plaatscrum_db_member_update2($username, $password, $member_id) {
 	$query .= 'username="'.plaatscrum_db_escape($username).'" ';
 	
 	if (strlen($password)>0) {
-		$query .= ', password="'.md5($password).'" ';
+		$query .= ', password="'.plaatscrum_password_hash($password).'" ';
 	}
 
 	$query .= 'where member_id='.$member_id; 
@@ -625,8 +759,8 @@ function plaatscrum_db_user_check($name) {
 
 function plaatscrum_db_user_insert($user_id, $name, $email, $role_id) {
 
-	$query  = 'insert into tuser (user_id, name, email, role_id) ';
-	$query .= 'values ('.$user_id.',"'.$name.'","'.plaatscrum_db_escape($email).'",'.$role_id.')';
+	$query  = 'insert into tuser (user_id, name, email, valid, role_id, project_id, sprint_id, menu_id, page_id, status, owner, prio, type, language) ';
+	$query .= 'values ('.$user_id.',"'.$name.'","'.plaatscrum_db_escape($email).'",0,'.$role_id.',0,0,0,0,"",0,0,"",0)';
 			
 	plaatscrum_db_query($query);	
 }
@@ -689,7 +823,7 @@ function plaatscrum_db_session_add($member_id) {
 	plaatscrum_db_query($query);  
 		
 	/* Create new session */
-	$query  = 'insert into session (date, member_id) values ("'.date("Y-m-d H:i:s").'",'.$member_id.')';	
+	$query  = 'insert into session (member_id, session, date) values ('.$member_id.',"","'.date("Y-m-d H:i:s").'")';	
 	plaatscrum_db_query($query);
 	
 	/* Return new session entry */
@@ -709,30 +843,30 @@ function plaatscrum_db_session_add($member_id) {
 
 function plaatscrum_db_session_valid( $session ) {
 	
-	/* Session expires after 351 days of inactivity */
-	$expired_days = 351;
+	/* Session expires after 10 minutes */
+	$expired = 600;
 	
 	if (strlen($session)==0) {
 		return 0;
 	}
 	
-	$query  = 'select session_id, member_id, date from session where session="'.$session.'"';
+	$query  = 'select session_id, member_id, session, date from session where session="'.$session.'"';
 	$result = plaatscrum_db_query($query);
 	
 	if ($data=plaatscrum_db_fetch_object($result)) {
 		
-		$expired = mktime(date("H"), date("i"), date("s"), date("m"), date("d")-$expired_days, date("Y"));
-		if ($data->date < date("Y-m-d H:i:s",$expired)) {
+		if (((time()-strtotime($data->date))>$expired)) {
 				
 			plaatscrum_db_session_delete($data->session);
-			return 0;
-		}
+
+		} else {
 	
-		/* Update session state */
-		$query  = 'update session set date = "'.date("Y-m-d H:i:s").'" where session="'.$session.'"'; 
-		plaatscrum_db_query($query);
-		
-		return $data->member_id;
+			/* Update session state */
+			$query  = 'update session set date = "'.date("Y-m-d H:i:s").'" where session="'.$session.'"'; 
+			plaatscrum_db_query($query);
+			
+			return $data->member_id;
+		}
 	}
 	return 0;
 }

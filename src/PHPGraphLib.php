@@ -149,7 +149,8 @@ class PHPGraphLib {
 	var $legend_swatch_outline_color;
 	var $legend_color;
 	var $legend_titles = array();
-	function PHPGraphLib($width = '', $height = '', $output_file = NULL) {
+	
+	function init($width = '', $height = '', $output_file = NULL) {
 		if (!empty($width) && !empty($height)) {
 			$this->width = $width;
 			$this->height = $height;
@@ -158,6 +159,7 @@ class PHPGraphLib {
 		$this->initialize();
 		$this->allocateColors(); 
 	}
+	
 	function initialize() {
 	
 		if (!$this->output_file){ header("Content-type: image/png"); }
@@ -634,7 +636,7 @@ class PHPGraphLib {
 			}
 		}
 	}
-	function imagelinedashed(&$image_handle, $x_axis_x1, $yLocation, $x_axis_x2 , $yLocation, $color) {
+	function imagelinedashed(&$image_handle, $x_axis_x1, $yLocation, $x_axis_x2 , $xLocation, $color) {
 		$step  = 3;
 		for ($i = $x_axis_x1; $i < $x_axis_x2 -1; $i += ($step*2)) {
 			imageline($this->image, $i, $yLocation,  $i + $step - 1, $yLocation, $color);

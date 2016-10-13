@@ -151,7 +151,7 @@ function plaatscrum_story_new_do() {
 	$data->points = 0;
 	$data->reference = "";
 	$data->project_id = $user->project_id;
-	$data->prio = PRIO_MINOR;
+	$data->prio = PRIO_MAJOR;
 	$data->story_story_id = 0;
 	
 	if ($data->type == TYPE_STORY) {
@@ -376,9 +376,7 @@ function plaatscrum_story_save_do() {
 														$data->reference, $data->sprint_id, $data->project_id, $data->user_id, 
 														convert_date_mysql($data->date), $data->prio, $data->type, 
 														$story_story_id);
-														
-			$story->story_id = $id;
-			
+																
 			/* Log status */
 			plaatscrum_db_history_insert($id, $user->user_id, STATUS_NEW, STATUS_TODO);
 			
@@ -390,7 +388,7 @@ function plaatscrum_story_save_do() {
 			plaatscrum_story_parent_update($data);
 		}
 				
-		$link = plaatscrum_link('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$story->story_id, $data->number);
+		$link = plaatscrum_link('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$id, $data->number);
 	
 		plaatscrum_ui_box("info", t('STORY_SAVED', t('TYPE_'.$data->type), $link));	
 		plaatscrum_info($user->name.' ['.$user->user_id.'] save story '.$id);

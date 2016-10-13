@@ -1,6 +1,6 @@
 --
 --  ===========
---  PlaatEnergy
+--  PlaatScrum
 --  ===========
 --
 --  Created by wplaat
@@ -21,7 +21,7 @@ CREATE TABLE `cron` (
   PRIMARY KEY (`cron_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-INSERT INTO cron VALUES("1","2013-09-11 10:28:19","Backup script");
+INSERT INTO cron VALUES("1",sysdate(),"Backup script");
 
 CREATE TABLE `history` (
   `history_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -31,7 +31,7 @@ CREATE TABLE `history` (
   `status_new` int(11) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`history_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3170 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `member` (
   `member_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -43,9 +43,9 @@ CREATE TABLE `member` (
   `requests` int(11) NOT NULL,
   `deleted` int(11) NOT NULL,
   PRIMARY KEY (`member_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-INSERT INTO member VALUES("1","1","admin","d06418332d568dde8f6d5d26ce6871fb","2012-04-25 21:10:17","0000-00-00 00:00:00","0","1");
+INSERT INTO member VALUES("1","1","admin","21232f297a57a5a743894a0e4a801fc3",sysdate(),sysdate(),"0","0");
 
 CREATE TABLE `project` (
   `project_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -55,7 +55,7 @@ CREATE TABLE `project` (
   `history` int(11) NOT NULL,
   `deleted` int(11) NOT NULL,
   PRIMARY KEY (`project_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 INSERT INTO project VALUES("1","Demo","1","0,1,2,3,4,5,6","0","0");
 
@@ -74,7 +74,7 @@ CREATE TABLE `released` (
   `note` varchar(100) NOT NULL,
   `deleted` int(11) NOT NULL,
   PRIMARY KEY (`release_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `role` (
   `role_id` int(11) NOT NULL,
@@ -101,7 +101,7 @@ CREATE TABLE `session` (
   `date` datetime NOT NULL,
   PRIMARY KEY (`session_id`),
   KEY `session` (`session`)
-) ENGINE=MyISAM AUTO_INCREMENT=970 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
 CREATE TABLE `sprint` (
@@ -115,7 +115,7 @@ CREATE TABLE `sprint` (
   `deleted` int(11) NOT NULL,
   `locked` int(11) NOT NULL,
   PRIMARY KEY (`sprint_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
 CREATE TABLE `story` (
@@ -135,7 +135,7 @@ CREATE TABLE `story` (
   `type` int(11) NOT NULL,
   `story_story_id` int(11) NOT NULL,
   PRIMARY KEY (`story_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1796 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `tuser` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -153,8 +153,8 @@ CREATE TABLE `tuser` (
   `type` varchar(20) NOT NULL,
   `language` int(11) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-INSERT INTO tuser VALUES("1","Demo","demo@demo.nl","0","6","1","1","0","0","0","0","0","0","0");
+INSERT INTO tuser VALUES("1","Administrator","admin@plaatsoft.nl","0","5","1","1","0","0","0","0","0","0","0");
 
 
