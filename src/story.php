@@ -443,7 +443,7 @@ function plaatscrum_story_cancel_do() {
 	/* output */
 	global $pid;
 	global $mid;
-
+	
 	$mid = $user->menu_id;		
 	$pid = $user->page_id;
 }
@@ -881,7 +881,7 @@ function plaatscrum_story() {
 					plaatscrum_story_cancel_do();	
 					break;
 	}
-	
+		
 	/* page handler */
 	switch ($pid) {
 	

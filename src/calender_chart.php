@@ -62,6 +62,7 @@ function draw_stories( $date ) {
 
 	/* input */
 	global $mid;
+	global $pid;
 	global $user;
 	global $access;
 	global $user;

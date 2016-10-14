@@ -227,7 +227,19 @@ switch ($pid) {
 				
 	case PAGE_STORY:
 				include "story.php";
+				include "calender_chart.php";
+				include "task_board.php";
+				include "resource_board.php";
+				include "story_board.php";
+				include "home.php";								
+				include "backlog.php";
 				plaatscrum_story();
+				plaatscrum_calender();
+				plaatscrum_taskboard();
+				plaatscrum_resourceboard();
+				plaatscrum_storyboard();
+				plaatscrum_home();
+				plaatscrum_backlog();
 				break;
 				
 	// ---------------------------------------- //

@@ -392,7 +392,6 @@ function plaatscrum_link_store($mid, $pid) {
 		$user->page_id=$pid;
 	
 		plaatscrum_db_user_update($user);
-		
 	}
 }
 
