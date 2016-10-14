@@ -221,10 +221,7 @@ function plaatscrum_home() {
 	/* input */
 	global $mid;
 	global $sid;
-			
-	/* Event handler */
-	plaatscrum_story_events();
-			
+
 	/* Page handler */
 	switch ($sid) {
 	
@@ -233,10 +230,6 @@ function plaatscrum_home() {
 					plaatscrum_filter();
 					plaatscrum_home_form();	
 					break;
-					
-		case PAGE_STORY: 
-					plaatscrum_story_form();	
-					break;	
 	}
 }
 

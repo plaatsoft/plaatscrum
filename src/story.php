@@ -844,10 +844,9 @@ function plaatscrum_story_form() {
 /**
  * story handler 
  */
-function plaatscrum_story_events() {
+function plaatscrum_story() {
 
 	/* input */
-	global $mid;
 	global $sid;
 	global $eid;
 		
@@ -880,6 +879,14 @@ function plaatscrum_story_events() {
 					
 		case EVENT_STORY_CANCEL: 
 					plaatscrum_story_cancel_do();	
+					break;
+	}
+	
+	/* page handler */
+	switch ($sid) {
+	
+		case PAGE_STORY:
+					plaatscrum_story_form();
 					break;
 	}
 }

@@ -65,9 +65,20 @@ if (strlen($token)>0) {
 	$token = gzinflate(base64_decode($token));	
 	$tokens = @preg_split("/&/", $token);
 	
+	if (DEBUG == 1) {
+			echo '================<br>';
+	}
+	
 	foreach ($tokens as $item) {
 		$items = preg_split ("/=/", $item);				
 		${$items[0]} = $items[1];	
+		
+		if (DEBUG == 1) {
+			echo $items[0].'='.$items[1].'<br>';
+		}
+	}
+	if (DEBUG == 1) {
+			echo '================<br>';
 	}
 }
 
@@ -184,44 +195,100 @@ switch ($eid) {
 			break;
 }
 
-/* Global Menu Handler */
-switch ($mid) {
-	
-	case MENU_LOGIN: 	
+/* Global Page Handler */
+switch ($sid) {
+
+	// ---------------------------------------- //
+
+	case PAGE_LOGIN: 	
+	case PAGE_REGISTER: 	
+	case PAGE_RECOVER: 	
 				include "login.php";
-				include "story.php";
 				include "home.php";
 				plaatscrum_login();
 				break;
-	
-	case MENU_HOME:
-				include "story.php";
+				
+	// ---------------------------------------- //
+
+	case PAGE_HOME:
 				include "home.php";				
 				plaatscrum_home();
 				break;
-	
-	case MENU_BACKLOG:
-				include "story.php";				
-				include "export.php";
-				include "import.php";
+				
+	// ---------------------------------------- //
+
+	case PAGE_BACKLOG_FORM:
 				include "backlog.php";
 				plaatscrum_backlog();
 				break;
-				
-	case MENU_BOARD:
-				include "story.php";	
-				include "board.php";
-				plaatscrum_board();
-				break;
-			  
-   case MENU_CHART:
-				include "story.php";	
-				include "PHPGraphLib.php";
-				include "chart.php";
-				plaatscrum_chart();
-				break;
 
-	case MENU_SETTINGS:
+	case PAGE_BACKLOG_EXPORT:
+				include "export.php";
+				plaatscrum_export();
+				break;
+			
+	case PAGE_BACKLOG_IMPORT:
+				include "import.php";
+				plaatscrum_import();
+				break;
+				
+	case PAGE_STORY:
+				include "story.php";
+				plaatscrum_story();
+				break;
+				
+	// ---------------------------------------- //
+	
+	case PAGE_TASKBOARD:
+				include "task_board.php";
+				plaatscrum_taskboard();
+				break;
+				
+	case PAGE_STATUSBOARD:
+				include "story_board.php";
+				plaatscrum_storyboard();
+				break;
+				
+	case PAGE_RESOURCEBOARD:
+				include "resource_board.php";
+				plaatscrum_resourceboard();
+				break;
+								
+	case PAGE_COST:
+				include "cost_board.php";
+				plaatscrum_costboard();
+				break;
+				
+	// ---------------------------------------- //
+				
+	case PAGE_BURNDOWN_CHART:
+				include "PHPGraphLib.php";
+				include "burndown_chart.php";
+				plaatscrum_burndown_chart();
+				break;
+			
+	case PAGE_STATUS_CHART:
+				include "PHPGraphLib.php";
+				include "status_chart.php";
+				plaatscrum_status_chart();
+				break;
+				
+	case PAGE_VELOCITY_CHART:
+				include "PHPGraphLib.php";
+				include "velocity_chart.php";
+				plaatscrum_velocity_chart();
+				break;
+				
+	case PAGE_CALENDER_CHART:
+				include "calender_chart.php";
+				plaatscrum_calender();
+				break;
+				
+	// ---------------------------------------- //
+	
+	case PAGE_GENERAL:
+	case PAGE_USERLIST:
+	case PAGE_PROJECTLIST_FORM:
 				include "settings.php";				
 				include "user.php";
 				include "project.php";
@@ -229,12 +296,9 @@ switch ($mid) {
 				include "sprint.php";				
 				plaatscrum_settings();
 				break;
-}
-
-
-/* Global Page Handler */
-switch ($sid) {
-
+				
+	// ---------------------------------------- //
+	
 	case PAGE_INSTRUCTIONS:
 				include "help.php";
 				plaatscrum_help();
@@ -256,16 +320,12 @@ switch ($sid) {
 				break;
 
 	case PAGE_RELEASE_NOTES:
-				include "releasenotes.php";
+				include "release_notes.php";
 				plaatscrum_release_notes();
 				break;
-				
-	case PAGE_CALENDER:
-				include "calender.php";
-				plaatscrum_calender();
-				break;
+
+	// ---------------------------------------- //
 }
-				
 
 /* update member statistics */
 if (isset($user->user_id)) {

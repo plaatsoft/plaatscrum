@@ -264,7 +264,7 @@ function plaatscrum_filter() {
 					plaatscrum_filter_project();	
 					break;
 					
-		case  PAGE_CALENDER: 	
+		case  PAGE_CALENDER_CHART: 	
 					plaatscrum_filter_project();	
 					plaatscrum_filter_status();	
 					plaatscrum_filter_type();

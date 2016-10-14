@@ -289,10 +289,11 @@ function plaatscrum_import_form() {
 ** ------------------
 */
 
-function plaatscrum_import_event_handler() {
+function plaatscrum_import() {
 
 	/* input */
 	global $eid;
+	global $sid;
 
 	/* Event handler */
 	switch ($eid) {
@@ -300,6 +301,14 @@ function plaatscrum_import_event_handler() {
 		case EVENT_IMPORT: 
 					plaatscrum_import_do();
 					break;	
+	}
+	
+	/* Page handler */
+	switch ($sid) {
+	
+		case PAGE_BACKLOG_IMPORT: 
+					plaatscrum_import_form();	
+					break;
 	}
 }
 					

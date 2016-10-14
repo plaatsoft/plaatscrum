@@ -156,7 +156,7 @@ function plaatscrum_main_menu() {
 		$menu .= '</li>';
 		
 		$menu .= '<li>';
-		$menu .= plaatscrum_link('mid='.MENU_CHART.'&sid='.PAGE_CALENDER, t('LINK_CALENDER'));
+		$menu .= plaatscrum_link('mid='.MENU_CHART.'&sid='.PAGE_CALENDER_CHART, t('LINK_CALENDER'));
 		$menu .= '</li>';
 			
 		$menu .= '</ul>';

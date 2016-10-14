@@ -464,7 +464,7 @@ function plaatscrum_login() {
 					plaatscrum_logout_do();
 					break;
 	}
-	
+		
 	/* Page handler */
 	switch ($sid) {
 			
@@ -484,7 +484,6 @@ function plaatscrum_login() {
 		case PAGE_HOME:
 					plaatscrum_home();
 					break;
-			
 	}
 }
 

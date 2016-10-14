@@ -88,7 +88,7 @@ define("PAGE_SPRINTLIST_FORM", 220);
 define('PAGE_SPRINT_FORM', 221);
 define('PAGE_BURNDOWN_CHART', 222);
 define('PAGE_STATUS_CHART', 223);
-define("PAGE_CALENDER", 224);
+define("PAGE_CALENDER_CHART", 224);
 define("PAGE_RELEASELIST_FORM", 225);
 define('PAGE_RELEASE_FORM', 226);
 define('PAGE_PROJECT_USER_ASSIGN', 227);
@@ -401,6 +401,56 @@ function plaatscrum_link_store($mid, $sid) {
 ** UI
 ** ---------------------
 */
+
+function plaatscrum_board_element($data) {
+
+	/* input */
+	global $mid;
+
+	/* output */
+	global $access;
+	
+	$page = '<div class="'.strtolower( t('TYPE_'.$data->type)).'">';
+		
+	$page .= '<table>';
+		
+	$page .= '<tr>';
+		
+	$page .= '<td>';
+	$page	.= '<label title="'.t('GENERAL_US').'">'.$data->number.'</label>';
+	$page .= '</td>';
+	$page .= '<td align="right">';
+	$page	.= '<label title="'.t('GENERAL_POINTS').'">'.$data->points.'</label>';
+	$page .= '</td>';
+		
+	$page .= '</tr>';
+		
+	$page .= '<tr>';
+
+	$page .= '<td colspan="2">';
+	$page .= plaatscrum_link_hidden('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, $data->summary);
+				
+	$page .= '</td>';
+
+	$page .= '</tr>';
+		
+	$page .= '<tr>';
+		
+	$page .= '<td>';
+	$page	.= '<label title="'.t('GENERAL_SPRINT').'">'.$data->sprint_number.'</label>';
+	$page .= '</td>';
+		
+	$page .= '<td align="right">';
+	$page	.= '<label title="'.t('GENERAL_OWNER').'">'.$data->name.'</label>';
+	$page .= '</td>';
+		
+	$page .= '</tr>';
+		
+	$page .= '</table>';
+	$page .= '</div>';
+	
+	return $page;
+}
 
 function plaatscrum_ui_input($name, $size, $maxlength, $value, $readonly=false) {
 	

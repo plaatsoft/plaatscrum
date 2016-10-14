@@ -251,11 +251,7 @@ function plaatscrum_backlog() {
 	/* input */
 	global $mid;
 	global $sid;
-	
-	plaatscrum_story_events();		
-	plaatscrum_export_event_handler();
-	plaatscrum_import_event_handler();
-	
+		
 	/* Page handler */
 	switch ($sid) {
 	
@@ -263,18 +259,6 @@ function plaatscrum_backlog() {
 					plaatscrum_link_store($mid, $sid);
 					plaatscrum_filter();
 					plaatscrum_backlog_form();	
-					break;
-					
-		case PAGE_BACKLOG_EXPORT: 
-					plaatscrum_export_form();	
-					break;	
-					
-		case PAGE_BACKLOG_IMPORT: 
-					plaatscrum_import_form();	
-					break;
-					
-		case PAGE_STORY: 
-					plaatscrum_story_form(true);	
 					break;
 	}
 }

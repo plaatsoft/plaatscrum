@@ -296,11 +296,12 @@ function plaatscrum_export_form() {
 ** ------------------
 */
 
-function plaatscrum_export_event_handler() {
+function plaatscrum_export() {
 
 	/* input */
 	global $eid;
-
+	global $sid;
+	
 	/* Event handler */
 	switch ($eid) {
 				  		  		
@@ -308,8 +309,15 @@ function plaatscrum_export_event_handler() {
 					plaatscrum_export_do();	
 					break;
 	}
+	
+	/* Page handler */
+	switch ($sid) {
+					
+		case PAGE_BACKLOG_EXPORT: 
+					plaatscrum_export_form();	
+					break;	
+	}
 }
-
 /*
 ** ------------------
 ** THE END

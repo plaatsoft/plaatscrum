@@ -227,7 +227,7 @@ function plaatscrum_calender() {
 	global $eid;
 	
 	/* Event handler */
-	plaatscrum_story_events();
+	//plaatscrum_story_events();
 	
 	switch ($eid) {
 	
@@ -243,7 +243,7 @@ function plaatscrum_calender() {
 	/* Page handler */
 	switch ($sid) {
 		
-		case PAGE_CALENDER: 	
+		case PAGE_CALENDER_CHART: 	
 				plaatscrum_link_store($mid, $sid);
 				plaatscrum_filter();
 				plaatscrum_calender_form();
@@ -251,9 +251,10 @@ function plaatscrum_calender() {
 	}
 }
 
-
 /*
 ** ------------------
 ** THE END
 ** ------------------
 */
+
+?>

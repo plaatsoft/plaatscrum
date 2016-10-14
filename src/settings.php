@@ -114,8 +114,7 @@ function plaatscrum_settings() {
 					break;					
 	}
 	
-	plaatscrum_user_event_handler();
-	
+	plaatscrum_user_event_handler();	
 	plaatscrum_project_event_handler();
 	plaatscrum_release_event_handler();
 	plaatscrum_sprint_event_handler();
@@ -128,8 +127,7 @@ function plaatscrum_settings() {
 					break;
 	}
 	
-	plaatscrum_user_page_handler();
-	
+	plaatscrum_user_page_handler();	
 	plaatscrum_project_page_handler();
 	plaatscrum_release_page_handler();
 	plaatscrum_sprint_page_handler();
