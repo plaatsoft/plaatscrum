@@ -128,6 +128,8 @@ define("EVENT_EXPORT", 329);
 define("EVENT_SEARCH", 330);
 define("EVENT_SETTING_SAVE", 331);
 define("EVENT_EMAIL_CONFIRM", 332);
+define("EVENT_NEXT", 333);
+define("EVENT_PREV", 334);
 
 /*
 ** ---------------------------------------------------------------- 

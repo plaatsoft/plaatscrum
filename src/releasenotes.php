@@ -182,4 +182,56 @@ $releasenotes = '
 <li>Setup development framework.</li>
 </ul>';
 
+/*
+** ------------------
+**  FORMS
+** ------------------
+*/
+
+function plaatscrum_release_notes_form() {
+
+	/* input */
+	global $releasenotes;
+	
+	/* output */
+	global $page;
+	global $title;
+	
+	$title = t('HELP_RELEASENOTES_TITLE');
+	
+	$page .= '<div id="content">';
+ 	$page .= '<h1>'.$title.'</h1>';
+	$page .= $releasenotes;
+	$page .= '</div>';
+	
+	$page .= '<div id="column">';
+   $page .= '<img class="imgr" src="images/info.svg" width="256" height="256" alt="" />';
+	$page .= '</div>';	
+}
+
+/*
+** ------------------
+** HANDLER
+** ------------------
+*/
+
+function plaatscrum_release_notes() {
+
+	/* input */
+	global $sid;
+		
+	switch ($sid) {
+					  
+		case PAGE_RELEASE_NOTES: 
+					plaatscrum_release_notes_form();
+					break;
+	}
+}
+
+/*
+** ------------------
+** The End
+** ------------------
+*/
+
 ?>

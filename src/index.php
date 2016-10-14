@@ -184,7 +184,7 @@ switch ($eid) {
 			break;
 }
 
-/* Global Page Handler */
+/* Global Menu Handler */
 switch ($mid) {
 	
 	case MENU_LOGIN: 	
@@ -217,11 +217,10 @@ switch ($mid) {
    case MENU_CHART:
 				include "story.php";	
 				include "PHPGraphLib.php";
-				include "calender.php";
 				include "chart.php";
 				plaatscrum_chart();
 				break;
-				
+
 	case MENU_SETTINGS:
 				include "settings.php";				
 				include "user.php";
@@ -230,13 +229,43 @@ switch ($mid) {
 				include "sprint.php";				
 				plaatscrum_settings();
 				break;
-				
-	case MENU_HELP:
-				include "releasenotes.php";
+}
+
+
+/* Global Page Handler */
+switch ($sid) {
+
+	case PAGE_INSTRUCTIONS:
 				include "help.php";
 				plaatscrum_help();
 				break;
+				
+	case PAGE_CREDITS:
+				include "credits.php";
+				plaatscrum_credits();
+				break;
+				
+	case PAGE_DONATE:
+				include "donate.php";
+				plaatscrum_donate();
+				break;
+				
+	case PAGE_ABOUT:
+				include "about.php";
+				plaatscrum_about();
+				break;
+
+	case PAGE_RELEASE_NOTES:
+				include "releasenotes.php";
+				plaatscrum_release_notes();
+				break;
+				
+	case PAGE_CALENDER:
+				include "calender.php";
+				plaatscrum_calender();
+				break;
 }
+				
 
 /* update member statistics */
 if (isset($user->user_id)) {

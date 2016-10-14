@@ -53,7 +53,7 @@ if (isset($type)) {
 if (isset($story_id_ref)) {
 	$data->story_id_ref = $story_id_ref;
 } else {
-	$data->story_id_ref = plaatscrum_post("story_id_ref", "");
+	$data->story_id_ref = plaatscrum_post("story_id_ref", 0);
 }
 
 /*
@@ -777,13 +777,22 @@ function plaatscrum_story_form() {
 	$page .= '<tr>';
 	$page .= '<td colspan="10">';
 	
+	$page .= '<div class="fl_left">';
+	
 	if (!$readonly) {
 	
 		if ($access->story_edit) {
 			$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_STORY_SAVE.'&id='.$id, t('LINK_SAVE'));
 			$page .= ' '; 
 		}
+	}
 	
+	$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_STORY_CANCEL, t('LINK_CANCEL'));
+		
+	$page .= '</div>';
+	$page .= '<div class="fl_right">';
+	
+	if (!$readonly) {
 		if	($access->story_edit && $data->user_id>0) {
 			$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_STORY_DROP.'&id='.$id, t('LINK_DROP'));
 			$page .= ' '; 
@@ -799,7 +808,8 @@ function plaatscrum_story_form() {
 			$page .= ' '; 
 		}
 	}
-	$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_STORY_CANCEL, t('LINK_CANCEL'));
+	$page .= '</div>';
+	
 	$page .= '</td>';
 	$page .= '</tr>';
 	

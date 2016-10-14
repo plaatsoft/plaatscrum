@@ -420,13 +420,7 @@ function plaatscrum_chart() {
 				  plaatscrum_filter();
 				  plaatscrum_velocity_form();
 				  break;
-				  
-		case PAGE_CALENDER: 	
-				  plaatscrum_link_store($mid, $sid);
-				  plaatscrum_filter();
-				  plaatscrum_calender_form();
-				  break;
-				  
+
 		case PAGE_STORY: 
 					plaatscrum_story_form();	
 					break;	

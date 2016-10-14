@@ -127,7 +127,7 @@ function plaatscrum_main_menu() {
 				
 		if ($access->role_id==ROLE_SCRUM_MASTER) {
 			$menu .= '<li>';
-			$menu .= plaatscrum_link('mid='.MENU_BOARD.'&sid='.PAGE_COST, t('LINK_COST'));
+			$menu .= plaatscrum_link('mid='.MENU_BOARD.'&sid='.PAGE_COST, t('LINK_COSTBOARD'));
 			$menu .= '</li>';
 		}
 		

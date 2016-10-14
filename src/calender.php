@@ -28,6 +28,30 @@
 ** ------------------
 */
 
+function plaatscrum_prev_month() {
+
+	global $filter_month;
+	global $filter_year;
+
+	$filter_month--;
+	if ($filter_month==0) {
+		$filter_month = 12;
+		$filter_year--;
+	}
+}
+
+function plaatscrum_next_month() {
+
+	global $filter_month;
+	global $filter_year;
+
+	$filter_month++;
+	if ($filter_month>12) {
+		$filter_month = 1;
+		$filter_year++;
+	}
+}
+
 /*
 ** ------------------
 ** UI
@@ -150,7 +174,7 @@ function draw_calendar($month,$year){
 
 	/* end the table */
 	$calendar.= '</table>';
-	
+		
 	/* all done, return result */
 	return $calendar;
 }
@@ -158,11 +182,12 @@ function draw_calendar($month,$year){
 function plaatscrum_calender_form() {
 	
 	/* input */
-	global $user;
-	global $access;
 	global $filter_month;
 	global $filter_year;
-		
+	global $mid;
+	global $sid;
+	global $eid;
+	
 	/* output */
 	global $page;
 	global $title;
@@ -177,7 +202,15 @@ function plaatscrum_calender_form() {
 	$page .= t('CALENDER_NOTE');
 	$page .= '</p>';
 
-	$page .= draw_calendar($filter_month, $filter_year);
+	$page .= '<div class="fl_left">';
+	$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_PREV, t('LINK_PREV_MONTH'));
+	$page .= '</div>';
+	
+	$page .= '<div class="fl_right">';
+	$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_NEXT, t('LINK_NEXT_MONTH'));
+	$page .= '</div>';
+	
+	$page .= draw_calendar($filter_month, $filter_year);	
 }
 
 /*
@@ -185,6 +218,38 @@ function plaatscrum_calender_form() {
 ** HANDLER
 ** ------------------
 */
+
+function plaatscrum_calender() {
+	
+	/* input */
+	global $mid;
+	global $sid;
+	global $eid;
+	
+	/* Event handler */
+	plaatscrum_story_events();
+	
+	switch ($eid) {
+	
+		case EVENT_NEXT:
+				plaatscrum_next_month();
+				break;
+				
+		case EVENT_PREV:
+				plaatscrum_prev_month();
+				break;
+	}
+	
+	/* Page handler */
+	switch ($sid) {
+		
+		case PAGE_CALENDER: 	
+				plaatscrum_link_store($mid, $sid);
+				plaatscrum_filter();
+				plaatscrum_calender_form();
+				break;
+	}
+}
 
 
 /*

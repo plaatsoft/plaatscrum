@@ -47,10 +47,10 @@ $lang['LINK_REGISTER']  = 'Register';
 $lang['LINK_HOME']  = 'Home'; 
 $lang['LINK_BACKLOG'] = 'BackLog'; 
 $lang['LINK_BOARD'] = 'Board'; 
-$lang['LINK_TASKBOARD'] = 'Task'; 
-$lang['LINK_STATUSBOARD'] = 'Story Status'; 
-$lang['LINK_RESOURCEBOARD'] = 'Resource'; 
-$lang['LINK_COST'] = 'Cost'; 
+$lang['LINK_TASKBOARD'] = 'Task Board'; 
+$lang['LINK_STATUSBOARD'] = 'Story Board'; 
+$lang['LINK_RESOURCEBOARD'] = 'Resource Board'; 
+$lang['LINK_COSTBOARD'] = 'Cost Board'; 
 $lang['LINK_CHART'] = 'Chart';
 $lang['LINK_CALENDER'] = 'Calendar';
 $lang['LINK_SETTINGS'] = 'Settings'; 
@@ -75,7 +75,7 @@ $lang['LINK_CREDITS']  = 'Credits';
 $lang['LINK_DONATE']  = 'Donate';
 $lang['LINK_ABOUT']  = 'About';
 $lang['LINK_ASSIGN']  = 'Assign';
-$lang['LINK_DROP']  = 'Drop';
+$lang['LINK_DROP']  = 'Deassign';
 $lang['LINK_CHANGE']  = 'Change';
 $lang['LINK_SEARCH']  = 'Search';
 $lang['LINK_PRODUCT'] = 'Product';
@@ -88,6 +88,8 @@ $lang['LINK_ADD_BUG'] = 'Add Bug';
 $lang['LINK_ADD_EPIC'] = 'Add Epic';
 $lang['LINK_HERE'] = 'here';
 $lang['LINK_HACK'] = 'Hack';
+$lang['LINK_PREV_MONTH'] = 'Prev Month';
+$lang['LINK_NEXT_MONTH'] = 'Next Month';
 
 /*
 ** ------------------
@@ -300,10 +302,10 @@ $lang['BACKLOG_NOTE'] = 'The following stories, tasks, bugs and epics are availa
 
 $lang['STORY_FILTER'] = 'Sprint';
 
-$lang['STORY_SAVED'] = '%s #%s saved!';
-$lang['STORY_DELETED'] = '%s #%s deleted!';
-$lang['STORY_ASSIGN'] = '%s #%s assigned'; 
-$lang['STORY_DROPPED'] = '%s #%s dropped';
+$lang['STORY_SAVED'] = '%s #%s saved.';
+$lang['STORY_DELETED'] = '%s #%s deleted.';
+$lang['STORY_ASSIGN'] = '%s #%s assigned.'; 
+$lang['STORY_DROPPED'] = '%s #%s deassigned.';
 
 $lang['STORY_DELETE_CONFIRM'] = 'Are you sure you want to delete the story?';
 
@@ -341,7 +343,7 @@ $lang['TASKBOARD_NOTE'] = 'The task board shows all stories and related tasks, b
 $lang['RESOURCEBOARD_TITLE'] = 'RESOURCE BOARD';
 $lang['RESOURCEBOARD_NOTE'] = 'The resource board shows all tasks, bugs and epic group by resource.';
 
-$lang['STATUSBOARD_TITLE'] = 'STATUS BOARD';
+$lang['STATUSBOARD_TITLE'] = 'STORY BOARD';
 $lang['STATUSBOARD_NOTE'] = 'The status board shows all stories group by status.';
 
 $lang['COST_TITLE'] = 'COST BOARD';
