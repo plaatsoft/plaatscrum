@@ -137,10 +137,6 @@ function plaatscrum_home_form() {
 	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=5', t('GENERAL_STATUS'));
 	$page .= '</th>';
 
-	$page .= '<th>';
-	$page	.= t('GENERAL_ACTION');
-	$page .= '</th>';
-	
 	$page .= '</tr>';
 	
 	$page .= '</thead>';
@@ -193,11 +189,7 @@ function plaatscrum_home_form() {
 		$page .= '<td >';
 		$page	.= t('STATUS_'.$data->status);
 		$page .= '</td>';
-						
-		$page .= '<td >';	
-		$page .= plaatscrum_link('mid='.MENU_BACKLOG.'&pid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, t('LINK_VIEW'));
-		$page .= '</td>';
-		
+			
 		$page .= '</tr>';
 	}
 	$page .= '</tbody>';

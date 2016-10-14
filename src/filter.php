@@ -248,7 +248,7 @@ function plaatscrum_filter() {
 					plaatscrum_filter_type();
 					break;
 							
-		case PAGE_TASKBOARD: 	
+		
 		case PAGE_RESOURCEBOARD: 
 		case PAGE_STATUSBOARD: 	
 		case PAGE_STATUS_CHART: 
@@ -257,6 +257,12 @@ function plaatscrum_filter() {
 		case PAGE_COST: 
 					plaatscrum_filter_project();	
 					plaatscrum_filter_sprint();	
+					break;
+		
+		case PAGE_TASKBOARD: 	
+					plaatscrum_filter_project();	
+					plaatscrum_filter_sprint();	
+					plaatscrum_filter_owner();
 					break;
 									
 		case PAGE_BACKLOG_IMPORT: 	
