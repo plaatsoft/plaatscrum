@@ -47,7 +47,7 @@ function plaatscrum_project_user_assign_do() {
 	global $user_bcr;
 	
 	/* output */
-	global $sid;
+	global $pid;
 	global $id;
 	
 	$data = plaatscrum_db_project_user($user->project_id, $user_id);
@@ -67,7 +67,7 @@ function plaatscrum_project_user_assign_do() {
 	plaatscrum_ui_box('info', t('PROJECT_USER_ASSIGN'));
 	plaatscrum_info($user->name.' ['.$user->user_id.'] user ['.$user_id.'] assigned to project ['.$user->project_id.']');
 		
-	$sid = PAGE_PROJECT_FORM;
+	$pid = PAGE_PROJECT_FORM;
 	$id = $user->project_id;
 }
 
@@ -79,7 +79,7 @@ function plaatscrum_project_user_drop_do() {
 	global $user;
 
 	/* output */
-	global $sid;
+	global $pid;
 	global $id;
 	
 	$data = plaatscrum_db_project_user($user->project_id, $user_id);
@@ -92,7 +92,7 @@ function plaatscrum_project_user_drop_do() {
 		plaatscrum_info($user->name.' ['.$user->user_id.'] user ['.$user_id.'] dropped to project ['.$user->project_id.']');
 	}
 	
-	$sid = PAGE_PROJECT_FORM;
+	$pid = PAGE_PROJECT_FORM;
 	$id = $user->project_id;
 }
 
@@ -100,7 +100,7 @@ function plaatscrum_project_save_do() {
 	
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $id;
 	global $user;
 	
@@ -151,7 +151,7 @@ function plaatscrum_project_delete_do() {
 	
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $id;
 	global $user;
 				
@@ -176,7 +176,7 @@ function plaatscrum_project_user_assign() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $page;
 
 	global $user;
@@ -223,16 +223,16 @@ function plaatscrum_project_user_assign() {
 	
 	$page .= '<p>';
 	if (!$readonly || ($user->role_id==ROLE_ADMINISTRATOR)) {
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_USER_ASSIGN, t('LINK_SAVE'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_USER_ASSIGN, t('LINK_SAVE'));
 		$page .= ' ';
 	}
 	
 	if (($id>0) && ($user->user_id!=$id) && (!$readonly || ($user->role_id==ROLE_ADMINISTRATOR))) {
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_USER_DROP, t('LINK_DELETE'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_USER_DROP, t('LINK_DELETE'));
 		$page .= ' ';
 	}
 		
-	$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_PROJECT_FORM.'&id='.$user->project_id, t('LINK_CANCEL'));
+	$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_PROJECT_FORM.'&id='.$user->project_id, t('LINK_CANCEL'));
 	
 	$page .= '</div>';
 }
@@ -241,7 +241,7 @@ function plaatscrum_project_userlist_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $user;
 	global $access;
 
@@ -316,7 +316,7 @@ function plaatscrum_project_userlist_form() {
 		}
 		
 		$page .= '<td>';	
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_PROJECT_USER_ASSIGN.'&id='.$data->user_id, t('LINK_VIEW'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_PROJECT_USER_ASSIGN.'&id='.$data->user_id, t('LINK_VIEW'));
 		$page .= '</td>';
 		
 		$page .= '</tr>';	
@@ -326,7 +326,7 @@ function plaatscrum_project_userlist_form() {
 	
 	$page .= '<p>';	
 	if (($access->project_edit) || ($user->role_id==ROLE_ADMINISTRATOR)) {
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_PROJECT_USER_ASSIGN.'&id=0', t('LINK_ADD'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_PROJECT_USER_ASSIGN.'&id=0', t('LINK_ADD'));
 	}	
 	$page .= '</p>';
 	
@@ -338,7 +338,7 @@ function plaatscrum_project_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $id;
 	global $user;
 	global $access;
@@ -417,16 +417,16 @@ function plaatscrum_project_form() {
 	$page .= '<p>';
 	
 	if ($user->role_id==ROLE_ADMINISTRATOR) {
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_PROJECT_FORM.'&id='.$id.'&eid='.EVENT_PROJECT_SAVE, t('LINK_SAVE'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_PROJECT_FORM.'&id='.$id.'&eid='.EVENT_PROJECT_SAVE, t('LINK_SAVE'));
 		$page .= ' ';
 	}
 	
 	if (($user->role_id==ROLE_ADMINISTRATOR) && ($id!=0)) {
-		$page .= plaatscrum_link_confirm('mid='.$mid.'&sid='.PAGE_PROJECTLIST_FORM.'&id='.$id.'&eid='.EVENT_PROJECT_DELETE, t('LINK_DELETE'), t('USER_DELETE_CONFIRM'));
+		$page .= plaatscrum_link_confirm('mid='.$mid.'&pid='.PAGE_PROJECTLIST_FORM.'&id='.$id.'&eid='.EVENT_PROJECT_DELETE, t('LINK_DELETE'), t('USER_DELETE_CONFIRM'));
 		$page .= ' ';
 	}	
 	
-	$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_PROJECTLIST_FORM, t('LINK_CANCEL'));
+	$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_PROJECTLIST_FORM, t('LINK_CANCEL'));
 	
 	$page .= '</p>';
 	
@@ -437,7 +437,7 @@ function plaatscrum_projectlist_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $user;
 	global $access;
 	global $sort;
@@ -501,15 +501,15 @@ function plaatscrum_projectlist_form() {
 	$page .= '<tr>';
 		
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=2', t('GENERAL_NAME'));
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=2', t('GENERAL_NAME'));
 	$page .= '</th>';
 					
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=3', t('GENERAL_PUBLIC'));
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=3', t('GENERAL_PUBLIC'));
 	$page .= '</th>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=4', t('GENERAL_HISTORY'));
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=4', t('GENERAL_HISTORY'));
 	$page .= '</th>';
 	
 	$page .= '<th>';
@@ -559,7 +559,7 @@ function plaatscrum_projectlist_form() {
 		$data1 = plaatscrum_db_project_user($data->project_id, $user->user_id);
 		// If User is member of project of user has admin right. User can see details.
 		if (isset($data1) || ($user->role_id==ROLE_ADMINISTRATOR))  {		
-			$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_PROJECT_FORM.'&id='.$data->project_id, t('LINK_VIEW'));
+			$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_PROJECT_FORM.'&id='.$data->project_id, t('LINK_VIEW'));
 		}
 		$page .= '</td>';
 		
@@ -570,7 +570,7 @@ function plaatscrum_projectlist_form() {
 	
 	$page .= '<p>';
 	if ($user->role_id==ROLE_ADMINISTRATOR) {
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_PROJECT_FORM.'&id=0', t('LINK_ADD'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_PROJECT_FORM.'&id=0', t('LINK_ADD'));
 	}
 	$page .= '</p>';
 }
@@ -610,10 +610,10 @@ function plaatscrum_project_event_handler() {
 function plaatscrum_project_page_handler() {
 
 	/* input */
-	global $sid;
+	global $pid;
 	
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 	
  	   case PAGE_PROJECTLIST_FORM: 
 					plaatscrum_projectlist_form();	

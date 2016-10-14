@@ -91,7 +91,7 @@ function draw_stories( $date ) {
 			$page .= '<b>'.t('GENERAL_SPRINT').' '.$data->sprint_number.'</b><br/>';
 		}
 	
-		$page .= plaatscrum_link_hidden('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, '#'.$data->number);
+		$page .= plaatscrum_link_hidden('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, '#'.$data->number);
 		
 		$page .= ' ';
 	} 
@@ -185,7 +185,7 @@ function plaatscrum_calender_form() {
 	global $filter_month;
 	global $filter_year;
 	global $mid;
-	global $sid;
+	global $pid;
 	global $eid;
 	
 	/* output */
@@ -203,11 +203,11 @@ function plaatscrum_calender_form() {
 	$page .= '</p>';
 
 	$page .= '<div class="fl_left">';
-	$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_PREV, t('LINK_PREV_MONTH'));
+	$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_PREV, t('LINK_PREV_MONTH'));
 	$page .= '</div>';
 	
 	$page .= '<div class="fl_right">';
-	$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_NEXT, t('LINK_NEXT_MONTH'));
+	$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_NEXT, t('LINK_NEXT_MONTH'));
 	$page .= '</div>';
 	
 	$page .= draw_calendar($filter_month, $filter_year);	
@@ -223,7 +223,7 @@ function plaatscrum_calender() {
 	
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $eid;
 	
 	/* Event handler */
@@ -241,10 +241,10 @@ function plaatscrum_calender() {
 	}
 	
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 		
 		case PAGE_CALENDER_CHART: 	
-				plaatscrum_link_store($mid, $sid);
+				plaatscrum_link_store($mid, $pid);
 				plaatscrum_filter();
 				plaatscrum_calender_form();
 				break;

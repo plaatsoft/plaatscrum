@@ -202,10 +202,10 @@ function plaatscrum_burndown_chart_form() {
 function plaatscrum_burndown_chart() {
 	
 	/* input */
-	global $sid;
+	global $pid;
 		
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 						  
 		case PAGE_BURNDOWN_CHART: 	
 				  plaatscrum_filter();

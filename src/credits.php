@@ -53,9 +53,9 @@ function plaatscrum_credits_form() {
 function plaatscrum_credits() {
 
 	/* input */
-	global $sid;
+	global $pid;
 		
-	switch ($sid) {
+	switch ($pid) {
 
 		case PAGE_CREDITS: 
 					plaatscrum_credits_form();

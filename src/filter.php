@@ -211,7 +211,7 @@ function plaatscrum_filter() {
 	/* input */
 	global $eid;
 	global $mid;
-	global $sid;
+	global $pid;
 	global $sort;
 	
 	/* output */
@@ -229,7 +229,7 @@ function plaatscrum_filter() {
 	$page .= '<div id="filter">';
 	
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 	
 		case PAGE_HOME: 
 					plaatscrum_filter_project();	
@@ -274,7 +274,7 @@ function plaatscrum_filter() {
 					
 	}
 	
-	$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_FILTER.'&sort='.$sort, t('LINK_FILTER'));
+	$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_FILTER.'&sort='.$sort, t('LINK_FILTER'));
 	
 	$page .= '</div>';
 }

@@ -41,11 +41,10 @@ $title = "";
 $user = "";
 $access = "";
 
-$mid = 0;
-$sid = 0;
+$mid = MENU_LOGIN;    // Menu Id
+$pid = PAGE_LOGIN;    // Page Id
 $eid = 0;
 $uid = 0;
-$pid = 0;
 $id = 0;
 
 /* 
@@ -65,20 +64,14 @@ if (strlen($token)>0) {
 	$token = gzinflate(base64_decode($token));	
 	$tokens = @preg_split("/&/", $token);
 	
-	if (DEBUG == 1) {
-			echo '================<br>';
-	}
-	
 	foreach ($tokens as $item) {
 		$items = preg_split ("/=/", $item);				
 		${$items[0]} = $items[1];	
 		
-		if (DEBUG == 1) {
+		if (DEBUG == 1) 
+		{
 			echo $items[0].'='.$items[1].'<br>';
 		}
-	}
-	if (DEBUG == 1) {
-			echo '================<br>';
 	}
 }
 
@@ -113,7 +106,7 @@ if (@plaatscrum_db_connect($config["dbhost"], $config["dbuser"], $config["dbpass
 plaatscrum_db_check_version();
 
 /* Set default timezone */
-date_default_timezone_set ( plaatscrum_db_config_get("timezone" ) );
+date_default_timezone_set( plaatscrum_db_config_get("timezone" ) );
 
 /*
 ** ---------------------------------------------------------------- 
@@ -179,7 +172,7 @@ switch ($eid) {
 					if ($id>0) {
 						$mid = MENU_BACKLOG;	
 						$eid = EVENT_STORY_LOAD;
-						$sid = PAGE_STORY;
+						$pid = PAGE_STORY;
 					}
 					
 				} else {
@@ -189,14 +182,14 @@ switch ($eid) {
 					plaatscrum_db_user_update($user);
 	
 					$mid = MENU_BACKLOG;
-					$sid = PAGE_BACKLOG_FORM;
+					$pid = PAGE_BACKLOG_FORM;
 				}
 			}
 			break;
 }
 
 /* Global Page Handler */
-switch ($sid) {
+switch ($pid) {
 
 	// ---------------------------------------- //
 

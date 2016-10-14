@@ -42,7 +42,7 @@ function plaatscrum_backlog_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $user;
 	global $access;
 	global $sprint;
@@ -129,31 +129,31 @@ function plaatscrum_backlog_form() {
 	$page .= '<tr>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=1', t('GENERAL_US'));
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=1', t('GENERAL_US'));
 	$page .= '</th>';
 		
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=0', t('GENERAL_SUMMARY'));	
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=0', t('GENERAL_SUMMARY'));	
 	$page .= '</th>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=2', t('GENERAL_SPRINT'));
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=2', t('GENERAL_SPRINT'));
 	$page .= '</th>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=3', t('GENERAL_SP_WORK'));
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=3', t('GENERAL_SP_WORK'));
 	$page .= '</th>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=4', t('GENERAL_TYPE'));
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=4', t('GENERAL_TYPE'));
 	$page .= '</th>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=5', t('GENERAL_STATUS'));
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=5', t('GENERAL_STATUS'));
 	$page .= '</th>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=6', t('GENERAL_OWNER'));
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=6', t('GENERAL_OWNER'));
 	$page .= '</th>';
 	
 	$page .= '<th>';
@@ -186,7 +186,7 @@ function plaatscrum_backlog_form() {
 		$page .='>';
 		
 		$page .= '<td>';	
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, $data->number);
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, $data->number);
 		$page .= '</td>';
 		
 		$page .= '<td>';		
@@ -219,7 +219,7 @@ function plaatscrum_backlog_form() {
 		$page .= '<td >';
 				
 		if ($access->story_edit && !isset($data->user_id)) {
-			$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_BACKLOG_FORM.'&eid='.EVENT_STORY_ASSIGN.'&id='.$data->story_id, t('LINK_ASSIGN'));
+			$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_BACKLOG_FORM.'&eid='.EVENT_STORY_ASSIGN.'&id='.$data->story_id, t('LINK_ASSIGN'));
 		}
 				
 		$page .= '</td>';
@@ -232,7 +232,7 @@ function plaatscrum_backlog_form() {
 	$page .= '<p>';		
 	
 	if ($access->story_add) {
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_STORY_NEW.'&type='.TYPE_STORY.'&id=0', t('LINK_ADD_STORY'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_STORY_NEW.'&type='.TYPE_STORY.'&id=0', t('LINK_ADD_STORY'));
 	}
 	$page .= '</p>';	
 }
@@ -250,13 +250,13 @@ function plaatscrum_backlog() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 		
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 	
 		case PAGE_BACKLOG_FORM: 
-					plaatscrum_link_store($mid, $sid);
+					plaatscrum_link_store($mid, $pid);
 					plaatscrum_filter();
 					plaatscrum_backlog_form();	
 					break;

@@ -52,7 +52,7 @@ function plaatscrum_settings_general_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $user;
 	global $access;
 	
@@ -79,7 +79,7 @@ function plaatscrum_settings_general_form() {
 	$page .= '</p>';
 		
 	$page .= '<p>';
-	$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_SETTING_SAVE, t('LINK_CHANGE'));	
+	$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_SETTING_SAVE, t('LINK_CHANGE'));	
 	$page .= '</p>';
 	$page .= '</fieldset>';    	
 
@@ -87,7 +87,7 @@ function plaatscrum_settings_general_form() {
 	$page .= '<legend>'.t('SETTING_ACCOUNT_TITLE').'</legend>';		
 	
 	$page .= '<p>';
-	$page .= t('SETTING_ACCOUNT', plaatscrum_link('mid='.$mid.'&sid='.PAGE_USER.'&id='.$user->user_id, t('LINK_HERE')));	
+	$page .= t('SETTING_ACCOUNT', plaatscrum_link('mid='.$mid.'&pid='.PAGE_USER.'&id='.$user->user_id, t('LINK_HERE')));	
 	$page .= '</p>';
 	$page .= '</fieldset>';   
 	
@@ -103,7 +103,7 @@ function plaatscrum_settings_general_form() {
 function plaatscrum_settings() {
 
 	/* input */
-	global $sid;
+	global $pid;
 	global $eid;
 	
 	/* Event handler */
@@ -120,7 +120,7 @@ function plaatscrum_settings() {
 	plaatscrum_sprint_event_handler();
 	
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 	
 		case PAGE_GENERAL: 
 					plaatscrum_settings_general_form();	

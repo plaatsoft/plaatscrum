@@ -99,7 +99,7 @@ function plaatscrum_user_save_do() {
 	global $user_role;
 	
 	/* output */
-	global $sid;
+	global $pid;
 		
 	$member = plaatscrum_db_member($id);
 	
@@ -168,9 +168,9 @@ function plaatscrum_user_save_do() {
 		
 		/* Data ok, goto to previous form */		
 		if ($user->role_id==ROLE_ADMINISTRATOR) {
-			$sid = PAGE_USERLIST;
+			$pid = PAGE_USERLIST;
 		} else {
-			$sid = PAGE_GENERAL;
+			$pid = PAGE_GENERAL;
 		}	
 	} 	
 }
@@ -181,16 +181,16 @@ function plaatscrum_user_cancel_do() {
 	global $user;
 	
 	/* output */
-	global $sid;
+	global $pid;
 	
 	/* Goto to previous form */		
 	if ($user->role_id==ROLE_ADMINISTRATOR) {
 	
-		$sid = PAGE_USERLIST;
+		$pid = PAGE_USERLIST;
 		
 	} else {
 	
-		$sid = PAGE_GENERAL;
+		$pid = PAGE_GENERAL;
 	}	
 }
 
@@ -202,7 +202,7 @@ function plaatscrum_user_delete_do() {
 	global $user;
 	
 	/* output */	
-	global $sid;
+	global $pid;
 		
 	$data = plaatscrum_db_member($id);
 	
@@ -217,11 +217,11 @@ function plaatscrum_user_delete_do() {
 		/* Goto to previous form */		
 		if ($user->role_id==ROLE_ADMINISTRATOR) {
 	
-			$sid = PAGE_USERLIST;
+			$pid = PAGE_USERLIST;
 		
 		} else {
 	
-			$sid = PAGE_GENERAL;
+			$pid = PAGE_GENERAL;
 		}	
 	} 
 }
@@ -236,7 +236,7 @@ function plaatscrum_user_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	
 	global $id;
 	global $user;
@@ -300,7 +300,7 @@ function plaatscrum_user_form() {
 	
 	if (($id!=0) && ($user_valid==0)) {
 		
-		$link = plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_EMAIL_CONFIRM.'&id='.$id, t('LINK_HERE'));
+		$link = plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_EMAIL_CONFIRM.'&id='.$id, t('LINK_HERE'));
 		
 		$page .= '<span id="tip">';
 		$page .= ' '.t('USER_EMAIL_CONFIRM_NEEDED',$link);
@@ -337,19 +337,19 @@ function plaatscrum_user_form() {
 	$page .= '<p>';
 	
 	if (!$readonly) {
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&id='.$id.'&eid='.EVENT_USER_SAVE, t('LINK_SAVE'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&id='.$id.'&eid='.EVENT_USER_SAVE, t('LINK_SAVE'));
 		$page .= ' ';
 	}
 	
 	if (($id!=0) && ($id!=$user->user_id) && (!$readonly)) {
-		$page .= plaatscrum_link_confirm('mid='.$mid.'&sid='.$sid.'&id='.$id.'&eid='.EVENT_USER_DELETE, t('LINK_DELETE'),t('USER_DELETE_CONFIRM'));
+		$page .= plaatscrum_link_confirm('mid='.$mid.'&pid='.$pid.'&id='.$id.'&eid='.EVENT_USER_DELETE, t('LINK_DELETE'),t('USER_DELETE_CONFIRM'));
 		$page .= ' ';
 	}
 	$page .= plaatscrum_link('mid='.$mid.'&eid='.EVENT_USER_CANCEL, t('LINK_CANCEL'));
 	$page .= ' ';
 	
 	if (($user->role_id==ROLE_ADMINISTRATOR) && (isset($data->user_id))) {
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_USERLIST.'&eid='.EVENT_USER_HACK.'&id='.$data->user_id, t('LINK_HACK'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_USERLIST.'&eid='.EVENT_USER_HACK.'&id='.$data->user_id, t('LINK_HACK'));
 	}
 	
 	$page .= '</p>';
@@ -362,7 +362,7 @@ function plaatscrum_userlist_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $user;
 	global $access;
 	global $sort;
@@ -417,25 +417,25 @@ function plaatscrum_userlist_form() {
 	$page .= '<tr>';
 		
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=1', t('GENERAL_NAME'));	
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=1', t('GENERAL_NAME'));	
 	$page .= '</th>';
 	
 	if ($user->role_id==ROLE_ADMINISTRATOR) {
 		$page .= '<th>';
-		$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=2', t('GENERAL_ROLE'));
+		$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=2', t('GENERAL_ROLE'));
 		$page .= '</th>';
 	}
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=3', t('GENERAL_LAST_LOGIN'));
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=3', t('GENERAL_LAST_LOGIN'));
 	$page .= '</th>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=4', t('GENERAL_LAST_ACTIVITY'));
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=4', t('GENERAL_LAST_ACTIVITY'));
 	$page .= '</th>';
 		
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&sort=5', t('GENERAL_REQUESTS'));
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=5', t('GENERAL_REQUESTS'));
 	$page .= '</th>';
 		
 	$page .= '<th>';
@@ -484,7 +484,7 @@ function plaatscrum_userlist_form() {
 		$page .= '</td>';
 		
 		$page .= '<td>';
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_USER.'&id='.$data->user_id, t('LINK_VIEW'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_USER.'&id='.$data->user_id, t('LINK_VIEW'));
 		$page .= '</td>';
 		
 		$page .= '</tr>';	
@@ -495,7 +495,7 @@ function plaatscrum_userlist_form() {
 	$page .= '<p>';
 	
 	if ($user->role_id==ROLE_ADMINISTRATOR) {
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_USER.'&id=0', t('LINK_ADD'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_USER.'&id=0', t('LINK_ADD'));
 	}
 	$page .= '</p>';
 }
@@ -539,10 +539,10 @@ function plaatscrum_user_event_handler() {
 function plaatscrum_user_page_handler() {
 
 	/* input */
-	global $sid;
+	global $pid;
 	
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 	
  	   case PAGE_USERLIST: 
 					plaatscrum_userlist_form();	

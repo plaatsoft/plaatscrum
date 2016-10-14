@@ -49,9 +49,9 @@ function plaatscrum_help_form() {
 function plaatscrum_help() {
 
 	/* input */
-	global $sid;
+	global $pid;
 		
-	switch ($sid) {
+	switch ($pid) {
 	
 		case PAGE_INSTRUCTIONS: 
 				plaatscrum_help_form();

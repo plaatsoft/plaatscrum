@@ -302,11 +302,11 @@ function plaatscrum_costboard() {
 	
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $eid;
 	
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 
 		case PAGE_COST: 					 
 				  plaatscrum_filter();

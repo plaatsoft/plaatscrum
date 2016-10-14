@@ -51,7 +51,7 @@ function plaatscrum_sprint_save_do() {
 	
 	/* output */
 	global $id;
-	global $sid;
+	global $pid;
 	
 	if (strlen($sprint_number)==0) {
 	
@@ -89,7 +89,7 @@ function plaatscrum_sprint_save_do() {
 		plaatscrum_info($user->name.' ['.$user->user_id.'] save sprint '.$id);
 		
 		/* return parameters for project view */
-		$sid = PAGE_PROJECT_FORM;
+		$pid = PAGE_PROJECT_FORM;
 		$id = $user->project_id;	
 	} 	
 }
@@ -102,7 +102,7 @@ function plaatscrum_sprint_delete_do() {
 	global $user;
 	
 	/* output */
-	global $sid;
+	global $pid;
 	global $id;
 				
 	$query = 'select count(story_id) as total from story where deleted=0 and sprint_id='.$id;
@@ -129,7 +129,7 @@ function plaatscrum_sprint_delete_do() {
 			plaatscrum_info($user->name.' ['.$user->user_id.'] delete sprint '.$id);
 		
 			/* return parameters for project view */
-			$sid=PAGE_PROJECT_FORM;
+			$pid=PAGE_PROJECT_FORM;
 			$id=$user->project_id;
 		}
 	} 
@@ -145,7 +145,7 @@ function plaatscrum_sprint_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $id;
 	global $user;
 	global $access;
@@ -219,16 +219,16 @@ function plaatscrum_sprint_form() {
 	
 	$page .= '<p>';
 	if (!$readonly) {
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&id='.$id.'&eid='.EVENT_SPRINT_SAVE, t('LINK_SAVE'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&id='.$id.'&eid='.EVENT_SPRINT_SAVE, t('LINK_SAVE'));
 		$page .= ' ';
 	}
 	
 	if (($id!=0) && !$readonly) {
-		$page .= plaatscrum_link_confirm('mid='.$mid.'&sid='.$sid.'&id='.$id.'&eid='.EVENT_SPRINT_DELETE, t('LINK_DELETE'), t('SPRINT_DELETE_CONFIRM'));
+		$page .= plaatscrum_link_confirm('mid='.$mid.'&pid='.$pid.'&id='.$id.'&eid='.EVENT_SPRINT_DELETE, t('LINK_DELETE'), t('SPRINT_DELETE_CONFIRM'));
 		$page .= ' ';
 	}	
 	
-	$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_PROJECT_FORM.'&id='.$user->project_id, t('LINK_CANCEL'));
+	$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_PROJECT_FORM.'&id='.$user->project_id, t('LINK_CANCEL'));
 			
 	$page .= '</p>';
 	
@@ -239,7 +239,7 @@ function plaatscrum_sprintlist_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	
 	global $user;
 	global $access;
@@ -344,7 +344,7 @@ function plaatscrum_sprintlist_form() {
 		$page .= '</td>';
 		
 		$page .= '<td>';
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_SPRINT_FORM.'&id='.$data->sprint_id, t('LINK_VIEW'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_SPRINT_FORM.'&id='.$data->sprint_id, t('LINK_VIEW'));
 		$page .= '</td>';
 				
 		$page .= '</tr>';	
@@ -354,7 +354,7 @@ function plaatscrum_sprintlist_form() {
 	
 	$page .= '<p>';
 	if ($access->project_edit && !$readonly) {
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_SPRINT_FORM.'&id=0', t('LINK_ADD'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_SPRINT_FORM.'&id=0', t('LINK_ADD'));
 	}
 	$page .= '</p>';
 	
@@ -389,10 +389,10 @@ function plaatscrum_sprint_event_handler() {
 function plaatscrum_sprint_page_handler() {
 
 	/* input */
-	global $sid;
+	global $pid;
 	
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 	
  	   case PAGE_SPRINTLIST_FORM: 
 					plaatscrum_sprintlist_form();	

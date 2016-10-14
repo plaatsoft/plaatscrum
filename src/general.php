@@ -381,15 +381,15 @@ function plaatscrum_multi_post($label, $default) {
 	return $value;
 }
 
-function plaatscrum_link_store($mid, $sid) {
+function plaatscrum_link_store($mid, $pid) {
 
 	/* input */
 	global $user;
 	
-	if (($user->menu_id!=$mid) || ($user->page_id!=$sid)) {
+	if (($user->menu_id!=$mid) || ($user->page_id!=$pid)) {
 	
 		$user->menu_id=$mid;
-		$user->page_id=$sid;
+		$user->page_id=$pid;
 	
 		plaatscrum_db_user_update($user);
 		
@@ -428,7 +428,7 @@ function plaatscrum_board_element($data) {
 	$page .= '<tr>';
 
 	$page .= '<td colspan="2">';
-	$page .= plaatscrum_link_hidden('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, $data->summary);
+	$page .= plaatscrum_link_hidden('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, $data->summary);
 				
 	$page .= '</td>';
 
@@ -599,7 +599,7 @@ function plaatscrum_ui_project($tag, $project_id, $readonly=false) {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $sort;
 	global $user;
 
@@ -626,7 +626,7 @@ function plaatscrum_ui_project($tag, $project_id, $readonly=false) {
 	if ($readonly) {
 		$page .= 'disabled="true" ';
 	} else {	
-		$page .= 'onchange="javascript:link(\''.plaatscrum_token('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_FILTER.'&sort='.$sort).'\');" ';
+		$page .= 'onchange="javascript:link(\''.plaatscrum_token('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_FILTER.'&sort='.$sort).'\');" ';
 	}
 	$page .= '>';
 								
@@ -686,7 +686,7 @@ function plaatscrum_ui_sprint($tag, $id, $readonly=false, $empty=false, $locked=
 	/* input */
 	global $user;
 	global $mid;
-	global $sid;
+	global $pid;
 	global $sort;
 	
 	$query  = 'select sprint_id, number from sprint ';
@@ -707,7 +707,7 @@ function plaatscrum_ui_sprint($tag, $id, $readonly=false, $empty=false, $locked=
 	}
 	
 	if ($empty) {	
-		$page .= 'onchange="javascript:link(\''.plaatscrum_token('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_FILTER.'&sort='.$sort).'\');" ';
+		$page .= 'onchange="javascript:link(\''.plaatscrum_token('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_FILTER.'&sort='.$sort).'\');" ';
 	}
 	
 	$page .= '>'; 
@@ -741,7 +741,7 @@ function plaatscrum_ui_multi_day($tag, $id, $readonly=false, $empty=false) {
 	
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $sort;
 			
 	$page = '<select id="'.$tag.'" name="'.$tag.'[]" size="7" multiple="multiple" ';
@@ -772,7 +772,7 @@ function plaatscrum_ui_multi_status($tag, $id, $readonly=false, $empty=false) {
 	
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $sort;
 	
 	$values = array(STATUS_TODO, STATUS_DOING, STATUS_REVIEW, STATUS_DONE, STATUS_SKIPPED, STATUS_ONHOLD);	
@@ -1107,7 +1107,7 @@ function plaatscrum_ui_header( $title = "") {
    
 	/* input */
 	global $mid;
-   global $sid;
+   global $pid;
 	global $config;
 	global $player;
 	global $session;
@@ -1149,7 +1149,7 @@ function plaatscrum_ui_header( $title = "") {
 	$page .= '<body id="top">';
 	
 	$page .= '<form id="scrumboard" ';
-	if ($sid==PAGE_BACKLOG_IMPORT) {
+	if ($pid==PAGE_BACKLOG_IMPORT) {
 		$page .= 'enctype="multipart/form-data" ';
 	}
 	$page .= 'method="POST">';
@@ -1164,7 +1164,7 @@ function plaatscrum_ui_banner($menu) {
 	
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	
 	global $user;
 	global $config;
@@ -1178,9 +1178,9 @@ function plaatscrum_ui_banner($menu) {
 	
    $page .= '<h1>';
 	if ($mid==MENU_LOGIN) { 
-		$page .= plaatscrum_link('mid='.MENU_LOGIN.'&sid='.PAGE_LOGIN, 'PlaatScrum');
+		$page .= plaatscrum_link('mid='.MENU_LOGIN.'&pid='.PAGE_LOGIN, 'PlaatScrum');
 	} else {	
-		$page .= plaatscrum_link('mid='.MENU_HOME.'&sid='.PAGE_HOME, 'PlaatScrum');
+		$page .= plaatscrum_link('mid='.MENU_HOME.'&pid='.PAGE_HOME, 'PlaatScrum');
 	}
 	$page .= '</h1>';
 	
@@ -1215,7 +1215,7 @@ function plaatscrum_ui_banner($menu) {
 		$page .= '<fieldset>';
 		$page .= '<legend>Site Search</legend>';
 		$page .= '<input type="text" name="search" id="search" value="'.t('HELP').'" onfocus="this.value=(this.value==\''.t('HELP').'\')? \'\' : this.value ;" />'; 	
-		$page .= plaatscrum_button('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_SEARCH, "go", "go");		
+		$page .= plaatscrum_button('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_SEARCH, "go", "go");		
 		$page .= '</fieldset>';		
 		$page .= '</div>';
 	}

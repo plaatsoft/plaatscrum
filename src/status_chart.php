@@ -148,10 +148,10 @@ function plaatscrum_status_chart_form() {
 function plaatscrum_status_chart() {
 	
 	/* input */
-	global $sid;
+	global $pid;
 	
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 		
 		case PAGE_STATUS_CHART: 	
 				  plaatscrum_filter();

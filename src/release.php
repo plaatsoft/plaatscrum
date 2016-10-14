@@ -43,7 +43,7 @@ function plaatscrum_release_save_do() {
 
 	/* output */
 	global $id;
-	global $sid;
+	global $pid;
 	
 	$data = plaatscrum_db_release($id);
 	
@@ -81,7 +81,7 @@ function plaatscrum_release_save_do() {
 		plaatscrum_info($user->name.' ['.$user->user_id.'] save release '.$id);
 		
 		/* return parameters for project view */
-		$sid=PAGE_PROJECT_FORM;
+		$pid=PAGE_PROJECT_FORM;
 		$id=$user->project_id;	
 	}
 }
@@ -94,7 +94,7 @@ function plaatscrum_release_delete_do() {
 	global $user;
 	
 	/* output */
-	global $sid;
+	global $pid;
 	global $id;
 	
 	$query = 'select sprint_id from sprint where deleted=0 and release_id='.$id	;
@@ -120,7 +120,7 @@ function plaatscrum_release_delete_do() {
 		plaatscrum_info($user->name.' ['.$user->user_id.'] delete release '.$id);
 		
 		/* return parameters for project view */
-		$sid=PAGE_PROJECT_FORM;
+		$pid=PAGE_PROJECT_FORM;
 		$id=$user->project_id;
 	} 
 }
@@ -135,7 +135,7 @@ function plaatscrum_release_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $id;
 	global $user;
 	global $access;
@@ -179,16 +179,16 @@ function plaatscrum_release_form() {
 	$page .= '</p>';
 	
 	if (!$readonly) {
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&id='.$id.'&eid='.EVENT_RELEASE_SAVE, t('LINK_SAVE'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&id='.$id.'&eid='.EVENT_RELEASE_SAVE, t('LINK_SAVE'));
 		$page .= ' ';
 	}
 	
 	if (($id!=0) && !$readonly) {
-		$page .= plaatscrum_link_confirm('mid='.$mid.'&sid='.$sid.'&id='.$id.'&eid='.EVENT_RELEASE_DELETE, t('LINK_DELETE'), t('RELEASE_DELETE_CONFIRM'));
+		$page .= plaatscrum_link_confirm('mid='.$mid.'&pid='.$pid.'&id='.$id.'&eid='.EVENT_RELEASE_DELETE, t('LINK_DELETE'), t('RELEASE_DELETE_CONFIRM'));
 		$page .= ' ';
 	}	
 	
-	$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_PROJECT_FORM.'&id='.$user->project_id, t('LINK_CANCEL'));
+	$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_PROJECT_FORM.'&id='.$user->project_id, t('LINK_CANCEL'));
 			
 	$page .= '</p>';
 			
@@ -199,7 +199,7 @@ function plaatscrum_releaselist_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	
 	global $user;
 	global $access;
@@ -264,7 +264,7 @@ function plaatscrum_releaselist_form() {
 		$page .= '</td>';
 		
 		$page .= '<td>';
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_RELEASE_FORM.'&id='.$data->release_id, t('LINK_VIEW'));	
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_RELEASE_FORM.'&id='.$data->release_id, t('LINK_VIEW'));	
 		$page .= '</td>';
 		
 		$page .= '</tr>';	
@@ -274,7 +274,7 @@ function plaatscrum_releaselist_form() {
 	
 	$page .= '<p>';
 	if ($access->project_edit && !$readonly) {
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.PAGE_RELEASE_FORM.'&id=0', t('LINK_ADD'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_RELEASE_FORM.'&id=0', t('LINK_ADD'));
 	}
 	$page .= '</p>';
 	
@@ -310,10 +310,10 @@ function plaatscrum_release_event_handler() {
 function plaatscrum_release_page_handler() {
 
 	/* input */
-	global $sid;
+	global $pid;
 	
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 	
  	   case PAGE_RELEASELIST_FORM: 
 					plaatscrum_releaselist_form();	

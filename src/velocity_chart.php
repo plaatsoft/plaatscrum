@@ -196,10 +196,10 @@ function plaatscrum_velocity_chart_form() {
 function plaatscrum_velocity_chart() {
 	
 	/* input */
-	global $sid;
+	global $pid;
 		
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 	
 	   case PAGE_VELOCITY_CHART: 	
 				  plaatscrum_filter();

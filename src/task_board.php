@@ -124,7 +124,7 @@ function plaatscrum_taskboard_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $user;
 	global $access;
 	
@@ -223,14 +223,14 @@ function plaatscrum_taskboard() {
 	
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $eid;
 	
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 						  
 		case PAGE_TASKBOARD: 	
-				  plaatscrum_link_store($mid, $sid);
+				  plaatscrum_link_store($mid, $pid);
 				  plaatscrum_filter();
 				  plaatscrum_taskboard_form();
 				  break;

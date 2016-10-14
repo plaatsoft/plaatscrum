@@ -255,7 +255,7 @@ function plaatscrum_export_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $access;
 	
 	/* output */
@@ -284,7 +284,7 @@ function plaatscrum_export_form() {
 	$page .= '<p>';
 	
 	if ($access->story_export) {
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_EXPORT, t('LINK_EXPORT'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_EXPORT, t('LINK_EXPORT'));
 	}
 	$page .= '</p>';
 	
@@ -300,7 +300,7 @@ function plaatscrum_export() {
 
 	/* input */
 	global $eid;
-	global $sid;
+	global $pid;
 	
 	/* Event handler */
 	switch ($eid) {
@@ -311,7 +311,7 @@ function plaatscrum_export() {
 	}
 	
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 					
 		case PAGE_BACKLOG_EXPORT: 
 					plaatscrum_export_form();	

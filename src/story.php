@@ -120,7 +120,7 @@ function plaatscrum_story_new_do() {
 
 	/* input */
 	global $user;
-	global $sid;
+	global $pid;
 
 	/* output */
 	global $data;
@@ -193,7 +193,7 @@ function plaatscrum_story_assign_do() {
 
 	/* input */
 	global $id;	
-	global $sid;	
+	global $pid;	
 	global $mid;	
 	global $user;
 	
@@ -224,7 +224,7 @@ function plaatscrum_story_assign_do() {
 		$data->user_id = $user->user_id;
 		$data->status = $story->status;
 		
-		$link = plaatscrum_link('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$story->story_id, $story->number);
+		$link = plaatscrum_link('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$story->story_id, $story->number);
 		
 		plaatscrum_ui_box("info", t('STORY_ASSIGN', t('TYPE_'.$story->type), $link));
 		plaatscrum_info($user->name.' ['.$user->user_id.'] assign story '.$id);		
@@ -238,7 +238,7 @@ function plaatscrum_story_drop_do() {
 
 	/* input */
 	global $id;	
-	global $sid;	
+	global $pid;	
 	global $mid;	
 	global $user;
 
@@ -268,7 +268,7 @@ function plaatscrum_story_drop_do() {
 		$data->user_id = 0;
 		$data->status = $story->status;
 		
-		$link = plaatscrum_link('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$story->story_id, $story->number);
+		$link = plaatscrum_link('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$story->story_id, $story->number);
 		
 		plaatscrum_ui_box("info", t('STORY_DROPPED', t('TYPE_'.$data->type), $link));	
 		plaatscrum_info($user->name.' ['.$user->user_id.'] drop story '.$id);
@@ -287,7 +287,7 @@ function plaatscrum_story_save_do() {
 	
 	/* output */
 	global $mid;
-	global $sid;
+	global $pid;
 	
 	$story = plaatscrum_db_story($id);	
 	$sprint = plaatscrum_db_sprint($data->sprint_id);
@@ -388,13 +388,13 @@ function plaatscrum_story_save_do() {
 			plaatscrum_story_parent_update($data);
 		}
 				
-		$link = plaatscrum_link('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$id, $data->number);
+		$link = plaatscrum_link('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$id, $data->number);
 	
 		plaatscrum_ui_box("info", t('STORY_SAVED', t('TYPE_'.$data->type), $link));	
 		plaatscrum_info($user->name.' ['.$user->user_id.'] save story '.$id);
 		
 		$mid = $user->menu_id;		
-		$sid = $user->page_id;		
+		$pid = $user->page_id;		
 	}
 }
 
@@ -409,7 +409,7 @@ function plaatscrum_story_delete_do() {
 		
 	/* output */
 	global $mid;
-	global $sid;
+	global $pid;
 	
 	if ($id>0) {
 	
@@ -427,7 +427,7 @@ function plaatscrum_story_delete_do() {
 			plaatscrum_info($user->name.' ['.$user->user_id.'] delete story '.$id);
 			
 			$mid = $user->menu_id;		
-			$sid = $user->page_id;
+			$pid = $user->page_id;
 		}
 	}
 }
@@ -441,11 +441,11 @@ function plaatscrum_story_cancel_do() {
 	global $user;
 	
 	/* output */
-	global $sid;
+	global $pid;
 	global $mid;
 
 	$mid = $user->menu_id;		
-	$sid = $user->page_id;
+	$pid = $user->page_id;
 }
 
 /*
@@ -461,7 +461,7 @@ function plaatscrum_tasklist($story_id, $readonly) {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 
 	global $user;
 	global $access;
@@ -529,7 +529,7 @@ function plaatscrum_tasklist($story_id, $readonly) {
 		$page .='>';
 		
 		$page .= '<td>';	
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, $data->number);
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, $data->number);
 		$page .= '</td>';
 		
 		$page .= '<td>';			
@@ -549,7 +549,7 @@ function plaatscrum_tasklist($story_id, $readonly) {
 		$page .= '</td>';
 		
 		$page .= '<td >';
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, t('LINK_VIEW'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, t('LINK_VIEW'));
 		$page .= '</td>';
 		
 		$page .= '</tr>';
@@ -561,11 +561,11 @@ function plaatscrum_tasklist($story_id, $readonly) {
 	
 	if ($access->story_add && !$readonly) {
 		$data = plaatscrum_db_story($story_id);
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_STORY_NEW.'&type='.TYPE_TASK.'&story_id_ref='.$data->number, t('LINK_ADD_TASK'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_STORY_NEW.'&type='.TYPE_TASK.'&story_id_ref='.$data->number, t('LINK_ADD_TASK'));
 		$page .= '&nbsp;&nbsp;&nbsp;';
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_STORY_NEW.'&type='.TYPE_BUG.'&story_id_ref='.$data->number, t('LINK_ADD_BUG'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_STORY_NEW.'&type='.TYPE_BUG.'&story_id_ref='.$data->number, t('LINK_ADD_BUG'));
 		$page .= '&nbsp;&nbsp;&nbsp;';		
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_STORY_NEW.'&type='.TYPE_EPIC.'&story_id_ref='.$data->number, t('LINK_ADD_EPIC'));		
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_STORY_NEW.'&type='.TYPE_EPIC.'&story_id_ref='.$data->number, t('LINK_ADD_EPIC'));		
 	}
 	$page .= '</p>';	
 }
@@ -654,7 +654,7 @@ function plaatscrum_story_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $id;
 	global $user;
 	global $access;
@@ -742,7 +742,7 @@ function plaatscrum_story_form() {
 	$data->story_story_id = plaatscrum_db_story_check($data->story_id_ref, $data->project_id);
 	
 	if ($data->story_story_id!=0) {
-		$link = plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_story_id, t('GENERAL_STORY_STORY_ID'));
+		$link = plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_story_id, t('GENERAL_STORY_STORY_ID'));
 	} else {
 		$link = t('GENERAL_STORY_STORY_ID');
 	}
@@ -782,29 +782,29 @@ function plaatscrum_story_form() {
 	if (!$readonly) {
 	
 		if ($access->story_edit) {
-			$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_STORY_SAVE.'&id='.$id, t('LINK_SAVE'));
+			$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_STORY_SAVE.'&id='.$id, t('LINK_SAVE'));
 			$page .= ' '; 
 		}
 	}
 	
-	$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_STORY_CANCEL, t('LINK_CANCEL'));
+	$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_STORY_CANCEL, t('LINK_CANCEL'));
 		
 	$page .= '</div>';
 	$page .= '<div class="fl_right">';
 	
 	if (!$readonly) {
 		if	($access->story_edit && $data->user_id>0) {
-			$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_STORY_DROP.'&id='.$id, t('LINK_DROP'));
+			$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_STORY_DROP.'&id='.$id, t('LINK_DROP'));
 			$page .= ' '; 
 		} 
 	
 		if (($id!=0) && $access->story_edit && ($data->user_id==0)) {
-			$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_STORY_ASSIGN.'&id='.$id, t('LINK_ASSIGN'));
+			$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_STORY_ASSIGN.'&id='.$id, t('LINK_ASSIGN'));
 			$page .= ' '; 
 		}
 			
 		if (($id!=0) && $access->story_delete) {
-			$page .= plaatscrum_link_confirm('mid='.$mid.'&sid='.$sid.'&id='.$id.'&eid='.EVENT_STORY_DELETE, t('LINK_DELETE'), t('STORY_DELETE_CONFIRM'));
+			$page .= plaatscrum_link_confirm('mid='.$mid.'&pid='.$pid.'&id='.$id.'&eid='.EVENT_STORY_DELETE, t('LINK_DELETE'), t('STORY_DELETE_CONFIRM'));
 			$page .= ' '; 
 		}
 	}
@@ -847,7 +847,7 @@ function plaatscrum_story_form() {
 function plaatscrum_story() {
 
 	/* input */
-	global $sid;
+	global $pid;
 	global $eid;
 		
 	/* Event handler */
@@ -883,7 +883,7 @@ function plaatscrum_story() {
 	}
 	
 	/* page handler */
-	switch ($sid) {
+	switch ($pid) {
 	
 		case PAGE_STORY:
 					plaatscrum_story_form();

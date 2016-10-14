@@ -75,9 +75,9 @@ function plaatscrum_donate_form() {
 function plaatscrum_donate() {
 
 	/* input */
-	global $sid;
+	global $pid;
 		
-	switch ($sid) {
+	switch ($pid) {
 			
 		case PAGE_DONATE: 
 					plaatscrum_donate_form();

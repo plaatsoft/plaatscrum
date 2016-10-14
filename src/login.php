@@ -76,7 +76,7 @@ function plaatscrum_recover_do() {
 	global $email;
 
 	global $mid;
-	global $sid;	
+	global $pid;	
 	
 	if (validate_email($email)) {
 		
@@ -178,13 +178,13 @@ function plaatscrum_login_do() {
 	
 	/* output */
 	global $mid;
-	global $sid;	
+	global $pid;	
 	global $user;
 	global $access;
 	global $access;
 	global $session;
 	global $page;
-					
+
 	$user_id = plaatscrum_db_member_id($username, $password);	
 	
 	if ($user_id == 0) {
@@ -212,8 +212,8 @@ function plaatscrum_login_do() {
 		
 		/* Redirect to home page. */
 		$mid = MENU_HOME;			
-		$sid = PAGE_HOME;	
-		$page = "";
+		$pid = PAGE_HOME;	
+		//$page = "";
 		
 		plaatscrum_info('Login '.$user->name.' ['.$user->user_id.']');
 	} 
@@ -297,7 +297,7 @@ function plaatscrum_recover_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	
 	global $name;
 	global $username;
@@ -323,7 +323,7 @@ function plaatscrum_recover_form() {
 	$page .= '</p>';
 	
 	$page .= '<p>';
-	$page .= plaatscrum_button('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_RECOVER, t('LINK_RECOVER'));
+	$page .= plaatscrum_button('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_RECOVER, t('LINK_RECOVER'));
 	$page .= '</p>';
 			
 	$page .= '</div>';
@@ -338,7 +338,7 @@ function plaatscrum_register_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	
 	global $name;
 	global $username;
@@ -381,7 +381,7 @@ function plaatscrum_register_form() {
 	$page .= '</p>';
 	
 	$page .= '<p>';
-	$page .= plaatscrum_button('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_REGISTER, t('LINK_REGISTER'));
+	$page .= plaatscrum_button('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_REGISTER, t('LINK_REGISTER'));
 	$page .= '</p>';
 			
 	$page .= '</div>';
@@ -443,7 +443,7 @@ function plaatscrum_login() {
 
 	/* input */
 	global $eid;
-	global $sid;
+	global $pid;
 		
 	/* Event handler */
 	switch ($eid) {
@@ -464,9 +464,9 @@ function plaatscrum_login() {
 					plaatscrum_logout_do();
 					break;
 	}
-		
+	
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 			
 		default:
 		case PAGE_LOGIN: 

@@ -40,7 +40,7 @@ function scrumboard_tasklist($story_id) {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 
 	global $user;
 	global $access;
@@ -108,7 +108,7 @@ function scrumboard_tasklist($story_id) {
 		$page .='>';
 		
 		$page .= '<td>';	
-		$page .= scrumboard_link('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, $data->number);
+		$page .= scrumboard_link('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, $data->number);
 		$page .= '</td>';
 		
 		$page .= '<td>';			
@@ -128,7 +128,7 @@ function scrumboard_tasklist($story_id) {
 		$page .= '</td>';
 		
 		$page .= '<td >';
-		$page .= scrumboard_link('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, t('LINK_VIEW'));
+		$page .= scrumboard_link('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, t('LINK_VIEW'));
 		$page .= '</td>';
 		
 		$page .= '</tr>';
@@ -140,11 +140,11 @@ function scrumboard_tasklist($story_id) {
 	
 	if ($access->story_add) {
 		$data = scrumboard_db_story($story_id);
-		$page .= scrumboard_link('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_NEW.'&type='.TYPE_TASK.'&story_id_ref='.$data->number, t('LINK_ADD_TASK'));
+		$page .= scrumboard_link('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_NEW.'&type='.TYPE_TASK.'&story_id_ref='.$data->number, t('LINK_ADD_TASK'));
 		$page .= '&nbsp;&nbsp;&nbsp;';
-		$page .= scrumboard_link('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_NEW.'&type='.TYPE_BUG.'&story_id_ref='.$data->number, t('LINK_ADD_BUG'));
+		$page .= scrumboard_link('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_NEW.'&type='.TYPE_BUG.'&story_id_ref='.$data->number, t('LINK_ADD_BUG'));
 		$page .= '&nbsp;&nbsp;&nbsp;';		
-		$page .= scrumboard_link('mid='.$mid.'&sid='.PAGE_STORY.'&eid='.EVENT_NEW.'&type='.TYPE_EPIC.'&story_id_ref='.$data->number, t('LINK_ADD_EPIC'));		
+		$page .= scrumboard_link('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_NEW.'&type='.TYPE_EPIC.'&story_id_ref='.$data->number, t('LINK_ADD_EPIC'));		
 	}
 	$page .= '</p>';	
 }

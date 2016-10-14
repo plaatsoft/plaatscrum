@@ -70,7 +70,7 @@ function plaatscrum_storyboard_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	
 	/* output */
 	global $page;
@@ -165,14 +165,14 @@ function plaatscrum_storyboard() {
 	
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $eid;
 		
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 		
 		case PAGE_STATUSBOARD: 	
-				  plaatscrum_link_store($mid, $sid);
+				  plaatscrum_link_store($mid, $pid);
 				  plaatscrum_filter();
 				  plaatscrum_storyboard_form();
 				  break;

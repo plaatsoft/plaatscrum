@@ -49,9 +49,9 @@ function plaatscrum_about_form() {
 function plaatscrum_about() {
 
 	/* input */
-	global $sid;
+	global $pid;
 		
-	switch ($sid) {
+	switch ($pid) {
 
 		case PAGE_ABOUT: 
 					plaatscrum_about_form();

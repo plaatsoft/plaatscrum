@@ -218,9 +218,9 @@ function plaatscrum_release_notes_form() {
 function plaatscrum_release_notes() {
 
 	/* input */
-	global $sid;
+	global $pid;
 		
-	switch ($sid) {
+	switch ($pid) {
 					  
 		case PAGE_RELEASE_NOTES: 
 					plaatscrum_release_notes_form();

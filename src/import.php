@@ -253,7 +253,7 @@ function plaatscrum_import_form() {
 
 	/* input */
 	global $mid;
-	global $sid;
+	global $pid;
 	global $access;
 	
 	/* output */
@@ -272,7 +272,7 @@ function plaatscrum_import_form() {
 		$page .= '<br/>';
 		$page .= '<br/>';
 	
-		$page .= plaatscrum_link('mid='.$mid.'&sid='.$sid.'&eid='.EVENT_IMPORT, t('LINK_IMPORT'));
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_IMPORT, t('LINK_IMPORT'));
 	}
 	
 	$page .= '<div class="note">';
@@ -293,7 +293,7 @@ function plaatscrum_import() {
 
 	/* input */
 	global $eid;
-	global $sid;
+	global $pid;
 
 	/* Event handler */
 	switch ($eid) {
@@ -304,7 +304,7 @@ function plaatscrum_import() {
 	}
 	
 	/* Page handler */
-	switch ($sid) {
+	switch ($pid) {
 	
 		case PAGE_BACKLOG_IMPORT: 
 					plaatscrum_import_form();	
