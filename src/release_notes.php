@@ -29,7 +29,8 @@ $releasenotes = '
 <li>Added Trivial and Blocker priority.</li>
 <li>Improve password encryption algoritme.</li>
 <li>If user is idle for 10 minutes the user is automatic logout.</li>
-<li>Improve a lot of small things.</li>
+<li>Added icons for andriod and apple devices.</li>
+<li>Improve a lot of other small things.</li>
 <li>Bugfix: Fix several small issues.</li>
 </ul>
 
