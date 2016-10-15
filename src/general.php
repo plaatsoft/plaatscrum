@@ -401,6 +401,34 @@ function plaatscrum_link_store($mid, $pid) {
 ** ---------------------
 */
 
+/**
+ * Add title icon 
+ */
+function plaatscrum_icons() {
+	
+	// Normal icons
+	$page  = '<link rel="shortcut icon" type="image/png" sizes="16x16" href="images/plaatscrum16.png">';
+	$page .= '<link rel="shortcut icon" type="image/png" sizes="24x24" href="images/plaatscrum24.png">';
+	$page .= '<link rel="shortcut icon" type="image/png" sizes="32x32" href="images/plaatscrum32.png">';
+	$page .= '<link rel="shortcut icon" type="image/png" sizes="48x48" href="images/plaatscrum48.png">';
+	$page .= '<link rel="shortcut icon" type="image/png" sizes="64x64" href="images/plaatscrum64.png">';
+	$page .= '<link rel="shortcut icon" type="image/png" sizes="128x128" href="images/plaatscrum128.png">';
+	$page .= '<link rel="shortcut icon" type="image/png" sizes="256x256" href="images/plaatscrum256.png">';
+	$page .= '<link rel="shortcut icon" type="image/png" sizes="512x512" href="images/plaatscrum512.png">';
+	
+	// Apple icons
+	$page .= '<link rel="apple-touch-icon" type="image/png" href="images/plaatscrum60.png">';
+	$page .= '<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="images/plaatscrum76.png">';
+	$page .= '<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="images/plaatscrum120.png">';
+	$page .= '<link rel="apple-touch-icon" type="image/png" sizes="152x152" href="images/plaatscrum152.png">';
+	
+	// Web app cable (runs the website as app)
+	$page .= '<meta name="apple-mobile-web-app-capable" content="yes">';
+	$page .= '<meta name="mobile-web-app-capable" content="yes">';
+	   
+	return $page;
+}
+
 function plaatscrum_board_element($data) {
 
 	/* input */
@@ -1117,6 +1145,8 @@ function plaatscrum_ui_header( $title = "") {
 
 	$page .= '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
  
+ 	$page .= plaatscrum_icons();
+	
  	if ($mid==MENU_LOGIN) {
 		
 		$page .= '<meta name="keywords" content="plaatscrum,plaatsoft,scrum,taskboard,burndown,chart,velocity,calender,php,mysql" />';
