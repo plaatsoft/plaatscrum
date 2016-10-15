@@ -506,10 +506,11 @@ function plaatscrum_userlist_form() {
 ** ------------------
 */
 
-function plaatscrum_user_event_handler() {
+function plaatscrum_user() {
 
 	/* input */
 	global $eid;
+	global $pid;
 	
 	/* Event handler */
 	switch ($eid) {
@@ -534,13 +535,7 @@ function plaatscrum_user_event_handler() {
 					plaatscrum_user_email_confirm_do();
 					break;				
 	}
-}
 
-function plaatscrum_user_page_handler() {
-
-	/* input */
-	global $pid;
-	
 	/* Page handler */
 	switch ($pid) {
 	

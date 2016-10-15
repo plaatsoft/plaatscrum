@@ -295,11 +295,7 @@ function plaatscrum_sprintlist_form() {
 	$page .= '<th>';
 	$page	.= t('GENERAL_LOCKED');
 	$page .= '</th>';
-	
-	$page .= '<th>';
-	$page	.= t('GENERAL_ACTION');
-	$page .= '</th>';
-		
+
 	$page .= '</tr>';
 	$page .= '</thead>';
 		
@@ -316,7 +312,7 @@ function plaatscrum_sprintlist_form() {
 		$page .='>';
 				
 		$page .= '<td>';
-		$page .= $data->number;
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_SPRINT_FORM.'&id='.$data->sprint_id, $data->number);
 		$page .= '</td>';
 	
 		$page .= '<td>';
@@ -338,13 +334,9 @@ function plaatscrum_sprintlist_form() {
 		$page .= '<td>';
 		$page	.= $data->name;
 		$page .= '</td>';
-		
+				
 		$page .= '<td>';
-		$page	.= t('GENERAL_'.$data->locked);
-		$page .= '</td>';
 		
-		$page .= '<td>';
-		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_SPRINT_FORM.'&id='.$data->sprint_id, t('LINK_VIEW'));
 		$page .= '</td>';
 				
 		$page .= '</tr>';	
@@ -367,9 +359,10 @@ function plaatscrum_sprintlist_form() {
 ** ------------------
 */
 
-function plaatscrum_sprint_event_handler() {
+function plaatscrum_sprint() {
 
 	/* input */
+	global $pid;
 	global $eid;
 	
 	/* Event handler */
@@ -382,14 +375,7 @@ function plaatscrum_sprint_event_handler() {
 		case EVENT_SPRINT_DELETE: 
 					plaatscrum_sprint_delete_do();
 					break;			  	  		  
-	
 	}
-}
-
-function plaatscrum_sprint_page_handler() {
-
-	/* input */
-	global $pid;
 	
 	/* Page handler */
 	switch ($pid) {
@@ -401,7 +387,6 @@ function plaatscrum_sprint_page_handler() {
 		case PAGE_SPRINT_FORM: 
 					plaatscrum_sprint_form();
 					break;
-				  
 	}
 }
 

@@ -280,10 +280,6 @@ function plaatscrum_project_userlist_form() {
 		$page	.= t('GENERAL_BCR').' ['.t('GENERAL_EURO').']';
 		$page .= '</th>';
 	}
-		
-	$page .= '<th>';
-	$page	.= t('GENERAL_ACTION');
-	$page .= '</th>';
 	
 	$page .= '</tr>';
 	$page .= '</thead>';
@@ -301,7 +297,7 @@ function plaatscrum_project_userlist_form() {
 		$page .='>';
 				
 		$page .= '<td>';
-		$page	.= $data->name;
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_PROJECT_USER_ASSIGN.'&id='.$data->user_id, $data->name);
 		$page .= '</td>';
 			
 		$page .= '<td>';
@@ -314,11 +310,7 @@ function plaatscrum_project_userlist_form() {
 			$page	.= $data->bcr;
 			$page .= '</td>';
 		}
-		
-		$page .= '<td>';	
-		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_PROJECT_USER_ASSIGN.'&id='.$data->user_id, t('LINK_VIEW'));
-		$page .= '</td>';
-		
+				
 		$page .= '</tr>';	
 	}
 	$page .= '</tbody>';
@@ -516,10 +508,6 @@ function plaatscrum_projectlist_form() {
 	$page	.= t('GENERAL_OVERVIEW');
 	$page .= '</th>';
 	
-	$page .= '<th>';
-	$page	.= t('GENERAL_ACTION');
-	$page .= '</th>';
-	
 	$page .= '</tr>';
 	$page .= '</thead>';
 		
@@ -536,7 +524,14 @@ function plaatscrum_projectlist_form() {
 		$page .='>';
 				
 		$page .= '<td>';
-		$page	.= $data->name;
+		
+		$data1 = plaatscrum_db_project_user($data->project_id, $user->user_id);
+		// If User is member of project or user has admin right. User can see details.
+		if (isset($data1) || ($user->role_id==ROLE_ADMINISTRATOR))  {		
+			$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_PROJECT_FORM.'&id='.$data->project_id, $data->name);
+		} else {
+			$page	.= $data->name;
+		}
 		$page .= '</td>';
 	
 		$page .= '<td>';
@@ -553,16 +548,7 @@ function plaatscrum_projectlist_form() {
 		$page	.= plaatscrum_db_story_count($data->project_id, TYPE_BUG).' '.t('GENERAL_BUGS').'<br/>';
 		$page	.= plaatscrum_db_story_count($data->project_id, TYPE_EPIC).' '.t('GENERAL_EPICS').'<br/>';
 		$page .= '</td>';
-				
-		$page .= '<td>';
 
-		$data1 = plaatscrum_db_project_user($data->project_id, $user->user_id);
-		// If User is member of project of user has admin right. User can see details.
-		if (isset($data1) || ($user->role_id==ROLE_ADMINISTRATOR))  {		
-			$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_PROJECT_FORM.'&id='.$data->project_id, t('LINK_VIEW'));
-		}
-		$page .= '</td>';
-		
 		$page .= '</tr>';	
 	}
 	$page .= '</tbody>';
@@ -581,10 +567,11 @@ function plaatscrum_projectlist_form() {
 ** ------------------
 */
 
-function plaatscrum_project_event_handler() {
+function plaatscrum_project() {
 
 	/* input */
 	global $eid;
+	global $pid;
 	
 	/* Event handler */
 	switch ($eid) {
@@ -603,14 +590,8 @@ function plaatscrum_project_event_handler() {
 					
 		case EVENT_USER_DROP: 
 					plaatscrum_project_user_drop_do();
-					break;		  	  		  
+					break;		
 	}
-}
-
-function plaatscrum_project_page_handler() {
-
-	/* input */
-	global $pid;
 	
 	/* Page handler */
 	switch ($pid) {

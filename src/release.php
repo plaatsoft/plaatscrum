@@ -235,11 +235,7 @@ function plaatscrum_releaselist_form() {
 	$page .= '<th>';
 	$page	.= t('GENERAL_NOTE');
 	$page .= '</th>';
-		
-	$page .= '<th>';
-	$page	.= t('GENERAL_ACTION');
-	$page .= '</th>';
-		
+				
 	$page .= '</tr>';
 	$page .= '</thead>';
 		
@@ -256,17 +252,13 @@ function plaatscrum_releaselist_form() {
 		$page .='>';
 				
 		$page .= '<td>';
-		$page	.= $data->name;
+		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_RELEASE_FORM.'&id='.$data->release_id, $data->name);	
 		$page .= '</td>';
 	
 		$page .= '<td>';
 		$page	.= $data->note;
 		$page .= '</td>';
-		
-		$page .= '<td>';
-		$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_RELEASE_FORM.'&id='.$data->release_id, t('LINK_VIEW'));	
-		$page .= '</td>';
-		
+				
 		$page .= '</tr>';	
 	}
 	$page .= '</tbody>';
@@ -288,10 +280,11 @@ function plaatscrum_releaselist_form() {
 ** ------------------
 */
 
-function plaatscrum_release_event_handler() {
+function plaatscrum_release() {
 
 	/* input */
 	global $eid;
+		global $pid;
 	
 	/* Event handler */
 	switch ($eid) {
@@ -303,14 +296,7 @@ function plaatscrum_release_event_handler() {
 		case EVENT_RELEASE_DELETE: 
 					plaatscrum_release_delete_do();
 					break;			  	  		  
-	
 	}
-}
-
-function plaatscrum_release_page_handler() {
-
-	/* input */
-	global $pid;
 	
 	/* Page handler */
 	switch ($pid) {

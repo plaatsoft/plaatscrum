@@ -113,12 +113,7 @@ function plaatscrum_settings() {
 					plaatscrum_settings_save_do();
 					break;					
 	}
-	
-	plaatscrum_user_event_handler();	
-	plaatscrum_project_event_handler();
-	plaatscrum_release_event_handler();
-	plaatscrum_sprint_event_handler();
-	
+		
 	/* Page handler */
 	switch ($pid) {
 	
@@ -126,11 +121,6 @@ function plaatscrum_settings() {
 					plaatscrum_settings_general_form();	
 					break;
 	}
-	
-	plaatscrum_user_page_handler();	
-	plaatscrum_project_page_handler();
-	plaatscrum_release_page_handler();
-	plaatscrum_sprint_page_handler();
 }
 
 /*

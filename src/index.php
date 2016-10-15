@@ -292,14 +292,25 @@ switch ($pid) {
 	// ---------------------------------------- //
 	
 	case PAGE_GENERAL:
+	case PAGE_USER:
 	case PAGE_USERLIST:
 	case PAGE_PROJECTLIST_FORM:
+	case PAGE_PROJECT_USER_ASSIGN:
+	case PAGE_PROJECT_FORM:
+	case PAGE_RELEASELIST_FORM:
+	case PAGE_RELEASE_FORM: 
+	case PAGE_SPRINTLIST_FORM: 
+	case PAGE_SPRINT_FORM: 
 				include "settings.php";				
-				include "user.php";
-				include "project.php";
+				include "user.php";				
 				include "release.php";	
 				include "sprint.php";				
-				plaatscrum_settings();
+				include "project.php";
+				plaatscrum_settings();				
+				plaatscrum_user();				
+				plaatscrum_release();
+				plaatscrum_sprint();
+				plaatscrum_project();
 				break;
 				
 	// ---------------------------------------- //
