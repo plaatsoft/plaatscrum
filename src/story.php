@@ -830,7 +830,7 @@ function plaatscrum_story_form() {
 	
 	$project = plaatscrum_db_project($user->project_id);
 	
-	if (($project->history==1) && ($data->type!=TYPE_STORY) && $id!=0) {
+	if (($project->history==1) && $id!=0) {
 		plaatscrum_story_history(); 
 	}
 }

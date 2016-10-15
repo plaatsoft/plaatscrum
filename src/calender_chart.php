@@ -81,10 +81,9 @@ function draw_stories( $date ) {
 	if (strlen($user->type) > 0) {
 		$query .= 'and a.type in ('.$user->type.') ';	
 	}
-	
 	$query .= 'and CAST(`date` AS date)="'.convert_date_mysql($date).'"';
-			
 	$result = plaatscrum_db_query($query);
+	
 	while ($data=plaatscrum_db_fetch_object($result))	{
 		
 		$count++;
@@ -100,6 +99,22 @@ function draw_stories( $date ) {
 	if ($count>3) {
 		$count=3;
 	} 
+	
+	if ($count==0) {
+		
+		$query  = 'select number as sprint_number from sprint where ';
+		$query .= '"'.convert_date_mysql($date).' " between start_date and end_date ';
+		$query .= 'and project_id='.$user->project_id.' and deleted=0';
+			
+		$result = plaatscrum_db_query($query);
+		$data = plaatscrum_db_fetch_object($result);
+		
+		if (isset($data->sprint_number))	{
+				
+			$page .= '<b>'.t('GENERAL_SPRINT').' '.$data->sprint_number.'</b><br/>';
+			$count++;
+		}
+	}
 	
 	$page .= str_repeat('<p>&nbsp;</p>', (3-$count));
 	
@@ -149,7 +164,7 @@ function draw_calendar($month,$year){
 		/* add in the day number */
 		$calendar.= '<div class="day-number">'.$list_day.'</div>';
 
-		$calendar .= draw_stories($list_day.'-'.$month.'- '.$year);
+		$calendar .= draw_stories($list_day.'-'.$month.'-'.$year);
 			
 		$calendar.= '</td>';
 		if($running_day == 6):
@@ -193,7 +208,7 @@ function plaatscrum_calender_form() {
 	global $page;
 	global $title;
 
-	$title = t('CALENDER_TITLE');
+	$title = t('CALENDER_TITLE').' ['.$filter_month.'-'.$filter_year.']';
 	
 	$page .= '<h1>';
 	$page .= $title;

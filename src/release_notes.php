@@ -18,7 +18,7 @@
 
 $releasenotes = '
 
-<h2>12-10-2016 PlaatScrum v1.2</h2>
+<h2>15-10-2016 PlaatScrum v1.2</h2>
 <ul>
 <li>Added automatic database creation and patching</li>
 <li>Make PHP code compliant with PHP version 7.x and higher.</li>
@@ -29,6 +29,7 @@ $releasenotes = '
 <li>Added Trivial and Blocker priority.</li>
 <li>Improve password encryption algoritme.</li>
 <li>If user is idle for 10 minutes the user is automatic logout.</li>
+<li>Improve a lot of small things.</li>
 <li>Bugfix: Fix several small issues.</li>
 </ul>
 

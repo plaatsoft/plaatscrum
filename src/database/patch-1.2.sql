@@ -29,7 +29,7 @@ INSERT INTO `config` (`id`, `category`, `token`, `value`, `options`, `last_updat
 (NULL, '0', 'database_version', '1.2', '', sysdate(), 1);
 
 INSERT INTO `config` (`id`, `category`, `token`, `value`, `options`, `last_update`, `readonly`) VALUES
-(NULL, '0', 'build_number', '(Build 12-10-2016)', '', sysdate(), 1);
+(NULL, '0', 'build_number', '(Build 15-10-2016)', '', sysdate(), 1);
 
 INSERT INTO `config` (`id`, `category`, `token`, `value`, `options`, `last_update`, `readonly`) VALUES 
 (NULL, '0', 'timezone', 'Europe/Amsterdam', '', sysdate(), '0');

@@ -63,7 +63,7 @@ function plaatscrum_home_form() {
 	$query .= 'if(a.story_story_id=0,a.story_id, a.story_story_id) as sort2 ';
 	$query .= 'from story a ';
 	$query .= 'left join sprint c on a.sprint_id=c.sprint_id ';
-	$query .= 'where a.user_id='.$user->user_id.' and a.deleted=0 ';	
+	$query .= 'where a.user_id='.$user->user_id.' and a.deleted=0 and a.type!=1 ';	
 	
 	if ($user->project_id>0) {
 		$query .= 'and a.project_id='.$user->project_id.' ';	
