@@ -135,7 +135,7 @@ function plaatscrum_burndown_chart_form() {
 			$total1 = 0;
 		}
 		
-		$matrix1[date('d-m',$date)] = round($total1,0);
+		$matrix1[date('d-m',$date)] = round($total1,1);
 		
 		$count++;
 	}
