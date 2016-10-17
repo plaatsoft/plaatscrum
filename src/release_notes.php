@@ -25,8 +25,9 @@ $releasenotes = '
 <li>Bugfix: Sprint locked column is now working again.</li>
 <li>Bugfix: Default value of story ref_id is now correctly set.</li>
 <li>Bugfix: Assign button on backlog form is now working again.</li>
-<li>Bugfix: If session expired redirect to login page is now working always.</li>
-<li>Bugfix: Now all columns on taskboard layout are same size.</li>
+<li>Bugfix: If session expired redirect to login page is now working correct.</li>
+<li>Bugfix: Now all columns on taskboard layout have same size.</li>
+<li>Bugfix: Burndown chart, both lines start now with same value</li>
 </ul>
 
 <h2>15-10-2016 PlaatScrum v1.2</h2>
