@@ -88,7 +88,7 @@ $lang['LINK_ADD_BUG'] = 'Add Bug';
 $lang['LINK_ADD_EPIC'] = 'Add Epic';
 $lang['LINK_HERE'] = 'here';
 $lang['LINK_HACK'] = 'Hack';
-$lang['LINK_PREV_MONTH'] = 'Prev Month';
+$lang['LINK_PREV_MONTH'] = 'Previous Month';
 $lang['LINK_NEXT_MONTH'] = 'Next Month';
 
 /*

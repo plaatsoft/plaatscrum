@@ -18,6 +18,17 @@
 
 $releasenotes = '
 
+<h2>17-10-2016 PlaatScrum v1.3</h2>
+<ul>
+<li>Added in calender sprint letter for each week that sprint takes.</li>
+<li>Added story sorting (asc/desc) on taskboard.</li>
+<li>Bugfix: Sprint locked column is now working again.</li>
+<li>Bugfix: Default value of story ref_id is now correctly set.</li>
+<li>Bugfix: Assign button on backlog form is now working again.</li>
+<li>Bugfix: If session expired redirect to login page is now working always.</li>
+<li>Bugfix: Now all columns on taskboard layout are same size.</li>
+</ul>
+
 <h2>15-10-2016 PlaatScrum v1.2</h2>
 <ul>
 <li>Added automatic database creation and patching</li>

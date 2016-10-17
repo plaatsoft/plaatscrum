@@ -43,9 +43,10 @@ $access = "";
 
 $mid = MENU_LOGIN;    // Menu Id
 $pid = PAGE_LOGIN;    // Page Id
-$eid = 0;
-$uid = 0;
-$id = 0;
+$eid = 0;				 // Event Id
+$uid = 0;				 // User Id
+$id = 0;					 // Select item Id
+$sort = 0; 				 // Sort Id
 
 /* 
 ** ---------------------------------------------------------------- 
@@ -119,12 +120,18 @@ $user_id = plaatscrum_db_session_valid($session);
 if ( $user_id == 0 ) {
 
 	/* Redirect to login page */
+	if (($pid!=PAGE_LOGIN) && ($pid!=PAGE_REGISTER) && ($pid!=PAGE_RECOVER)) {
+		$eid = EVENT_NONE;
+		$pid = PAGE_LOGIN;
+	}
+	
 	$mid = MENU_LOGIN;
-				
+
 } else {
 
 	$user = plaatscrum_db_user($user_id);
 	$data = plaatscrum_db_project_user($user->project_id, $user_id);
+	
 	if (isset($data->role_id)) {
 		$access = plaatscrum_db_role($data->role_id);
 	} else {
@@ -211,7 +218,9 @@ switch ($pid) {
 	// ---------------------------------------- //
 
 	case PAGE_BACKLOG_FORM:
+				include "story.php";
 				include "backlog.php";
+				plaatscrum_story();
 				plaatscrum_backlog();
 				break;
 
@@ -241,7 +250,7 @@ switch ($pid) {
 				plaatscrum_home();
 				plaatscrum_backlog();
 				break;
-				
+
 	// ---------------------------------------- //
 	
 	case PAGE_TASKBOARD:

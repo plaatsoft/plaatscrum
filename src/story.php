@@ -53,7 +53,7 @@ if (isset($type)) {
 if (isset($story_id_ref)) {
 	$data->story_id_ref = $story_id_ref;
 } else {
-	$data->story_id_ref = plaatscrum_post("story_id_ref", 0);
+	$data->story_id_ref = plaatscrum_post("story_id_ref", "");
 }
 
 /*

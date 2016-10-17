@@ -63,11 +63,11 @@ function plaatscrum_backlog_form() {
 	$page .= t('BACKLOG_NOTE');
 	$page .= '</p>';
 	
-	$query  = 'select a.story_id, a.type, a.number, a.summary, a.sprint_id, a.story_story_id, d.number as sprint_number, ';
+	$query  = 'select a.story_id, a.type, a.number, a.summary, a.sprint_id, a.story_story_id, d.number as sprint_number, d.locked, ';
 	$query .= 'a.points, a.status, a.user_id, c.name, c.user_id, ';
 	$query .= 'if(a.story_story_id=0,a.story_id, a.story_story_id) as sort2 ';
 	$query .= 'from story a left join project b on a.project_id=b.project_id left join tuser c on a.user_id=c.user_id ';
-	$query .= 'left join sprint d on d.sprint_id=a.sprint_id where a.deleted=0 ';
+	$query .= 'left join sprint d on d.sprint_id=a.sprint_id where a.deleted=0 and d.deleted=0 ';
 	$query .= 'and a.project_id='.$user->project_id.' ';	
 		
 	if ($user->sprint_id > 0) {
@@ -217,11 +217,11 @@ function plaatscrum_backlog_form() {
 		$page .= '</td>';
 		
 		$page .= '<td >';
-				
-		if ($access->story_edit && !isset($data->user_id)) {
+
+		if (($access->story_edit) && (!isset($data->user_id)) && ($data->locked==0)) {
 			$page .= plaatscrum_link('mid='.$mid.'&pid='.PAGE_BACKLOG_FORM.'&eid='.EVENT_STORY_ASSIGN.'&id='.$data->story_id, t('LINK_ASSIGN'));
-		}
-				
+		} 
+
 		$page .= '</td>';
 		
 		$page .= '</tr>';

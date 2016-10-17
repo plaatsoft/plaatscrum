@@ -336,7 +336,7 @@ function plaatscrum_sprintlist_form() {
 		$page .= '</td>';
 				
 		$page .= '<td>';
-		
+		$page .= t('GENERAL_'.$data->locked);
 		$page .= '</td>';
 				
 		$page .= '</tr>';	

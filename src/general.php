@@ -96,6 +96,7 @@ define('PAGE_VELOCITY_CHART', 228);
 define('PAGE_BACKLOG_EXPORT', 229);
 define('PAGE_BACKLOG_IMPORT', 230);
 
+define("EVENT_NONE", 300);
 define("EVENT_LOGIN", 301);
 define("EVENT_REGISTER", 302);
 define("EVENT_RECOVER", 303);
@@ -716,8 +717,7 @@ function plaatscrum_ui_sprint($tag, $id, $readonly=false, $empty=false, $locked=
 	global $pid;
 	global $sort;
 	
-	$query  = 'select sprint_id, number from sprint ';
-	$query .= 'where project_id='.$user->project_id.' and deleted=0 ';
+	$query  = 'select sprint_id, number from sprint where project_id='.$user->project_id.' and deleted=0 ';
 	
 	if ($locked) {
 		$query .= 'and locked=0 ';

@@ -42,7 +42,6 @@ function plaatscrum_taskboard_ticket($id) {
 
 	/* output */	
 	global $user;
-	global $access;
 	
 	$tmp1='';
 	$tmp2='';
@@ -132,14 +131,40 @@ function plaatscrum_taskboard_form() {
 	global $mid;
 	global $pid;
 	global $user;
-	global $access;
-	
+	global $sort;
+
 	/* output */
 	global $page;
 	global $title;
 				
 	$title = t('TASKBOARD_TITLE');
-				
+
+	$query  = 'select a.story_id, a.type, a.number, a.summary, b.number as sprint_number, a.points, a.status, a.user_id, c.name ';
+	$query .= 'from story a left join sprint b on b.sprint_id=a.sprint_id left join tuser c on a.user_id=c.user_id ';
+	$query .= 'left join project d on a.project_id=d.project_id where a.deleted=0 and a.type='.TYPE_STORY.' ';	
+	$query .= 'and a.project_id='.$user->project_id.' ';	
+	
+	if ($user->owner>0) {
+		$query .= 'and c.user_id='.$user->owner.' ';	
+	}	
+	
+	if ($user->sprint_id>0) {
+		$query .= 'and a.sprint_id='.$user->sprint_id.' ';	
+	}
+
+	switch ($sort) {
+
+		default: 
+			$query .= 'order by b.number, a.number asc';
+			break;
+			
+		case 1: 
+			$query .= 'order by b.number, a.number desc';
+			break;
+	}
+
+	$result = plaatscrum_db_query($query);
+	
 	$page .= '<h1>';
 	$page .= $title;
 	$page .= '</h1>';
@@ -152,54 +177,42 @@ function plaatscrum_taskboard_form() {
 	$page .= '<thead>';
 	$page .= '<tr>';
 	
-	$page .= '<th width="15%">';
-	$page .= t('GENERAL_STORY');
+	$page .= '<th width="14%">';
+	if ($sort==0) {
+		$sort=1;
+	} else {
+		$sort=0;
+	}
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort='.$sort, t('GENERAL_STORY'));
 	$page .= '</th>';
 	
-	$page .= '<th width="15%">';
+	$page .= '<th width="14%">';
 	$page .= t('STATUS_1');
 	$page .= '</th>';
 
-	$page .= '<th width="15%">';
+	$page .= '<th width="14%">';
 	$page .= t('STATUS_2');
 	$page .= '</th>';
 	
-	$page .= '<th width="15%">';
+	$page .= '<th width="14%">';
 	$page .= t('STATUS_6');
 	$page .= '</th>';
 	
-	$page .= '<th width="15%">';
+	$page .= '<th width="14%">';
 	$page .= t('STATUS_3');
 	$page .= '</th>';
 	
-	$page .= '<th width="15%">';
+	$page .= '<th width="14%">';
 	$page .= t('STATUS_4');
 	$page .= '</th>';
 	
-	$page .= '<th width="15%">';
+	$page .= '<th width="14%">';
 	$page .= t('STATUS_5');
 	$page .= '</th>';
 		
 	$page .= '</tr>';
 	$page .= '</thead>';
 	$page .= '<tbody>';
-	
-	$query  = 'select a.story_id, a.type, a.number, a.summary, b.number as sprint_number, a.points, a.status, a.user_id, c.name ';
-	$query .= 'from story a left join sprint b on b.sprint_id=a.sprint_id left join tuser c on a.user_id=c.user_id ';
-	$query .= 'left join project d on a.project_id=d.project_id where a.deleted=0 and a.type='.TYPE_STORY.' ';	
-	$query .= 'and a.project_id='.$user->project_id.' ';	
-	
-	if ($user->owner > 0) {
-		$query .= 'and c.user_id='.$user->owner.' ';	
-	}	
-	
-	if ($user->sprint_id>0) {
-		$query .= 'and a.sprint_id='.$user->sprint_id.' ';	
-	}
-	
-	$query .= 'order by b.number, a.number';
-
-	$result = plaatscrum_db_query($query);
 		
 	while ($data=plaatscrum_db_fetch_object($result)) {		
 	

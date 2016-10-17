@@ -69,10 +69,26 @@ function draw_stories( $date ) {
 
 	$count = 0;	
 	$page = "";
-	
-	$query  = 'select a.story_id, a.number, b.number as sprint_number ';
+
+	/* Add Sprint information */
+	$query  = 'select number as sprint_number, start_date from sprint where ';
+	$query .= '"'.convert_date_mysql($date).' " between start_date and end_date ';
+	$query .= 'and project_id='.$user->project_id.' and deleted=0';
+			
+	$result = plaatscrum_db_query($query);
+	$data = plaatscrum_db_fetch_object($result);
+		
+	if (isset($data->sprint_number))	{
+			
+		$amount =  convert_datetime_php($date) -  convert_datetime_php($data->start_date);			
+		$page .= '<b>'.t('GENERAL_SPRINT').' '.$data->sprint_number.chr((floor($amount/7)+97)).'</b><br/>';
+		$count++;
+	}
+
+	/* Add Story / Task / Bug / Epic information */
+	$query  = 'select a.story_id, a.number, b.number as sprint_number, b.start_date ';
 	$query .= 'from story a left join sprint b on a.sprint_id=b.sprint_id ';
-	$query .= 'where a.deleted=0 and a.project_id='.$user->project_id.' ';
+	$query .= 'where a.deleted=0 and b.deleted=0 and a.project_id='.$user->project_id.' ';
 	
 	if (strlen($user->status)>0) {
 		$query .= 'and a.status in ('.$user->status.') ';
@@ -86,35 +102,14 @@ function draw_stories( $date ) {
 	
 	while ($data=plaatscrum_db_fetch_object($result))	{
 		
-		$count++;
-		if ($count==1) {
-			$page .= '<b>'.t('GENERAL_SPRINT').' '.$data->sprint_number.'</b><br/>';
-		}
-	
 		$page .= plaatscrum_link_hidden('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, '#'.$data->number);
-		
 		$page .= ' ';
+		$count++;
 	} 
 	
-	if ($count>3) {
-		$count=3;
+	if ($count>2) {
+		$count=2;
 	} 
-	
-	if ($count==0) {
-		
-		$query  = 'select number as sprint_number from sprint where ';
-		$query .= '"'.convert_date_mysql($date).' " between start_date and end_date ';
-		$query .= 'and project_id='.$user->project_id.' and deleted=0';
-			
-		$result = plaatscrum_db_query($query);
-		$data = plaatscrum_db_fetch_object($result);
-		
-		if (isset($data->sprint_number))	{
-				
-			$page .= '<b>'.t('GENERAL_SPRINT').' '.$data->sprint_number.'</b><br/>';
-			$count++;
-		}
-	}
 	
 	$page .= str_repeat('<p>&nbsp;</p>', (3-$count));
 	
