@@ -70,7 +70,7 @@ function draw_stories( $date ) {
 	$count = 0;	
 	$page = "";
 
-	/* Add Sprint information */
+	/* Add Sprint information - if any */
 	$query  = 'select number as sprint_number, start_date from sprint where ';
 	$query .= '"'.convert_date_mysql($date).' " between start_date and end_date ';
 	$query .= 'and project_id='.$user->project_id.' and deleted=0';
@@ -79,13 +79,12 @@ function draw_stories( $date ) {
 	$data = plaatscrum_db_fetch_object($result);
 		
 	if (isset($data->sprint_number))	{
-			
-		$amount =  convert_datetime_php($date) -  convert_datetime_php($data->start_date);			
+		$amount =  round((strtotime($date) -  strtotime($data->start_date)) / (60 * 60 * 24));			
 		$page .= '<b>'.t('GENERAL_SPRINT').' '.$data->sprint_number.chr((floor($amount/7)+97)).'</b><br/>';
 		$count++;
 	}
 
-	/* Add Story / Task / Bug / Epic information */
+	/* Add Story / Task / Bug / Epic information - if any */
 	$query  = 'select a.story_id, a.number, b.number as sprint_number, b.start_date ';
 	$query .= 'from story a left join sprint b on a.sprint_id=b.sprint_id ';
 	$query .= 'where a.deleted=0 and b.deleted=0 and a.project_id='.$user->project_id.' ';
@@ -100,15 +99,22 @@ function draw_stories( $date ) {
 	$query .= 'and CAST(`date` AS date)="'.convert_date_mysql($date).'"';
 	$result = plaatscrum_db_query($query);
 	
+	$count2 = 0;
 	while ($data=plaatscrum_db_fetch_object($result))	{
 		
 		$page .= plaatscrum_link_hidden('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$data->story_id, '#'.$data->number);
 		$page .= ' ';
-		$count++;
+		$count2++;
+		
+		if ($count2>2) {		
+			$count++;
+			$count2=0;
+			$page .= '<br/>';
+		}
 	} 
 	
-	if ($count>2) {
-		$count=2;
+	if ($count>3) {
+		$count=3;
 	} 
 	
 	$page .= str_repeat('<p>&nbsp;</p>', (3-$count));
