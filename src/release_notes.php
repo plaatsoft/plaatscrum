@@ -18,16 +18,17 @@
 
 $releasenotes = '
 
-<h2>17-10-2016 PlaatScrum v1.3</h2>
+<h2>18-10-2016 PlaatScrum v1.3</h2>
 <ul>
 <li>Added in calender sprint letter for each week that sprint takes.</li>
 <li>Added story sorting (asc/desc) on taskboard.</li>
+<li>Redesign login page and page banner.</li>
 <li>Bugfix: Sprint locked column is now working again.</li>
 <li>Bugfix: Default value of story ref_id is now correctly set.</li>
 <li>Bugfix: Assign button on backlog form is now working again.</li>
 <li>Bugfix: If session expired redirect to login page is now working correct.</li>
 <li>Bugfix: Now all columns on taskboard layout have same size.</li>
-<li>Bugfix: Burndown chart, both lines start now with same value</li>
+<li>Bugfix: Burndown chart, both lines start now with same value.</li>
 </ul>
 
 <h2>15-10-2016 PlaatScrum v1.2</h2>
@@ -221,6 +222,8 @@ function plaatscrum_release_notes_form() {
 	$page .= '<div id="column">';
    $page .= '<img class="imgr" src="images/info.svg" width="256" height="256" alt="" />';
 	$page .= '</div>';	
+	
+	$page .= '<br class="clear" />';
 }
 
 /*

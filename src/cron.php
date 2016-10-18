@@ -46,7 +46,8 @@ function plaatscrum_cron_backup() {
 	
 	/* Create new database backup file */
 	$backupFile = 'database_backup_'.date("YmdHis").'.sql';
-	$command = 'mysqldump --user='.$config["dbuser"].' --password='.$config["dbpass"].' --host='.$config["dbhost"].' '.$config["dbname"].' > '.$filename;
+	$command = '/usr/bin/mysqldump --user='.$config["dbuser"].' --password='.$config["dbpass"].' --host='.$config["dbhost"].' '.$config["dbname"].' > ../'.$filename;
+	plaatscrum_info($command);
 	system($command);
 			
 	$message = 'Create new backup file '.$filename.'<br/>';

@@ -41,6 +41,8 @@ function plaatscrum_credits_form() {
 	$page .= '<div id="column">';
    $page .= '<img class="imgr" src="images/info.svg" width="256" height="256" alt="" />';
 	$page .= '</div>';	
+	
+	$page .= '<br class="clear" />';
 }
 
 

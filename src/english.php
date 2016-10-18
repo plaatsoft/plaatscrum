@@ -46,16 +46,17 @@ $lang['LINK_RECOVER']  = 'Recover';
 $lang['LINK_REGISTER']  = 'Register';
 $lang['LINK_HOME']  = 'Home'; 
 $lang['LINK_BACKLOG'] = 'BackLog'; 
-$lang['LINK_BOARD'] = 'Board'; 
+$lang['LINK_BOARD'] = 'Boards'; 
 $lang['LINK_TASKBOARD'] = 'Task Board'; 
 $lang['LINK_STATUSBOARD'] = 'Story Board'; 
 $lang['LINK_RESOURCEBOARD'] = 'Resource Board'; 
 $lang['LINK_COSTBOARD'] = 'Cost Board'; 
-$lang['LINK_CHART'] = 'Chart';
-$lang['LINK_CALENDER'] = 'Calendar';
+$lang['LINK_CHART'] = 'Charts';
+$lang['LINK_CALENDER'] = 'Calendar Chart';
 $lang['LINK_SETTINGS'] = 'Settings'; 
 $lang['LINK_HELP'] = 'Help'; 
 $lang['LINK_LOGOUT']  = 'Logout';
+$lang['LINK_GO']  = 'Go';
  
 $lang['LINK_FILTER'] = 'Filter';
 $lang['LINK_GENERAL'] = 'General';
@@ -179,7 +180,7 @@ $lang['GENERAL_CSV'] = 'CSV';
 $lang['GENERAL_XML'] = 'XML';
 $lang['GENERAL_JSON'] = 'JSON';
 
-$lang['HELP'] = "Search the backlog&hellip;";
+$lang['HELP'] = "Search&hellip;";
 
 $lang['COPYRIGHT'] = 'All Copyright Reserved &copy; <a class="normal_link" href="http://www.plaatsoft.nl/">PlaatSoft</a> 2008 - ' . date("Y");
 
@@ -248,8 +249,7 @@ $lang['LOGIN_WELCOME'] = '
 for organizations to enable teams to use scrum principles like Back Logs, Visible Charts and Release
 Planning commonly used by scrum teams over the Internet for distributed development.</p>
 
-<p><b>PlaatScrum</b> allows teams using Scrum to quickly get started with minimal effort to move from 
-a paper and pen tools to a distributed project management tool. <b>PlaatScrum</b> has all the basic features 
+<p><b>PlaatScrum</b> has all the basic features 
 required for scrum teams like ability to Manage Products, Manage Product BackLog, Adding and Managing 
 User Stories, Tasks, Bugs, Epics and a Visual Scrumboard for daily Stand-up meetings. It provides the 
 standard Information Radiators like Sprint Burndown, Velocity Graph and much more.</p>
@@ -260,9 +260,9 @@ writing an email to <a href="mailto:info@plaatsoft.nl"/>info@plaatsoft.nl</a></p
 $lang['LOGIN_SCREENSHOTS'] = 'SCREENSHOTS';
 
 $lang['LOGIN_HOME_TEXT1'] = 'Product/Sprint BackLog';
-$lang['LOGIN_HOME_TEXT2'] = 'Story Details';
-$lang['LOGIN_HOME_TEXT3'] = 'Status Graph';
-$lang['LOGIN_HOME_TEXT4'] = 'Burndown Graph';
+$lang['LOGIN_HOME_TEXT2'] = 'Scrum taskboard';
+$lang['LOGIN_HOME_TEXT3'] = 'Status Chart';
+$lang['LOGIN_HOME_TEXT4'] = 'Burndown Chart';
 $lang['LOGIN_HOME_TEXT5'] = 'Sprint Calendar';
 
 
@@ -367,14 +367,7 @@ $lang['CHART_VELOCITY'] = 'The velocity chart shows velocity per work day.';
 $lang['CHART_NO_PROJECT_SELECTED'] = 'No sprint selected!';
 $lang['CHART_NO_SPRINT_SELECTED'] = 'No sprint selected!';
 
-/*
-** ------------------
-** CALENDAR
-** ------------------
-*/
-
-$lang['CALENDER_TITLE'] = 'CALENDAR';
-
+$lang['CALENDER_TITLE'] = 'CALENDAR CHART';
 $lang['CALENDER_NOTE'] = 'The calendar shows all stories, tasks, bug and epics related to the selected project.';
 
 /*

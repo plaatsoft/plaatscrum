@@ -260,7 +260,7 @@ function plaatscrum_login_footer() {
    $page .= '</div>';
 	 
 	$page .= '<div class="footbox">';
-	$page .= plaatscrum_ui_image("plaatscrum-story.png");
+	$page .= plaatscrum_ui_image("plaatscrum-taskboard.png");
 	$page .= '<p>';
 	$page .= '<b>'.t('LOGIN_HOME_TEXT2').'</b>';
 	$page .= '</p>';
@@ -309,7 +309,7 @@ function plaatscrum_recover_form() {
    $page .= '<div id="content">';
 	
 	$page .= '<h1>'.t('LOGIN_WELCOME_TITLE').'</h1>';
-	$page .= '<img class="imgl" src="images/plaatscrum-taskboard.png" alt="" />';
+	$page .= '<img class="imgl" src="images/plaatscrum256.png" alt="" />';
 	$page .= t('LOGIN_WELCOME');
 	$page .= '</div>'; 
 		
@@ -351,7 +351,7 @@ function plaatscrum_register_form() {
    $page .= '<div id="content">';
 	
 	$page .= '<h1>'.t('LOGIN_WELCOME_TITLE').'</h1>';
-	$page .= '<img class="imgl" src="images/plaatscrum-taskboard.png" alt="" />';
+	$page .= '<img class="imgl" src="images/plaatscrum256.png" alt="" />';
 	$page .= t('LOGIN_WELCOME');
 	
 	$page .= '</div>'; 
@@ -403,7 +403,7 @@ function plaatscrum_login_form() {
    $page .= '<div id="content">';
 	
 	$page .= '<h1>'.t('LOGIN_WELCOME_TITLE').'</h1>';
-	$page .= '<img class="imgl" src="images/plaatscrum-taskboard.png" alt="" />';
+	$page .= '<img class="imgl" src="images/plaatscrum256.png" alt="" />';
 	$page .= t('LOGIN_WELCOME');
 	
 	$page .= '</div>'; 

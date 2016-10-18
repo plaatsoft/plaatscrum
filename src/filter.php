@@ -200,6 +200,29 @@ function plaatscrum_filter_year() {
 	$page .= '</select> ';
 }
 
+function plaatscrum_search() {
+	
+	// input
+	global $mid;
+	global $pid;
+	global $sort;
+	
+	// output
+	global $page;
+	
+	$page .= '<div id="search">';		
+	$page .= '<input type="text" name="search" id="search" size="10" value="'.t('HELP').'" onfocus="this.value=(this.value==\''.t('HELP').'\')? \'\' : this.value ;" />'; 
+	$page .= '</div>';
+	
+	$page .= '<script> ';
+	$page .= 'document.getElementById("search").addEventListener("keydown", function(event) { ';
+	$page .= 'if (event.keyCode == 13) { ';
+	$page .= 'link(\''.plaatscrum_token('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_SEARCH.'&sort='.$sort).'\'); ';
+	$page .= '} ';
+	$page .= '}); ';
+	$page .= '</script>';		
+}
+
 /*
 ** ------------------
 ** HANDLER
@@ -237,6 +260,7 @@ function plaatscrum_filter() {
 					plaatscrum_filter_status();	
 					plaatscrum_filter_prio();
 					plaatscrum_filter_type();
+					plaatscrum_search();
 					break;
 					
 		case PAGE_BACKLOG_FORM: 
@@ -246,11 +270,9 @@ function plaatscrum_filter() {
 					plaatscrum_filter_owner();
 					plaatscrum_filter_prio();
 					plaatscrum_filter_type();
+					plaatscrum_search();
 					break;
 							
-		
-		case PAGE_RESOURCEBOARD: 
-		case PAGE_STATUSBOARD: 	
 		case PAGE_STATUS_CHART: 
 		case PAGE_BURNDOWN_CHART:
 		case PAGE_VELOCITY_CHART: 	
@@ -258,11 +280,19 @@ function plaatscrum_filter() {
 					plaatscrum_filter_project();	
 					plaatscrum_filter_sprint();	
 					break;
+					
+		case PAGE_STATUSBOARD: 	
+		case PAGE_RESOURCEBOARD: 
+					plaatscrum_filter_project();	
+					plaatscrum_filter_sprint();	
+					plaatscrum_search();
+					break;
 		
 		case PAGE_TASKBOARD: 	
 					plaatscrum_filter_project();	
 					plaatscrum_filter_sprint();	
 					plaatscrum_filter_owner();
+					plaatscrum_search();
 					break;
 									
 		case PAGE_BACKLOG_IMPORT: 	

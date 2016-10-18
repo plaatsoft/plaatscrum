@@ -222,6 +222,14 @@ function plaatscrum_db_check_version() {
 		$version="1.2";
       plaatscrum_db_execute_sql_file($version);		
    }
+	
+	$version = plaatscrum_db_config_get("database_version");
+	
+	// Path database if needed	
+   if ($version=="1.2") {
+		$version="1.3";
+      plaatscrum_db_execute_sql_file($version);
+   }
 }
 
 

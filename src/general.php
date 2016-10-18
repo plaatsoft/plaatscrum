@@ -1213,9 +1213,22 @@ function plaatscrum_ui_banner($menu) {
 	}
 	$page .= '</h1>';
 	
-   $page .= '<p>';
-	if (isset($user->user_id)) {
-		
+	$data1 = plaatscrum_db_config("database_version");		
+	if (isset($data1->id)) {
+		$page .= '<div class="version">';	
+   	$page .= 'v'.$data1->value.' '.plaatscrum_db_config_get('build_number');
+		$page .= '</div>';
+	}
+	$page .= '</div>';
+	
+	
+	$page .= '<div class="fl_right">';
+	$page .= $menu;
+	$page .= '</div>';
+	
+	if (isset($user->user_id)) {	
+
+		$page .= '<div class="user">';	
 		$page .= $user->name.' ';
 	
 		$page .= ' [';
@@ -1225,45 +1238,16 @@ function plaatscrum_ui_banner($menu) {
 			$page .= '+';
 		}
 		$page .= ']';
-		
-	} else {
-	
-		$data1 = plaatscrum_db_config("database_version");		
-		if (isset($data1->id)) {
-			$page .= '<div class="version">';	
-			$page .= 'v'.$data1->value.' '.plaatscrum_db_config_get('build_number');
-			$page .= '</div>';
-		}
-	}
-	$page .= '</p>';
-  
-   $page .= '</div>';
-	
-	if ($mid!=MENU_LOGIN) {
-		$page .= '<div id="search">';		
-		$page .= '<fieldset>';
-		$page .= '<legend>Site Search</legend>';
-		$page .= '<input type="text" name="search" id="search" value="'.t('HELP').'" onfocus="this.value=(this.value==\''.t('HELP').'\')? \'\' : this.value ;" />'; 	
-		$page .= plaatscrum_button('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_SEARCH, "go", "go");		
-		$page .= '</fieldset>';		
 		$page .= '</div>';
-	}
-			
-	$page .= '<br/>';
-	$page .= '<br/>';
-	$page .= '<br/>';
-	
-	$page .= '<div class="fl_right">';
-	$page .= $menu;
-	$page .= '</div>';		
-	
-   $page .= '<br class="clear" />';
-   $page .= '</div>';
-
-	$page .= '<div id="topbar">';
-   $page .= '<div class="fl_left">';
+	}	
 		
-	$page .= '</div>';
+	$page .= '<br class="clear" />';
+   $page .= '</div>';
+		
+	$page .= '<p style="float:right">';
+	
+	$page .= '<div id="topbar">';
+	
 	$page .= '</div>';
 	
 	return $page;
@@ -1274,10 +1258,8 @@ function plaatscrum_ui_footer($renderTime, $queryCount) {
 	global $config;
 	global $player;
 	global $mid;
-			
-	$page = '<br class="clear" />';
 				
-	$page .= '<div id="copyright">';
+	$page = '<div id="copyright">';
 	
 	$page .= '<p class="fl_left">';
 	$page .= t('COPYRIGHT');
@@ -1291,10 +1273,7 @@ function plaatscrum_ui_footer($renderTime, $queryCount) {
 	$page .= '<br class="clear" />';
 	
 	$page .= '</div>';
-	
-	$page .= '<br/>';
-	$page .= '<br/>';
-			
+
 	$page .= '</form>';
 	$page .= "</body>";
 	$page .= "</html>";
