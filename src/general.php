@@ -831,7 +831,7 @@ function plaatscrum_ui_multi_status($tag, $id, $readonly=false, $empty=false) {
 		}
 		$page .= '>'.t('STATUS_'.$value).'</option>';
 	}
-		
+	
 	$page .='</select>';
 		
    return $page;
@@ -897,6 +897,48 @@ function plaatscrum_ui_language($tag, $id, $readonly=false) {
    return $page;
 }
 
+
+function plaatscrum_ui_multi_prio($tag, $id, $readonly=false, $empty=false) {
+	
+	/* input */
+	global $mid;
+	global $pid;
+	global $sort;
+	
+	$values = array(PRIO_TRIVIAL, PRIO_MINOR, PRIO_MAJOR, PRIO_CRITICAL, PRIO_BLOCKER);	
+
+	$page  = '<script type="text/javascript">';
+	$page .= '$(document).ready( function() { ';
+	$page .= '$("#'.$tag.'").multiSelect({ ';
+	$page .= ' selectAll: false,';
+	$page .= ' noneSelected: \'0 '.t('GENERAL_SELECTED').'\', ';
+	$page .= ' oneOrMoreSelected: \'% '.t('GENERAL_SELECTED').'\' ';
+	$page .= '});';
+	$page .= '});';
+	$page .= '</script>';
+	
+	$page .= '<select id="'.$tag.'" name="'.$tag.'[]" size="6" multiple="multiple" ';
+	
+	if ($readonly) {
+		$page .= 'disabled="true" ';
+	} 
+	
+	$page .= '>'; 
+	
+	foreach ($values as $value) {
+	
+		$page.='<option value="'.$value.'"';
+		
+		if (is_numeric(strpos($id, (string) $value))) {
+			$page .= ' selected="selected"';
+		}
+		$page .= '>'.t('PRIO_'.$value).'</option>';
+	}
+		
+	$page .='</select>';
+		
+   return $page;
+}
 
 function plaatscrum_ui_prio($tag, $id, $readonly=false, $empty=false) {
 	

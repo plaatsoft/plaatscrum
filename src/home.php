@@ -78,7 +78,7 @@ function plaatscrum_home_form() {
 	}
 	
 	if ($user->prio > 0) {
-		$query .= 'and a.prio='.$user->prio.' ';	
+		$query .= 'and a.prio in ('.$user->prio.') ';	
 	}	
 	
 	if (strlen($user->type) > 0) {

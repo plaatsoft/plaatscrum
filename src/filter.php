@@ -26,7 +26,7 @@ $filter_project = plaatscrum_post("filter_project", 0);
 $filter_sprint = plaatscrum_post("filter_sprint", 0);
 $filter_status = plaatscrum_multi_post("filter_status", "");
 $filter_owner = plaatscrum_post("filter_owner", 0);
-$filter_prio = plaatscrum_post("filter_prio", 0);
+$filter_prio = plaatscrum_multi_post("filter_prio", "");
 $filter_type = plaatscrum_multi_post("filter_type", "");
 $filter_month = plaatscrum_post("filter_month", date('m'));
 $filter_year = plaatscrum_post("filter_year", date('Y'));
@@ -145,7 +145,7 @@ function plaatscrum_filter_prio() {
 	global $page;
 	
 	$page	.= t('GENERAL_PRIO').': ';
-	$page .= plaatscrum_ui_prio('filter_prio', $user->prio, false, true);		
+	$page .= plaatscrum_ui_multi_prio('filter_prio', $user->prio, false, true);		
 	$page .= ' ';
 }
 

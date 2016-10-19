@@ -17,3 +17,4 @@
 UPDATE config SET value="1.3" WHERE token = "database_version";
 UPDATE config SET value="(Build 18-10-2016)" WHERE token = "build_number";
 
+ALTER TABLE `tuser` CHANGE `prio` `prio` VARCHAR(20) NOT NULL;

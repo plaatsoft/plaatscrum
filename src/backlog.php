@@ -83,7 +83,7 @@ function plaatscrum_backlog_form() {
 	}	
 	
 	if ($user->prio > 0) {
-		$query .= 'and a.prio='.$user->prio.' ';	
+		$query .= 'and a.prio in ('.$user->prio.') ';	
 	}	
 	
 	if ($user->type > 0) {

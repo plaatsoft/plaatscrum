@@ -768,7 +768,7 @@ function plaatscrum_db_user_check($name) {
 function plaatscrum_db_user_insert($user_id, $name, $email, $role_id) {
 
 	$query  = 'insert into tuser (user_id, name, email, valid, role_id, project_id, sprint_id, menu_id, page_id, status, owner, prio, type, language) ';
-	$query .= 'values ('.$user_id.',"'.$name.'","'.plaatscrum_db_escape($email).'",0,'.$role_id.',0,0,0,0,"",0,0,"",0)';
+	$query .= 'values ('.$user_id.',"'.$name.'","'.plaatscrum_db_escape($email).'",0,'.$role_id.',0,0,0,0,"",0,"","",0)';
 			
 	plaatscrum_db_query($query);	
 }
@@ -786,7 +786,7 @@ function plaatscrum_db_user_update($user) {
 	$query .= 'page_id='.$user->page_id.', ';
 	$query .= 'status="'.$user->status.'", ';
 	$query .= 'owner='.$user->owner.', ';
-	$query .= 'prio='.$user->prio.', ';
+	$query .= 'prio="'.$user->prio.'", ';
 	$query .= 'type="'.$user->type.'", ';
 	$query .= 'language='.$user->language.' ';
 	$query .= 'where user_id='.$user->user_id; 
