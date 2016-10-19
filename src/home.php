@@ -59,7 +59,7 @@ function plaatscrum_home_form() {
 	$page .= t('HOME_ASSIGN_STORIES');
 	$page .= '</p>';
 
-	$query  = 'select a.number, a.type, a.points, a.story_id, a.summary, a.story_story_id, c.number as sprint_number, a.status, ';
+	$query  = 'select a.number, a.type, a.points, a.story_id, a.summary, a.story_story_id, a.prio, c.number as sprint_number, a.status, ';
 	$query .= 'if(a.story_story_id=0,a.story_id, a.story_story_id) as sort2 ';
 	$query .= 'from story a ';
 	$query .= 'left join sprint c on a.sprint_id=c.sprint_id ';
@@ -99,10 +99,16 @@ function plaatscrum_home_form() {
 	    case 3: $query .= 'order by sprint_number, a.number';
 				   break;					
 					
-		 case 4: $query .= 'order by a.points';
+		 case 4: $query .= 'order by a.points desc';
 				   break;
 					
-		 case 5: $query .= 'order by a.status';
+		 case 5: $query .= 'order by a.type';
+				   break;
+					
+		 case 6: $query .= 'order by a.prio desc';
+				   break;
+					
+		 case 7: $query .= 'order by a.status';
 				   break;
 	}
 	
@@ -120,10 +126,6 @@ function plaatscrum_home_form() {
 	$page .= '<th>';
 	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=0', t('GENERAL_SUMMARY'));
 	$page .= '</th>';
-
-	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=2', t('GENERAL_TYPE'));
-	$page .= '</th>';
 	
 	$page .= '<th>';
 	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=3', t('GENERAL_SPRINT'));
@@ -134,7 +136,15 @@ function plaatscrum_home_form() {
 	$page .= '</th>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=5', t('GENERAL_STATUS'));
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=5', t('GENERAL_TYPE'));
+	$page .= '</th>';
+	
+	$page .= '<th>';
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=6', t('GENERAL_PRIORITY'));
+	$page .= '</th>';
+	
+	$page .= '<th>';
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=7', t('GENERAL_STATUS'));
 	$page .= '</th>';
 
 	$page .= '</tr>';
@@ -173,11 +183,7 @@ function plaatscrum_home_form() {
 		}		
 		$page	.= $data->summary;
 		$page .= '</td>';
-		
-		$page .= '<td >';
-		$page	.= t('TYPE_'.$data->type);
-		$page .= '</td>';
-		
+				
 		$page .= '<td>';
 		$page	.= $data->sprint_number;
 		$page .= '</td>';
@@ -187,9 +193,17 @@ function plaatscrum_home_form() {
 		$page .= '</td>';
 		
 		$page .= '<td >';
+		$page	.= t('TYPE_'.$data->type);
+		$page .= '</td>';
+				
+		$page .= '<td >';
+		$page	.= t('PRIO_'.$data->prio);
+		$page .= '</td>';
+		
+		$page .= '<td >';
 		$page	.= t('STATUS_'.$data->status);
 		$page .= '</td>';
-			
+		
 		$page .= '</tr>';
 	}
 	$page .= '</tbody>';

@@ -1160,8 +1160,16 @@ td.calendar-day	{
 	position:relative; 
 } * html div.calendar-day { height:80px; }
 
+td.calendar-day-now { 
+	background:rgb(250, 255, 189); 
+	min-height:80px; 
+	font-size:11px; 
+	position:relative; 
+	border-bottom:1px solid #999; 
+} *
+
 td.calendar-day:hover { 	
-	--background:#eceff5; 
+	background:#eceff5; 
 }
 
 td.calendar-day-np	{ 

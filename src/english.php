@@ -165,6 +165,7 @@ $lang['GENERAL_RESOURCE'] = 'Resource';
 $lang['GENERAL_BCR'] = 'Cost Rate';
 $lang['GENERAL_LOCKED'] = 'Locked';
 $lang['GENERAL_EURO'] = 'Euro';
+$lang['GENERAL_PRIORITY'] = 'Priority';
 
 $lang['GENERAL_REQUIRED_FIELD'] = '* Required field'; 
 

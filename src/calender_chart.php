@@ -127,6 +127,7 @@ function draw_calendar($month,$year){
 
 	/* input */
 	global $user;
+	global $filter_month;
 	
 	$project = plaatscrum_db_project($user->project_id);
 	
@@ -156,10 +157,14 @@ function draw_calendar($month,$year){
 	/* keep going with days.... */
 	for($list_day = 1; $list_day <= $days_in_month; $list_day++):
 	
-		if (!is_numeric(strpos($project->days, (string) $running_day))) {
-			$calendar .= '<td class="calendar-day-np">';		
+		if ( (date("d")==$list_day) && (date("m")==$filter_month)) {
+			$calendar .= '<td class="calendar-day-now">';
 		} else {
-			$calendar .= '<td class="calendar-day">';
+			if (!is_numeric(strpos($project->days, (string) $running_day))) {
+				$calendar .= '<td class="calendar-day-np">';		
+			} else {
+				$calendar .= '<td class="calendar-day">';
+			}
 		}
 		
 		/* add in the day number */

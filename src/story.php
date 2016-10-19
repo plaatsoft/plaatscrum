@@ -763,7 +763,7 @@ function plaatscrum_story_form() {
 	$page .= '<tr>';	
 	$page .= '<td colspan="10">';
 	$page .= '<label>'.t('GENERAL_DESCRIPTION').':</label>';
-	$page .= plaatscrum_ui_textarea("description", 5, 40, $data->description, $readonly);
+	$page .= plaatscrum_ui_textarea("description", 8, 40, $data->description, $readonly);
 	$page .= '</td>';	
 	$page .= '</tr>';	
 						

@@ -63,7 +63,7 @@ function plaatscrum_backlog_form() {
 	$page .= t('BACKLOG_NOTE');
 	$page .= '</p>';
 	
-	$query  = 'select a.story_id, a.type, a.number, a.summary, a.sprint_id, a.story_story_id, d.number as sprint_number, d.locked, ';
+	$query  = 'select a.story_id, a.type, a.number, a.summary, a.sprint_id, a.story_story_id, a.prio, d.number as sprint_number, d.locked, ';
 	$query .= 'a.points, a.status, a.user_id, c.name, c.user_id, ';
 	$query .= 'if(a.story_story_id=0,a.story_id, a.story_story_id) as sort2 ';
 	$query .= 'from story a left join project b on a.project_id=b.project_id left join tuser c on a.user_id=c.user_id ';
@@ -114,7 +114,10 @@ function plaatscrum_backlog_form() {
 		 case 5: $query .= 'order by a.status';
 				   break;
 					
-		 case 6: $query .= 'order by a.user_id';
+		 case 6: $query .= 'order by a.prio desc';
+				   break;
+					
+		 case 7: $query .= 'order by a.user_id';
 				   break;
 	}
 		
@@ -149,11 +152,15 @@ function plaatscrum_backlog_form() {
 	$page .= '</th>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=5', t('GENERAL_STATUS'));
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=5', t('GENERAL_PRIORITY'));
 	$page .= '</th>';
 	
 	$page .= '<th>';
-	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=6', t('GENERAL_OWNER'));
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=6', t('GENERAL_STATUS'));
+	$page .= '</th>';
+	
+	$page .= '<th>';
+	$page	.= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&sort=7', t('GENERAL_OWNER'));
 	$page .= '</th>';
 	
 	$page .= '<th>';
@@ -206,6 +213,10 @@ function plaatscrum_backlog_form() {
 		
 		$page .= '<td>';
 		$page	.= t('TYPE_'.$data->type);
+		$page .= '</td>';
+		
+		$page .= '<td >';
+		$page	.= t('PRIO_'.$data->prio);
 		$page .= '</td>';
 		
 		$page .= '<td>';
