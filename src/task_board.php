@@ -40,8 +40,13 @@
  */
 function plaatscrum_taskboard_ticket($id) {
 
-	/* output */	
-	global $user;
+	/* input */	
+	global $filter_project;
+	global $filter_sprint;
+	global $filter_status;
+	global $filter_prio;
+	global $filter_type;
+	global $filter_owner;
 	
 	$tmp1='';
 	$tmp2='';
@@ -55,8 +60,8 @@ function plaatscrum_taskboard_ticket($id) {
 	$query .= 'left join project d on a.project_id=d.project_id where a.deleted=0 and a.story_story_id='.$id.' ';	
 	$query .= 'and a.type!='.TYPE_STORY.' ';
 	
-	if ($user->owner > 0) {
-		$query .= 'and c.user_id='.$user->owner.' ';	
+	if ($filter_owner > 0) {
+		$query .= 'and c.user_id='.$filter_owner.' ';	
 	}	
 	
 	$query .= 'order by a.number';
@@ -130,8 +135,14 @@ function plaatscrum_taskboard_form() {
 	/* input */
 	global $mid;
 	global $pid;
-	global $user;
 	global $sort;
+	
+	global $filter_project;
+	global $filter_sprint;
+	global $filter_status;
+	global $filter_prio;
+	global $filter_type;
+	global $filter_owner;
 
 	/* output */
 	global $page;
@@ -142,14 +153,17 @@ function plaatscrum_taskboard_form() {
 	$query  = 'select a.story_id, a.type, a.number, a.summary, b.number as sprint_number, a.points, a.status, a.user_id, c.name ';
 	$query .= 'from story a left join sprint b on b.sprint_id=a.sprint_id left join tuser c on a.user_id=c.user_id ';
 	$query .= 'left join project d on a.project_id=d.project_id where a.deleted=0 and a.type='.TYPE_STORY.' ';	
-	$query .= 'and a.project_id='.$user->project_id.' ';	
+		
+	if ($filter_project>0) {
+		$query .= 'and a.project_id='.$filter_project.' ';	
+	}
 	
-	if ($user->owner>0) {
-		$query .= 'and c.user_id='.$user->owner.' ';	
+	if ($filter_owner>0) {
+		$query .= 'and c.user_id='.$filter_owner.' ';	
 	}	
 	
-	if ($user->sprint_id>0) {
-		$query .= 'and a.sprint_id='.$user->sprint_id.' ';	
+	if ($filter_sprint>0) {
+		$query .= 'and a.sprint_id='.$filter_sprint.' ';	
 	}
 
 	switch ($sort) {

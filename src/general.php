@@ -448,7 +448,7 @@ function plaatscrum_board_element($data) {
 	$page	.= '<label title="'.t('GENERAL_US').'">'.$data->number.'</label>';
 	$page .= '</td>';
 	$page .= '<td align="right">';
-	$page	.= '<label title="'.t('GENERAL_POINTS').'">'.number_format($data->points,1).'</label>';
+	$page	.= '<label title="'.t('GENERAL_POINTS').'">'.number_format($data->points,2).'</label>';
 	$page .= '</td>';
 		
 	$page .= '</tr>';

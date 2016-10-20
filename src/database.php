@@ -767,8 +767,8 @@ function plaatscrum_db_user_check($name) {
 
 function plaatscrum_db_user_insert($user_id, $name, $email, $role_id) {
 
-	$query  = 'insert into tuser (user_id, name, email, valid, role_id, project_id, sprint_id, menu_id, page_id, status, owner, prio, type, language) ';
-	$query .= 'values ('.$user_id.',"'.$name.'","'.plaatscrum_db_escape($email).'",0,'.$role_id.',0,0,0,0,"",0,"","",0)';
+	$query  = 'insert into tuser (user_id, name, email, valid, role_id, project_id, sprint_id, menu_id, page_id, language) ';
+	$query .= 'values ('.$user_id.',"'.$name.'","'.plaatscrum_db_escape($email).'",0,'.$role_id.',0,0,0,0,0)';
 			
 	plaatscrum_db_query($query);	
 }
@@ -784,10 +784,6 @@ function plaatscrum_db_user_update($user) {
 	$query .= 'sprint_id='.$user->sprint_id.', ';
 	$query .= 'menu_id='.$user->menu_id.', ';
 	$query .= 'page_id='.$user->page_id.', ';
-	$query .= 'status="'.$user->status.'", ';
-	$query .= 'owner='.$user->owner.', ';
-	$query .= 'prio="'.$user->prio.'", ';
-	$query .= 'type="'.$user->type.'", ';
 	$query .= 'language='.$user->language.' ';
 	$query .= 'where user_id='.$user->user_id; 
 	
@@ -810,7 +806,7 @@ function plaatscrum_db_user_email($email) {
 function plaatscrum_db_user($user_id) {
 	
 	$query  = 'select user_id, role_id, name, email, valid, project_id, sprint_id, menu_id, page_id, ';
-	$query .= 'status, owner, prio, type, language from tuser where user_id='.$user_id;	
+	$query .= 'language from tuser where user_id='.$user_id;	
 		
 	$result = plaatscrum_db_query($query);
 	$data = plaatscrum_db_fetch_object($result);
@@ -950,8 +946,7 @@ function plaatscrum_db_project_user($project_id, $user_id) {
 
 function plaatscrum_db_role($role_id) {
 	
-	$query  = 'select role_id, ';
-	$query .= 'project_edit, story_add, story_edit, story_delete, story_import, story_export ';
+	$query  = 'select role_id, project_edit, story_add, story_edit, story_delete, story_import, story_export ';
 	$query .= 'from role where role_id='.$role_id;	
 		
 	$result = plaatscrum_db_query($query);
@@ -975,7 +970,47 @@ function plaatscrum_db_cron_update($id) {
 	
 	plaatscrum_db_query($query);
 }
+
+/*
+** ---------------------
+** FILTER
+** ---------------------
+*/	
 	
+function plaatscrum_db_filter_update($data) {
+		
+	$query  = 'update filter set '; 
+	$query .= 'user_id='.$data->user_id.', ';		
+	$query .= 'project_id='.$data->project_id.', ';
+	$query .= 'page_id='.$data->page_id.', ';		
+	$query .= 'status="'.$data->status.'", ';		
+	$query .= 'prio="'.$data->prio.'", ';
+	$query .= 'type="'.$data->type.'", ';
+	$query .= 'owner='.$data->owner.' ';	
+	$query .= 'where filter_id='.$data->filter_id; 
+	
+	plaatscrum_db_query($query);
+}
+
+function plaatscrum_db_filter($user_id, $project_id, $page_id) {
+	
+	$query  = 'select filter_id, project_id, user_id, page_id, status, prio, type, owner from filter ';
+	$query .= 'where user_id='.$user_id.' and project_id='.$project_id.' and page_id='.$page_id;	
+		
+	$result = plaatscrum_db_query($query);
+	$data = plaatscrum_db_fetch_object($result);
+	
+	return $data;
+}
+
+function plaatscrum_db_filter_insert($user_id, $project_id, $page_id, $status, $prio, $type, $owner ) {
+
+	$query  = 'insert into filter ( user_id, project_id, page_id, status, prio, type, owner) values (';
+	$query .= $user_id.','.$project_id.','.$page_id.',"'.$status.'","'.$prio.'","'.$type.'",'.$owner.')';
+	
+	plaatscrum_db_query($query);
+}
+
 /*
 ** ---------------------
 ** THE END

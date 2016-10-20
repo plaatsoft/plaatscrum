@@ -45,6 +45,13 @@ function plaatscrum_home_form() {
 	global $access;	
 	global $sort;
 
+	global $filter_project;
+	global $filter_sprint;
+	global $filter_status;
+	global $filter_prio;
+	global $filter_type;
+	global $filter_owner;
+	
 	/* output */
 	global $page;
 	global $title;
@@ -65,24 +72,24 @@ function plaatscrum_home_form() {
 	$query .= 'left join sprint c on a.sprint_id=c.sprint_id ';
 	$query .= 'where a.user_id='.$user->user_id.' and a.deleted=0 and a.type!=1 ';	
 	
-	if ($user->project_id>0) {
-		$query .= 'and a.project_id='.$user->project_id.' ';	
+	if ($filter_project>0) {
+		$query .= 'and a.project_id='.$filter_project.' ';	
 	}
 	
-	if ($user->sprint_id>0) {
-		$query .= 'and a.sprint_id='.$user->sprint_id.' ';	
+	if ($filter_sprint>0) {
+		$query .= 'and a.sprint_id='.$filter_sprint.' ';	
 	}
 	
-	if (strlen($user->status)>0) {
-		$query .= 'and a.status in ('.$user->status.') ';
+	if (strlen($filter_status)>0) {
+		$query .= 'and a.status in ('.$filter_status.') ';
 	}
 	
-	if ($user->prio > 0) {
-		$query .= 'and a.prio in ('.$user->prio.') ';	
+	if ($filter_prio > 0) {
+		$query .= 'and a.prio in ('.$filter_prio.') ';	
 	}	
 	
-	if (strlen($user->type) > 0) {
-		$query .= 'and a.type in ('.$user->type.') ';	
+	if (strlen($filter_type) > 0) {
+		$query .= 'and a.type in ('.$filter_type.') ';	
 	} 
 	
 	switch ($sort) {

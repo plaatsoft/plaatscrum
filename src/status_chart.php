@@ -34,34 +34,41 @@
 ** ------------------
 */
 
-function plaatscrum_total_status( $status, $date=0 ) {
+function plaatscrum_total_status( $status) {
 
+	// input
 	global $user;
+	
+	global $filter_project;
+	global $filter_sprint;
+	global $filter_status;
+	global $filter_prio;
+	global $filter_type;
+	global $filter_owner;
 	
 	$total =0;
 	
-	$query = 'select sum(points) as points, count(story_id) as amount from story ';
-	$query .= 'where type in ('.TYPE_TASK.','.TYPE_BUG.','.TYPE_EPIC.') and ';
-	$query .= 'deleted=0 and project_id='.$user->project_id.' and sprint_id='.$user->sprint_id.' ';
+	$query =  'select sum(a.points) as points, count(a.story_id) as amount from story a ';
+	$query .= 'left join tuser c on a.user_id=c.user_id where a.type in ('.TYPE_TASK.','.TYPE_BUG.','.TYPE_EPIC.') and ';
+	$query .= 'a.deleted=0 and a.project_id='.$filter_project.' ';
 	
-	if ($status>0) {
-		$query .= 'and status='.$status.' ';
+	if ($filter_sprint>0) {
+		$query .= 'and a.sprint_id='.$filter_sprint.' ';	
 	}
 	
-	if ($date!=0) {
-		$query .= 'and CAST(`date` AS date)="'.convert_date_mysql($date).'"';
-	}	
+	if ($status>0) {
+		$query .= 'and a.status='.$status.' ';
+	}
 	
+	if ($filter_owner>0) {
+		$query .= 'and c.user_id='.$filter_owner.' ';	
+	}
+		
 	$result = plaatscrum_db_query($query);
 	if ($data=plaatscrum_db_fetch_object($result))	{
 		$total = $data->points;
 	}
 	
-	if ($total>100) {
-		$total = round($total,0);
-	} else {
-		$total = round($total,1);
-	}
 	return $total;
 }
 
@@ -88,23 +95,16 @@ function plaatscrum_status_chart_form() {
 		return;
 	}
 	
-	if ($user->sprint_id==0) {
-	
-		plaatscrum_ui_box("warning", t('CHART_NO_SPRINT_SELECTED'));
-		
-		return;
-	}
-	
 	$page .= t('CHART_STATUS');
 	
 	$data = array();
 	
-	$data = array( t('STATUS_1') => plaatscrum_total_status( STATUS_TODO ),
-						t('STATUS_2') => plaatscrum_total_status( STATUS_DOING ),
-						t('STATUS_3') => plaatscrum_total_status( STATUS_DONE ),
-						t('STATUS_4')  => plaatscrum_total_status( STATUS_SKIPPED ),
-						t('STATUS_5') => plaatscrum_total_status( STATUS_ONHOLD ), 
-						t('GENERAL_TOTAL') => plaatscrum_total_status( STATUS_ALL ) );
+	$data = array( t('STATUS_1') => number_format(plaatscrum_total_status( STATUS_TODO ),1),
+						t('STATUS_2') => number_format(plaatscrum_total_status( STATUS_DOING ),1),
+						t('STATUS_3') => number_format(plaatscrum_total_status( STATUS_DONE ),1),
+						t('STATUS_4')  => number_format(plaatscrum_total_status( STATUS_SKIPPED ),1),
+						t('STATUS_5') => number_format(plaatscrum_total_status( STATUS_ONHOLD ),1), 
+						t('GENERAL_TOTAL') => number_format(plaatscrum_total_status( STATUS_ALL ),1) );
 	
 	$graph = new PHPGraphLib();
 	$graph->init(950,500, 'images/graph2.png');

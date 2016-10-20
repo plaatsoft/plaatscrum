@@ -130,7 +130,7 @@ if ( $user_id == 0 ) {
 } else {
 
 	$user = plaatscrum_db_user($user_id);
-	$data = plaatscrum_db_project_user($user->project_id, $user_id);
+	$data = plaatscrum_db_project_user($user->project_id, $user->user_id);
 	
 	if (isset($data->role_id)) {
 		$access = plaatscrum_db_role($data->role_id);

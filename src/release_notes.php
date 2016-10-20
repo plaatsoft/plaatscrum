@@ -18,14 +18,16 @@
 
 $releasenotes = '
 
-<h2>18-10-2016 PlaatScrum v1.3</h2>
+<h2>22-10-2016 PlaatScrum v1.3</h2>
 <ul>
+<li>Filter settings are now persist per project and page.</li>
 <li>Added in multi select priority filter feature.</li>
 <li>Added in priority column to sprint  and product backlog.</li>
 <li>Added in calender sprint letter for each week that sprint takes.</li>
 <li>Added story sorting (asc/desc) on taskboard.</li>
 <li>Added current day is highlighted on calender.</li>
 <li>Redesign login page and page banner.</li>
+<li>Bugfix: Velocity chart is now showing correct values.</li>
 <li>Bugfix: Sprint locked column is now working again.</li>
 <li>Bugfix: Default value of story ref_id is now correctly set.</li>
 <li>Bugfix: Assign button on backlog form is now working again.</li>

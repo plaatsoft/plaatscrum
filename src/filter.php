@@ -25,11 +25,52 @@
 $filter_project = plaatscrum_post("filter_project", 0);
 $filter_sprint = plaatscrum_post("filter_sprint", 0);
 $filter_status = plaatscrum_multi_post("filter_status", "");
-$filter_owner = plaatscrum_post("filter_owner", 0);
 $filter_prio = plaatscrum_multi_post("filter_prio", "");
 $filter_type = plaatscrum_multi_post("filter_type", "");
+$filter_owner = plaatscrum_post("filter_owner", 0);
 $filter_month = plaatscrum_post("filter_month", date('m'));
 $filter_year = plaatscrum_post("filter_year", date('Y'));
+
+/*
+** ------------------
+** UTILS
+** ------------------
+*/
+
+function plaatscrum_load_filter() {
+
+	/* input */	
+	global $pid;
+	global $user;
+	
+	/* output */	
+	global $filter_project;
+	global $filter_sprint;
+	
+	global $filter_status;
+	global $filter_prio;
+	global $filter_type;
+	global $filter_owner;
+	
+	if ($filter_project==0) {
+		$filter_project = $user->project_id;
+	}
+	
+	if ($filter_sprint==0) {
+		$filter_sprint = $user->sprint_id;
+	}
+
+	
+	
+	$filter = plaatscrum_db_filter($user->user_id, $user->project_id, $pid);
+
+	if (isset($filter->filter_id)) {
+		$filter_status = $filter->status;
+		$filter_prio = $filter->prio;
+		$filter_type = $filter->type;
+		$filter_owner = $filter->owner;
+	}
+}
 
 /*
 ** ------------------
@@ -40,6 +81,8 @@ $filter_year = plaatscrum_post("filter_year", date('Y'));
 function plaatscrum_filter_do() {
 
 	/* input */	
+	global $pid;
+
 	global $filter_sprint;
 	global $filter_status;
 	global $filter_project;
@@ -59,14 +102,10 @@ function plaatscrum_filter_do() {
 	
 		$user->sprint_id = $filter_sprint;
 	}
-	$user->status = $filter_status;
-	$user->owner = $filter_owner;
-	$user->prio = $filter_prio;
-	$user->type = $filter_type;
 		
 	plaatscrum_db_user_update($user);
 	
-	/* Refresh access rights */
+	/* Refresh access rights if project change */
 	$data = plaatscrum_db_project_user($user->project_id, $user->user_id);
 	if (isset($data->role_id)) {
 		$access = plaatscrum_db_role($data->role_id);
@@ -74,6 +113,22 @@ function plaatscrum_filter_do() {
 		$access = plaatscrum_db_role(ROLE_GUEST);
 	}
 	
+	$filter = plaatscrum_db_filter($user->user_id, $filter_project, $pid);
+	
+	/* Store filter setting in database */
+	if (isset($filter->filter_id)) {
+	
+		$filter->status = $filter_status;
+		$filter->owner = $filter_owner;
+		$filter->prio = $filter_prio;
+		$filter->type = $filter_type;
+		
+		plaatscrum_db_filter_update($filter);
+		
+	} else {
+	
+		plaatscrum_db_filter_insert($user->user_id, $filter_project, $pid, $filter_status, $filter_prio, $filter_type, $filter_owner );
+	}
 }
 
 /*
@@ -82,43 +137,42 @@ function plaatscrum_filter_do() {
 ** ------------------
 */
 
-
 function plaatscrum_filter_project() {
 
 	/* input */
-	global $user;
+	global $filter_project;
 	
 	/* output */
 	global $page;
 		
 	$page	.= t('GENERAL_PROJECT').': ';
-	$page .= plaatscrum_ui_project('filter_project', $user->project_id, false);		
+	$page .= plaatscrum_ui_project('filter_project', $filter_project, false);		
 	$page .= ' ';
 }
 
 function plaatscrum_filter_sprint() {
 
 	/* input */
-	global $user;
+	global $filter_sprint;
 	
 	/* output */
 	global $page;
 
 	$page	.= t('GENERAL_SPRINT').': ';
-	$page .= plaatscrum_ui_sprint('filter_sprint', $user->sprint_id, false, true, false);		
+	$page .= plaatscrum_ui_sprint('filter_sprint', $filter_sprint, false, true, false);		
 	$page .= ' ';
 }
 
 function plaatscrum_filter_status() {
 
 	/* input */
-	global $user;
+	global $filter_status;
 	
 	/* output */
 	global $page;
 	
 	$page	.= t('GENERAL_STATUS').': ';
-	$page .= plaatscrum_ui_multi_status('filter_status', $user->status, false, true);		
+	$page .= plaatscrum_ui_multi_status('filter_status', $filter_status, false, true);		
 	$page .= ' ';
 }
 		
@@ -126,39 +180,39 @@ function plaatscrum_filter_status() {
 function plaatscrum_filter_owner() {
 
 	/* input */
-	global $user;
+	global $filter_owner;
 	
 	/* output */
 	global $page;
 	
 	$page	.= t('GENERAL_OWNER').': ';
-	$page .= plaatscrum_ui_project_user('filter_owner', $user->owner, false, true);		
+	$page .= plaatscrum_ui_project_user('filter_owner', $filter_owner, false, true);		
 	$page .= ' ';
 }
 	
 function plaatscrum_filter_prio() {
 
 	/* input */
-	global $user;
+	global $filter_prio;
 	
 	/* output */
 	global $page;
 	
 	$page	.= t('GENERAL_PRIO').': ';
-	$page .= plaatscrum_ui_multi_prio('filter_prio', $user->prio, false, true);		
+	$page .= plaatscrum_ui_multi_prio('filter_prio', $filter_prio, false, true);		
 	$page .= ' ';
 }
 
 function plaatscrum_filter_type() {
 
 	/* input */
-	global $user;
+	global $filter_type;
 	
 	/* output */
 	global $page;
 	
 	$page	.= t('GENERAL_TYPE').': ';
-	$page .= plaatscrum_ui_multi_type('filter_type', $user->type, false, true);		
+	$page .= plaatscrum_ui_multi_type('filter_type', $filter_type, false, true);		
 	$page .= ' ';	
 }
 
@@ -237,8 +291,7 @@ function plaatscrum_filter() {
 	global $pid;
 	global $sort;
 	
-	/* output */
-	
+	/* output */	
 	global $page;
 	
 	/* Event handler */
@@ -248,6 +301,8 @@ function plaatscrum_filter() {
 					plaatscrum_filter_do();
 					break;
 	}
+
+	plaatscrum_load_filter();
 	
 	$page .= '<div id="filter">';
 	
@@ -273,14 +328,19 @@ function plaatscrum_filter() {
 					plaatscrum_search();
 					break;
 							
-		case PAGE_STATUS_CHART: 
 		case PAGE_BURNDOWN_CHART:
 		case PAGE_VELOCITY_CHART: 	
 		case PAGE_COST: 
 					plaatscrum_filter_project();	
 					plaatscrum_filter_sprint();	
 					break;
-					
+										
+		case PAGE_STATUS_CHART: 
+					plaatscrum_filter_project();	
+					plaatscrum_filter_sprint();	
+					plaatscrum_filter_owner();
+					break;
+										
 		case PAGE_STATUSBOARD: 	
 		case PAGE_RESOURCEBOARD: 
 					plaatscrum_filter_project();	

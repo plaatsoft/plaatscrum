@@ -363,7 +363,7 @@ $lang['CHART_STATUS_TITLE'] = 'STATUS CHART';
 $lang['CHART_STATUS'] = 'The status chart shows remaining effort per status.';
 
 $lang['CHART_VELOCITY_TITLE'] = 'VELOCITY CHART';
-$lang['CHART_VELOCITY'] = 'The velocity chart shows velocity per work day.';
+$lang['CHART_VELOCITY'] = 'The velocity chart shows points/work velocity per sprint day. In total %s points/work is finished (status done, skipped or onhold)';
 
 $lang['CHART_NO_PROJECT_SELECTED'] = 'No sprint selected!';
 $lang['CHART_NO_SPRINT_SELECTED'] = 'No sprint selected!';

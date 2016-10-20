@@ -34,63 +34,27 @@
 ** ------------------
 */
 
-function plaatscrum_total_status( $status, $date=0 ) {
+function plaatscrum_total_points($date=0) {
 
 	global $user;
-	
-	$total =0;
-	
-	$query = 'select sum(points) as points, count(story_id) as amount from story ';
-	$query .= 'where type in ('.TYPE_TASK.','.TYPE_BUG.','.TYPE_EPIC.') and ';
+		
+	$query = 'select sum(points) as points from story ';
+	$query .= 'where type in ('.TYPE_BUG.','.TYPE_TASK.','.TYPE_EPIC.') and ';
+	$query .= 'status in ('.STATUS_DONE.','.STATUS_SKIPPED.','.STATUS_ONHOLD.') and ';
 	$query .= 'deleted=0 and project_id='.$user->project_id.' and sprint_id='.$user->sprint_id.' ';
-	
-	if ($status>0) {
-		$query .= 'and status='.$status.' ';
-	}
-	
+
 	if ($date!=0) {
-		$query .= 'and CAST(`date` AS date)="'.convert_date_mysql($date).'"';
+		$query .= 'and date="'.convert_date_mysql($date).'"';
 	}	
 	
 	$result = plaatscrum_db_query($query);
-	if ($data=plaatscrum_db_fetch_object($result))	{
+	$data=plaatscrum_db_fetch_object($result);
+
+	$total = 0;		
+	if (isset($data->points))	{
 		$total = $data->points;
 	}
-	
-	if ($total>100) {
-		$total = round($total,0);
-	} else {
-		$total = round($total,1);
-	}
 	return $total;
-}
-
-function plaatscrum_velocity_status( $date=0 ) {
-
-	global $user;
-	
-	$total =0;
-	
-	$query  = 'select sum(points) as points, count(story_id) as amount from story where ';
-	$query .= 'type in ('.TYPE_STORY.') and ';
-	$query .= 'deleted=0 and project_id='.$user->project_id.' and sprint_id='.$user->sprint_id.' ';
-	$query .= 'and status in ( '.STATUS_DONE.','.STATUS_SKIPPED.') ';
-	
-	if ($date!=0) {
-		$query .= 'and CAST(`date` AS date)="'.convert_date_mysql($date).'"';
-	}	
-	
-	$result = plaatscrum_db_query($query);
-	if ($data=plaatscrum_db_fetch_object($result))	{
-	
-		if ($data->amount>0) {
-			$total = $data->points / $data->amount;
-		} else {
-			$total = 0;
-		}
-	}
-		
-	return round($total,1);
 }
 
 function plaatscrum_velocity_chart_form() {
@@ -114,30 +78,26 @@ function plaatscrum_velocity_chart_form() {
 	if ($user->project_id==0) {
 	
 		plaatscrum_ui_box("warning", t('CHART_NO_PROJECT_SELECTED'));
-		
 		return;
 	}
 	
 	if ($user->sprint_id==0) {
 	
 		plaatscrum_ui_box("warning", t('CHART_NO_SPRINT_SELECTED'));
-		
 		return;
 	}
 	
-	$page .= t('CHART_VELOCITY');
+	$total = plaatscrum_total_points();
 	
-	$total = plaatscrum_total_status( STATUS_ALL );
+	$page .= t('CHART_VELOCITY', number_format($total,1));
 	
 	$matrix1 = array();
-	$matrix2 = array();
+
 	
 	/* Get all workdays form selected sprint */
 	$data = plaatscrum_db_sprint($user->sprint_id);
 	$diff = strtotime($data->end_date) - strtotime($data->start_date);
-	$days = floor($diff /60/60/24);
-	
-	$average = plaatscrum_velocity_status();
+	$days = ceil($diff /60/60/24);
 	
 	for ($day=0; $day<=$days; $day++) {
  
@@ -147,15 +107,14 @@ function plaatscrum_velocity_chart_form() {
 			continue;
 		}
 		
-		$value = plaatscrum_velocity_status(date('d-m-Y', $date));
-				
-		$matrix1[date('d-m',$date)] = $value;
-		$matrix2[date('d-m',$date)] = $average;
+		$value = plaatscrum_total_points(date('d-m-Y', $date));
+	
+		$matrix1[date('d-m',$date)] = number_format($value,1);
 	}
 	
 	$graph = new PHPGraphLib();
 	$graph->init(950, 500, 'images/graph3.png');
-	$graph->addData($matrix1, $matrix2);
+	$graph->addData($matrix1);
 
 	$graph->setBars(false);
 	$graph->setLine(true);
@@ -177,7 +136,6 @@ function plaatscrum_velocity_chart_form() {
 	$graph->setDataPointColor('red');
 	
 	$graph->setLegendTitle(t('GENERAL_DAILY'), t('GENERAL_AVERAGE'));
-		
 	$graph->createGraph();
 	
 	$page .= '<img src="image.php?img=graph3.png" alt="" />';

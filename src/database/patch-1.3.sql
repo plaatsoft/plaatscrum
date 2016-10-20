@@ -15,6 +15,21 @@
 --
 
 UPDATE config SET value="1.3" WHERE token = "database_version";
-UPDATE config SET value="(Build 18-10-2016)" WHERE token = "build_number";
+UPDATE config SET value="(Build 22-10-2016)" WHERE token = "build_number";
 
-ALTER TABLE `tuser` CHANGE `prio` `prio` VARCHAR(20) NOT NULL;
+ALTER TABLE tuser DROP status;
+ALTER TABLE tuser DROP owner;
+ALTER TABLE tuser DROP prio;
+ALTER TABLE tuser DROP type;
+
+CREATE TABLE `filter` (
+  `filter_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `project_id` int(11) NOT NULL,
+  `page_id` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `prio` varchar(20) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `owner` int(11) NOT NULL
+  PRIMARY KEY (`filter_id`),
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;

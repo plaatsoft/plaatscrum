@@ -65,15 +65,21 @@ function draw_stories( $date ) {
 	global $pid;
 	global $user;
 	global $access;
-	global $user;
-
+	
+	global $filter_project;
+	global $filter_sprint;
+	global $filter_status;
+	global $filter_prio;
+	global $filter_type;
+	global $filter_owner;
+	
 	$count = 0;	
 	$page = "";
 
 	/* Add Sprint information - if any */
 	$query  = 'select number as sprint_number, start_date from sprint where ';
 	$query .= '"'.convert_date_mysql($date).' " between start_date and end_date ';
-	$query .= 'and project_id='.$user->project_id.' and deleted=0';
+	$query .= 'and project_id='.$filter_project.' and deleted=0';
 			
 	$result = plaatscrum_db_query($query);
 	$data = plaatscrum_db_fetch_object($result);
@@ -87,16 +93,16 @@ function draw_stories( $date ) {
 	/* Add Story / Task / Bug / Epic information - if any */
 	$query  = 'select a.story_id, a.number, b.number as sprint_number, b.start_date ';
 	$query .= 'from story a left join sprint b on a.sprint_id=b.sprint_id ';
-	$query .= 'where a.deleted=0 and b.deleted=0 and a.project_id='.$user->project_id.' ';
+	$query .= 'where a.deleted=0 and b.deleted=0 and a.project_id='.$filter_project.' ';
 	
-	if (strlen($user->status)>0) {
-		$query .= 'and a.status in ('.$user->status.') ';
+	if (strlen($filter_status)>0) {
+		$query .= 'and a.status in ('.$filter_status.') ';
 	}
 	
-	if (strlen($user->type) > 0) {
-		$query .= 'and a.type in ('.$user->type.') ';	
+	if (strlen($filter_type) > 0) {
+		$query .= 'and a.type in ('.$filter_type.') ';	
 	}
-	$query .= 'and CAST(`date` AS date)="'.convert_date_mysql($date).'"';
+	$query .= 'and date="'.convert_date_mysql($date).'"';
 	$result = plaatscrum_db_query($query);
 	
 	$count2 = 0;

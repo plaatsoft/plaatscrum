@@ -49,6 +49,13 @@ function plaatscrum_backlog_form() {
 	global $search;
 	global $sort;
 	
+	global $filter_project;
+	global $filter_sprint;
+	global $filter_status;
+	global $filter_prio;
+	global $filter_type;
+	global $filter_owner;
+	
 	/* output */
 	global $page;
 	global $title;
@@ -68,27 +75,30 @@ function plaatscrum_backlog_form() {
 	$query .= 'if(a.story_story_id=0,a.story_id, a.story_story_id) as sort2 ';
 	$query .= 'from story a left join project b on a.project_id=b.project_id left join tuser c on a.user_id=c.user_id ';
 	$query .= 'left join sprint d on d.sprint_id=a.sprint_id where a.deleted=0 and d.deleted=0 ';
-	$query .= 'and a.project_id='.$user->project_id.' ';	
 		
-	if ($user->sprint_id > 0) {
-		$query .= 'and a.sprint_id='.$user->sprint_id.' ';	
+	if ($filter_project>0) {
+		$query .= 'and a.project_id='.$filter_project.' ';	
 	}
 	
-	if (strlen($user->status)>0) {
-		$query .= 'and a.status in ('.$user->status.') ';	
+	if ($filter_sprint>0) {
+		$query .= 'and a.sprint_id='.$filter_sprint.' ';	
+	}
+	
+	if ($filter_owner>0) {
+		$query .= 'and c.user_id='.$filter_owner.' ';	
+	}
+	
+	if (strlen($filter_status)>0) {
+		$query .= 'and a.status in ('.$filter_status.') ';
+	}
+	
+	if ($filter_prio > 0) {
+		$query .= 'and a.prio in ('.$filter_prio.') ';	
 	}	
 	
-	if ($user->owner > 0) {
-		$query .= 'and c.user_id='.$user->owner.' ';	
-	}	
-	
-	if ($user->prio > 0) {
-		$query .= 'and a.prio in ('.$user->prio.') ';	
-	}	
-	
-	if ($user->type > 0) {
-		$query .= 'and a.type in ('.$user->type.') ';	
-	}	
+	if (strlen($filter_type) > 0) {
+		$query .= 'and a.type in ('.$filter_type.') ';	
+	} 
 	
 	if ((strlen($search)>0) && ($search!=t('HELP'))) {
 		$query .= 'and a.summary LIKE "%'.$search.'%" ';	
