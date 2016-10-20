@@ -612,7 +612,7 @@ h2, h3, h4, h5, h6{
 #header .fl_left{
 	display:block;
 	float:left;
-	width:400px;
+	width:500px;
 	}
 
 #header .fl_left h1, #header .fl_left p{
