@@ -42,7 +42,7 @@ function plaatscrum_cron_backup() {
 	plaatscrum_info('Remove old backup file '.$filename);
 	@unlink($filename);			
 	
-	$filename = 'backup/scrumboard-'.date("Ymd").'.sql';
+	$filename = '/var/www/html/plaatscrum/backup/scrumboard-'.date("Ymd").'.sql';
 	
 	/* Create new database backup file */
 	$backupFile = 'database_backup_'.date("YmdHis").'.sql';
