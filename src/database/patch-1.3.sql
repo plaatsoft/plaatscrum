@@ -22,7 +22,7 @@ ALTER TABLE tuser DROP owner;
 ALTER TABLE tuser DROP prio;
 ALTER TABLE tuser DROP type;
 
-CREATE TABLE `filter` (
+CREATE TABLE filter (
   `filter_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `project_id` int(11) NOT NULL,
@@ -30,6 +30,6 @@ CREATE TABLE `filter` (
   `status` varchar(20) NOT NULL,
   `prio` varchar(20) NOT NULL,
   `type` varchar(20) NOT NULL,
-  `owner` int(11) NOT NULL
-  PRIMARY KEY (`filter_id`),
+  `owner` int(11) NOT NULL,
+  PRIMARY KEY (`filter_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
