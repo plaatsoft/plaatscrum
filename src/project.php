@@ -65,7 +65,7 @@ function plaatscrum_project_user_assign_do() {
 	}
 	
 	plaatscrum_ui_box('info', t('PROJECT_USER_ASSIGN'));
-	plaatscrum_info($user->name.' ['.$user->user_id.'] user ['.$user_id.'] assigned to project ['.$user->project_id.']');
+	plaatscrum_info('user assigned to project ['.$user->project_id.']');
 		
 	$pid = PAGE_PROJECT_FORM;
 	$id = $user->project_id;
@@ -89,7 +89,7 @@ function plaatscrum_project_user_drop_do() {
 		plaatscrum_db_project_user_delete($user->project_id, $user_id);
 		
 		plaatscrum_ui_box('info', t('PROJECT_USER_DROP'));
-		plaatscrum_info($user->name.' ['.$user->user_id.'] user ['.$user_id.'] dropped to project ['.$user->project_id.']');
+		plaatscrum_info('user deassigned from project ['.$user->project_id.']');
 	}
 	
 	$pid = PAGE_PROJECT_FORM;
@@ -143,7 +143,7 @@ function plaatscrum_project_save_do() {
 		}
 		
 		plaatscrum_ui_box('info', t('PROJECT_SAVED'));
-		plaatscrum_info($user->name.' ['.$user->user_id.'] project ['.$id.'] saved!');	
+		plaatscrum_info('project ['.$id.'] saved');	
 	} 
 }
 
@@ -162,7 +162,7 @@ function plaatscrum_project_delete_do() {
 		plaatscrum_db_project_delete($id);
 
 		plaatscrum_ui_box('info', t('PROJECT_DELETED'));
-		plaatscrum_info($user->name.' ['.$user->user_id.'] project ['.$id.'] deleted');
+		plaatscrum_info('project ['.$id.'] deleted');
 	} 
 }
 

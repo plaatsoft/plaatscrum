@@ -83,7 +83,7 @@ function plaatscrum_user_hack_do() {
 	$message = t('USER_HACK', $data->name, $id);
 	plaatscrum_ui_box('info', $message);
 	
-	plaatscrum_info('info', $message);
+	plaatscrum_info($message);
 }
 
 function plaatscrum_user_save_do() {
@@ -164,7 +164,7 @@ function plaatscrum_user_save_do() {
 		}
 		
 		plaatscrum_ui_box('info', t('USER_SAVED'));
-		plaatscrum_info($user->name.' ['.$user->user_id.'] save user settings ['.$id.']');
+		plaatscrum_info('user ['.$id.'] saved');
 		
 		/* Data ok, goto to previous form */		
 		if ($user->role_id==ROLE_ADMINISTRATOR) {
@@ -212,7 +212,7 @@ function plaatscrum_user_delete_do() {
 		plaatscrum_db_member_update($data);
 
 		plaatscrum_ui_box('info', t('USER_DELETED'));
-		plaatscrum_info($user->name.' ['.$user->user_id.'] delete user ['.$id.']');
+		plaatscrum_info('user ['.$id.'] deleted');
 		
 		/* Goto to previous form */		
 		if ($user->role_id==ROLE_ADMINISTRATOR) {

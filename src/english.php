@@ -91,6 +91,8 @@ $lang['LINK_HERE'] = 'here';
 $lang['LINK_HACK'] = 'Hack';
 $lang['LINK_PREV_MONTH'] = 'Previous Month';
 $lang['LINK_NEXT_MONTH'] = 'Next Month';
+$lang['LINK_BACKUPS'] = 'Backups';
+$lang['LINK_BACKUP'] = 'Backup';
 
 /*
 ** ------------------
@@ -166,9 +168,10 @@ $lang['GENERAL_BCR'] = 'Cost Rate';
 $lang['GENERAL_LOCKED'] = 'Locked';
 $lang['GENERAL_EURO'] = 'Euro';
 $lang['GENERAL_PRIORITY'] = 'Priority';
-
 $lang['GENERAL_REQUIRED_FIELD'] = '* Required field'; 
-
+$lang['GENERAL_FILENAME'] = 'Filename';
+$lang['GENERAL_FILESIZE'] = 'Filesize';
+$lang['GENERAL_TIMESTAMP'] = 'Timestamp';
 
 $lang['GENERAL_0'] = 'No';
 $lang['GENERAL_1'] = 'Yes';
@@ -398,29 +401,6 @@ $lang['SETTING_SAVED'] = 'Settings saved!';
 
 /*
 ** ------------------
-** SETTINGS - USER
-** ------------------
-*/
-
-$lang['USERS_TITLE'] = 'USERS';
-
-$lang['USER_TITLE'] = 'USER';
-
-$lang['USER_TEXT'] = 'Currently the following users are active:';
-$lang['USER_SAVED'] = 'User saved!';
-$lang['USER_FAILED'] = 'User data failed!';
-$lang['USER_DELETED'] = 'User deleted';
-$lang['USER_DELETE_CONFIRM'] = 'Are you sure?';
-
-$lang['USER_EMAIL_VALID1'] = 'Your email address is validated!';
-$lang['USER_EMAIL_VALID2'] = 'This email address is validated!';
-$lang['USER_EMAIL_CONFIRM_SENT'] = 'Confirm email sent!'; 
-$lang['USER_EMAIL_CONFIRM_NEEDED'] = 'Please confirm your email address by clicking %s!';
-
-$lang['USER_HACK'] = 'Take over user %s [%s] session!';
-
-/*
-** ------------------
 ** SETTING - PROJECT
 ** ------------------
 */
@@ -460,6 +440,40 @@ $lang['RELEASE_DELETE_CONFIRM'] = 'Are you sure you want to delete this release?
 $lang['RELEASE_NAME_NOT_SET'] = 'Release name not set!';
 $lang['RELEASE_NAME_ALREADY_USED'] = 'Release name already used';
 $lang['RELEASE_USED_IN_SPRINT'] = 'Release is used in sprint. Delete aborted!';
+
+/*
+** ------------------
+** SETTINGS - USER
+** ------------------
+*/
+
+$lang['USERS_TITLE'] = 'USERS';
+
+$lang['USER_TITLE'] = 'USER';
+
+$lang['USER_TEXT'] = 'Currently the following users are active:';
+$lang['USER_SAVED'] = 'User saved!';
+$lang['USER_FAILED'] = 'User data failed!';
+$lang['USER_DELETED'] = 'User deleted';
+$lang['USER_DELETE_CONFIRM'] = 'Are you sure?';
+
+$lang['USER_EMAIL_VALID1'] = 'Your email address is validated!';
+$lang['USER_EMAIL_VALID2'] = 'This email address is validated!';
+$lang['USER_EMAIL_CONFIRM_SENT'] = 'Confirm email sent!'; 
+$lang['USER_EMAIL_CONFIRM_NEEDED'] = 'Please confirm your email address by clicking %s!';
+
+$lang['USER_HACK'] = 'Take over user %s [%s] session!';
+
+/*
+** ------------------
+** SETTINGS - BACKUP
+** ------------------
+*/
+
+$lang['BACKUP_TITLE'] = 'BACKUPS';
+
+$lang['BACKUP_CONTENT'] = 'Currently the following mysql backups are available:';
+
 
 /*
 ** ------------------

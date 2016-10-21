@@ -190,7 +190,7 @@ function plaatscrum_login_do() {
 	if ($user_id == 0) {
 	
 		plaatscrum_ui_box('warning', t('LOGIN_FAILED'));
-		plaatscrum_info("Login [".$username."] failed!");
+		plaatscrum_warn("Login [".$username."] failed!");
 	
 	} else { 
 		
@@ -215,7 +215,7 @@ function plaatscrum_login_do() {
 		$pid = PAGE_HOME;	
 		//$page = "";
 		
-		plaatscrum_info('Login '.$user->name.' ['.$user->user_id.']');
+		plaatscrum_info('Login succesfull');
 	} 
 }
 
@@ -226,7 +226,7 @@ function plaatscrum_logout_do() {
 	global $user;
 	global $access;
 	
-	plaatscrum_info('Logout '.$user->name.' ['.$user->user_id.']');
+	plaatscrum_info('Logout successfull');
 	
 	plaatscrum_ui_box('info', t('LOGIN_LOGOUT'));
 	

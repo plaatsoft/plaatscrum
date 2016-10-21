@@ -227,7 +227,7 @@ function plaatscrum_story_assign_do() {
 		$link = plaatscrum_link('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$story->story_id, $story->number);
 		
 		plaatscrum_ui_box("info", t('STORY_ASSIGN', t('TYPE_'.$story->type), $link));
-		plaatscrum_info($user->name.' ['.$user->user_id.'] assign story '.$id);		
+		plaatscrum_info('story ['.$id.'] assigned');		
 	}
 }
 
@@ -271,7 +271,7 @@ function plaatscrum_story_drop_do() {
 		$link = plaatscrum_link('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$story->story_id, $story->number);
 		
 		plaatscrum_ui_box("info", t('STORY_DROPPED', t('TYPE_'.$data->type), $link));	
-		plaatscrum_info($user->name.' ['.$user->user_id.'] drop story '.$id);
+		plaatscrum_info('story ['.$id.'] deassigned');
 	}
 }
 
@@ -391,7 +391,7 @@ function plaatscrum_story_save_do() {
 		$link = plaatscrum_link('mid='.$mid.'&pid='.PAGE_STORY.'&eid='.EVENT_STORY_LOAD.'&id='.$id, $data->number);
 	
 		plaatscrum_ui_box("info", t('STORY_SAVED', t('TYPE_'.$data->type), $link));	
-		plaatscrum_info($user->name.' ['.$user->user_id.'] save story '.$id);
+		plaatscrum_info('story ['.$id.'] saved');
 		
 		$mid = $user->menu_id;		
 		$pid = $user->page_id;		
@@ -424,7 +424,7 @@ function plaatscrum_story_delete_do() {
 			}
 				
 			plaatscrum_ui_box("info", t('STORY_DELETED', t('TYPE_'.$data->type), $data->number));
-			plaatscrum_info($user->name.' ['.$user->user_id.'] delete story '.$id);
+			plaatscrum_info('story ['.$id.'] deleted');
 			
 			$mid = $user->menu_id;		
 			$pid = $user->page_id;

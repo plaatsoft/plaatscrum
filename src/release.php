@@ -78,7 +78,7 @@ function plaatscrum_release_save_do() {
 		}
 		
 		plaatscrum_ui_box('info', t('RELEASE_SAVED'));
-		plaatscrum_info($user->name.' ['.$user->user_id.'] save release '.$id);
+		plaatscrum_info('release ['.$id.'] saved');
 		
 		/* return parameters for project view */
 		$pid=PAGE_PROJECT_FORM;
@@ -117,7 +117,7 @@ function plaatscrum_release_delete_do() {
 		plaatscrum_db_release_delete($id);
 
 		plaatscrum_ui_box('info', t('RELEASE_DELETED'));
-		plaatscrum_info($user->name.' ['.$user->user_id.'] delete release '.$id);
+		plaatscrum_info('release ['.$id.'] deleted');
 		
 		/* return parameters for project view */
 		$pid=PAGE_PROJECT_FORM;

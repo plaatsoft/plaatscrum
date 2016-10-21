@@ -20,6 +20,7 @@ $releasenotes = '
 
 <h2>22-10-2016 PlaatScrum v1.3</h2>
 <ul>
+<li>Move event logging to database. More secure!</li>
 <li>Filter settings are now persist per project and page.</li>
 <li>Added in multi select priority filter feature.</li>
 <li>Added in priority column to sprint  and product backlog.</li>
@@ -27,6 +28,7 @@ $releasenotes = '
 <li>Added story sorting (asc/desc) on taskboard.</li>
 <li>Added current day is highlighted on calender.</li>
 <li>Redesign login page and page banner.</li>
+<li>Admin user can now manage SQL database backup in the Web GUI.</li>
 <li>Bugfix: Velocity chart is now showing correct values.</li>
 <li>Bugfix: Sprint locked column is now working again.</li>
 <li>Bugfix: Default value of story ref_id is now correctly set.</li>

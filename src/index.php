@@ -34,8 +34,6 @@ include "cron.php";
 ** ---------------------------------------------------------------- 
 */
 
-plaatscrum_debug('-----------------');
-
 $page = "";
 $title = "";
 $user = "";
@@ -322,6 +320,10 @@ switch ($pid) {
 				plaatscrum_project();
 				break;
 				
+	case PAGE_BACKUP:
+				include "backup.php";	
+				plaatscrum_backup();			
+				
 	// ---------------------------------------- //
 	
 	case PAGE_INSTRUCTIONS:
@@ -392,9 +394,6 @@ if ($eid!=EVENT_EXPORT) {
 	$time = round($time*1000);
 
 	echo plaatscrum_ui_footer($time, plaatscrum_db_count() );
-	
-	plaatscrum_debug('Page render time = '.$time.' ms.');
-	plaatscrum_debug('Amount of queries = '.plaatscrum_db_count());
 }
 
 plaatscrum_db_close();

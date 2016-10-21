@@ -33,3 +33,14 @@ CREATE TABLE filter (
   `owner` int(11) NOT NULL,
   PRIMARY KEY (`filter_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+CREATE TABLE log (
+  `log_id` int(11) NOT NULL AUTO_INCREMENT,  
+  `timestamp` datetime NOT NULL,
+  `user_id` int(11) NULL,
+  `address` varchar(200) NULL,  
+  `category` int(11) NULL,
+  `description` varchar(250) NOT NULL,
+  PRIMARY KEY (`log_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+

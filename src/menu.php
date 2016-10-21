@@ -174,16 +174,20 @@ function plaatscrum_main_menu() {
 		$menu .= plaatscrum_link('mid='.MENU_SETTINGS.'&pid='.PAGE_GENERAL, t('LINK_GENERAL'));
 		$menu .= '</li>';
 	
+		$menu .= '<li>';
+		$menu .= plaatscrum_link('mid='.MENU_SETTINGS.'&pid='.PAGE_PROJECTLIST_FORM, t('LINK_PROJECTS'));
+		$menu .= '</li>';
+		
 		if ($user->role_id==ROLE_ADMINISTRATOR) {
 			$menu .= '<li>';
 			$menu .= plaatscrum_link('mid='.MENU_SETTINGS.'&pid='.PAGE_USERLIST, t('LINK_USERS'));
 			$menu .= '</li>';
+			
+			$menu .= '<li>';
+			$menu .= plaatscrum_link('mid='.MENU_SETTINGS.'&pid='.PAGE_BACKUP, t('LINK_BACKUPS'));
+			$menu .= '</li>';
 		}
 		
-		$menu .= '<li>';
-		$menu .= plaatscrum_link('mid='.MENU_SETTINGS.'&pid='.PAGE_PROJECTLIST_FORM, t('LINK_PROJECTS'));
-		$menu .= '</li>';
-				
 		$menu .= '</ul>';
 	
 	/* -----------------*/

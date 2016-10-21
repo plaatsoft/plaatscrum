@@ -439,13 +439,8 @@ function plaatscrum_db_history_insert($story_id, $user_id, $status_old, $status_
 
 	if ($story_id>0) {
 			
-		plaatscrum_db_query($query);		
-	
-	} else {
-	
-		$message = $query.' inserting entry in history table with story_id=0 is not allowed!';
-		plaatscrum_error($message);	
-	}
+		plaatscrum_db_query($query);			
+	} 
 }
 
 function plaatscrum_db_history($history_id) {
@@ -922,7 +917,8 @@ function plaatscrum_db_project_user_update($data) {
 
 function plaatscrum_db_project_user_insert($project_id, $user_id, $role_id, $bcr) {
 
-	$query  = 'insert into project_user (project_id, user_id, role_id, bcr) values ('.$project_id.','.$user_id.','.$role_id.','.$bcr.')';
+	$query  = 'insert into project_user (project_id, user_id, role_id, bcr) values ';
+	$query .= '('.$project_id.','.$user_id.','.$role_id.','.$bcr.')';
 			
 	plaatscrum_db_query($query);
 }
@@ -1007,6 +1003,21 @@ function plaatscrum_db_filter_insert($user_id, $project_id, $page_id, $status, $
 
 	$query  = 'insert into filter ( user_id, project_id, page_id, status, prio, type, owner) values (';
 	$query .= $user_id.','.$project_id.','.$page_id.',"'.$status.'","'.$prio.'","'.$type.'",'.$owner.')';
+	
+	plaatscrum_db_query($query);
+}
+
+/*
+** ---------------------
+** LOG
+** ---------------------
+*/	
+
+function plaatscrum_db_log_insert($user_id, $category, $description ) {
+
+	$query  = 'insert into log ( timestamp, user_id, category, address, description) values (';
+	$query .= '"'.date("Y-m-d H:i:s").'",'.$user_id.','.$category.',"'.$_SERVER["REMOTE_ADDR"];
+	$query .= '","'.plaatscrum_db_escape($description).'")';
 	
 	plaatscrum_db_query($query);
 }

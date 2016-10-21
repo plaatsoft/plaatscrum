@@ -192,17 +192,17 @@ function plaatscrum_export_do() {
 		
 		case 0: 
 				plaatscrum_export_csv_do($result);
-				plaatscrum_info($user->name.' ['.$user->user_id.'] csv export project ['.$user->project_id.']');
+				plaatscrum_info('csv export project ['.$user->project_id.']');
 				break;
 				
 		case 1: 
 				plaatscrum_export_xml_do($result);
-				plaatscrum_info($user->name.' ['.$user->user_id.'] xml export project ['.$user->project_id.']');
+				plaatscrum_info('xml export project ['.$user->project_id.']');
 				break;		
 				
 		case 2: 
 				plaatscrum_export_json_do($result);
-				plaatscrum_info($user->name.' ['.$user->user_id.'] json export project ['.$user->project_id.']');
+				plaatscrum_info('json export project ['.$user->project_id.']');
 				break;
 	}
 }

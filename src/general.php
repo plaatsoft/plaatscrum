@@ -41,6 +41,11 @@ define("TYPE_BUG", 2);
 define("TYPE_TASK", 3);
 define("TYPE_EPIC", 4);
 
+define("CATEGORY_INFO", 1);
+define("CATEGORY_DEBUG", 2);
+define("CATEGORY_ERROR", 3);
+define("CATEGORY_WARN", 4);
+
 define('STATUS_ALL', 0);
 define('STATUS_NEW', 0);
 define('STATUS_NONE', 0);
@@ -95,6 +100,7 @@ define('PAGE_PROJECT_USER_ASSIGN', 227);
 define('PAGE_VELOCITY_CHART', 228);
 define('PAGE_BACKLOG_EXPORT', 229);
 define('PAGE_BACKLOG_IMPORT', 230);
+define('PAGE_BACKUP', 231);
 
 define("EVENT_NONE", 300);
 define("EVENT_LOGIN", 301);
@@ -131,6 +137,8 @@ define("EVENT_SETTING_SAVE", 331);
 define("EVENT_EMAIL_CONFIRM", 332);
 define("EVENT_NEXT", 333);
 define("EVENT_PREV", 334);
+define("EVENT_DELETE", 335);
+define("EVENT_BACKUP", 336);
 
 /*
 ** ---------------------------------------------------------------- 
@@ -221,47 +229,52 @@ function plaatscrum_user_log($player, $text) {
 	fclose($fp);		
 }
 
-function plaatscrum_write_file($type, $text) {
-
-	/* input */
-	global $player;
-	global $other;
-	
-	$message = udate('d-m-Y H:i:s:u').' ['.$_SERVER["REMOTE_ADDR"];
-	
-	if (isset($player)) {
-		$message .= '|'.$player->pid;
-	}
-	
-	if (isset($other)) {
-		$message .= '|'.$other->pid;
-	}
-	
-	$message .= '] '.$type.' '.$text."\r\n";
-	$message = str_replace('<br/>', " ", $message); 
-	
-	$myFile = 'log/scrumboard-'.date('Ymd').'.log';
-	$fp = fopen($myFile, 'a');	
-	fwrite($fp, $message);
-	fclose($fp);		
-}
-
 function plaatscrum_info($text) {
 
-	plaatscrum_write_file('INFO', $text);
+	global $user;
+	
+	$user_id = 0;
+	if (isset($user->user_id)) {
+		$user_id = $user->user_id;
+	}
+
+	plaatscrum_db_log_insert($user_id, CATEGORY_INFO, $text );
 }
 
 function plaatscrum_error($text) {
 	
-	plaatscrum_write_file('ERROR', $text);	
+		global $user;
+	
+	$user_id = 0;
+	if (isset($user->user_id)) {
+		$user_id = $user->user_id;
+	}
+
+	plaatscrum_db_log_insert($user_id, CATEGORY_ERROR, $text );
 }
 
 function plaatscrum_debug($text) {
 	
-	if (DEBUG == 1 ) {
-		
-		plaatscrum_write_file('DEBUG', $text); 
+	global $user;
+	
+	$user_id = 0;
+	if (isset($user->user_id)) {
+		$user_id = $user->user_id;
 	}
+
+	plaatscrum_db_log_insert($user_id, CATEGORY_DEBUG, $text );
+}
+
+function plaatscrum_warn($text) {
+	
+	global $user;
+	
+	$user_id = 0;
+	if (isset($user->user_id)) {
+		$user_id = $user->user_id;
+	}
+
+	plaatscrum_db_log_insert($user_id, CATEGORY_WARN, $text );
 }
 
 /*

@@ -237,7 +237,7 @@ function plaatscrum_import_do() {
 			unlink($_FILES['file']['tmp_name']);			
 			
 			plaatscrum_ui_box('info', t('IMPORT_SUCCESSFULL', ($row-$skipped), $insert, $update));
-			plaatscrum_info($user->name.' ['.$user->user_id.'] import to project ['.$user->project_id.'] insert='.$insert.' update='.$update);
+			plaatscrum_info('import to project ['.$user->project_id.'] insert='.$insert.' update='.$update);
 		} 					
 	}
 }
