@@ -101,6 +101,7 @@ define('PAGE_VELOCITY_CHART', 228);
 define('PAGE_BACKLOG_EXPORT', 229);
 define('PAGE_BACKLOG_IMPORT', 230);
 define('PAGE_BACKUP', 231);
+define('PAGE_EVENT', 232);
 
 define("EVENT_NONE", 300);
 define("EVENT_LOGIN", 301);
@@ -199,35 +200,6 @@ function t() {
 ** TRACING
 ** ----------------------------------------------------------------
 */
-
-function udate($format, $utimestamp = null) {
-	if (is_null($utimestamp)) {
-		$utimestamp = microtime(true);
-	}
-
-	$timestamp = floor($utimestamp);
-	$milliseconds = round(($utimestamp - $timestamp) * 1000000);
-
-	return date(preg_replace('`(?<!\\\\)u`', $milliseconds, $format), $timestamp);
-}
-
-function plaatscrum_user_log($player, $text) {
-	
-	$message  = udate('d-m-Y H:i:s:u');		
-	$message .= ' [';
-	$message .= number_format2($player->money).'|';
-	$message .= number_format2($player->bank1).'|';
-	$message .= number_format2($player->bank2).'|';
-	$message .= number_format2($player->bank3);	
-	$message .= '] ';
-	$message .= $text;
-	$message .= "\r\n";
-	
-	$myFile = 'user/'.$player->pid.'.log';
-	$fp = fopen($myFile, 'a');	
-	fwrite($fp, $message);
-	fclose($fp);		
-}
 
 function plaatscrum_info($text) {
 

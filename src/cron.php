@@ -86,7 +86,6 @@ function plaatscrum_backup_event() {
 	
 	/* Create new database backup file */
 	$command = $dump.' --user='.$config["dbuser"].' --password='.$config["dbpass"].' --host='.$config["dbhost"].' '.$config["dbname"].' > '.$filename;
-	plaatscrum_info($command);
 	system($command);
 	
 	$message = 'Create new backup file '.$filename.'<br/>';

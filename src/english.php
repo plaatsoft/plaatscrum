@@ -93,6 +93,7 @@ $lang['LINK_PREV_MONTH'] = 'Previous Month';
 $lang['LINK_NEXT_MONTH'] = 'Next Month';
 $lang['LINK_BACKUPS'] = 'Backups';
 $lang['LINK_BACKUP'] = 'Backup';
+$lang['LINK_EVENTS'] = 'Events';
 
 /*
 ** ------------------
@@ -172,6 +173,7 @@ $lang['GENERAL_REQUIRED_FIELD'] = '* Required field';
 $lang['GENERAL_FILENAME'] = 'Filename';
 $lang['GENERAL_FILESIZE'] = 'Filesize';
 $lang['GENERAL_TIMESTAMP'] = 'Timestamp';
+$lang['GENERAL_CATEGORY'] = 'Category';
 
 $lang['GENERAL_0'] = 'No';
 $lang['GENERAL_1'] = 'Yes';
@@ -235,6 +237,11 @@ $lang['DAY_3'] = 'Wednesday';
 $lang['DAY_4'] = 'Thursday';
 $lang['DAY_5'] = 'Friday';
 $lang['DAY_6'] = 'Saturday';
+
+$lang['CATEGORY_1'] = 'INFO';
+$lang['CATEGORY_2'] = 'DEBUG';
+$lang['CATEGORY_3'] = 'ERROR';
+$lang['CATEGORY_4'] = 'WARN';
 
 /*
 ** ------------------
@@ -466,7 +473,7 @@ $lang['USER_HACK'] = 'Take over user %s [%s] session!';
 
 /*
 ** ------------------
-** SETTINGS - BACKUP
+** SETTINGS - BACKUPS
 ** ------------------
 */
 
@@ -474,6 +481,15 @@ $lang['BACKUP_TITLE'] = 'BACKUPS';
 
 $lang['BACKUP_CONTENT'] = 'Currently the following mysql backups are available:';
 
+/*
+** ------------------
+** SETTINGS - EVENTS
+** ------------------
+*/
+
+$lang['EVENT_TITLE'] = 'EVENTS';
+
+$lang['EVENT_CONTENT'] = 'The are the events with took place recently:';
 
 /*
 ** ------------------

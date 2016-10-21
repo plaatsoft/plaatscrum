@@ -1022,6 +1022,13 @@ function plaatscrum_db_log_insert($user_id, $category, $description ) {
 	plaatscrum_db_query($query);
 }
 
+function plaatscrum_db_log_user_delete($log_id) {
+		
+	$query = 'delete from log where log_id='.$log_id;
+	
+	plaatscrum_db_query($query);
+}
+
 /*
 ** ---------------------
 ** THE END

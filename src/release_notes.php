@@ -20,11 +20,14 @@ $releasenotes = '
 
 <h2>22-10-2016 PlaatScrum v1.3</h2>
 <ul>
+<li>Admin user can now manage user events.</li>
+<li>Admin user can now manage SQL backup.</li>
+<li>SQL backup filename do now have random filename. More secure!</li>
 <li>Move event logging to database. More secure!</li>
 <li>Filter settings are now persist per project and page.</li>
-<li>Added in multi select priority filter feature.</li>
-<li>Added in priority column to sprint  and product backlog.</li>
-<li>Added in calender sprint letter for each week that sprint takes.</li>
+<li>Added multi select priority filter feature.</li>
+<li>Added priority column to sprint  and product backlog.</li>
+<li>Added calender sprint letter for each week that sprint takes.</li>
 <li>Added story sorting (asc/desc) on taskboard.</li>
 <li>Added current day is highlighted on calender.</li>
 <li>Redesign login page and page banner.</li>

@@ -323,6 +323,12 @@ switch ($pid) {
 	case PAGE_BACKUP:
 				include "backup.php";	
 				plaatscrum_backup();			
+				break;
+				
+	case PAGE_EVENT:
+				include "event.php";	
+				plaatscrum_event();	
+				break;
 				
 	// ---------------------------------------- //
 	

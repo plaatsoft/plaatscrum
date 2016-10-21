@@ -186,6 +186,10 @@ function plaatscrum_main_menu() {
 			$menu .= '<li>';
 			$menu .= plaatscrum_link('mid='.MENU_SETTINGS.'&pid='.PAGE_BACKUP, t('LINK_BACKUPS'));
 			$menu .= '</li>';
+			
+			$menu .= '<li>';
+			$menu .= plaatscrum_link('mid='.MENU_SETTINGS.'&pid='.PAGE_EVENT, t('LINK_EVENTS'));
+			$menu .= '</li>';
 		}
 		
 		$menu .= '</ul>';
