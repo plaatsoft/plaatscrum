@@ -16,10 +16,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="plaatscrum48.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="plaatscrum64.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">PlaatScrum
-   &#160;<span id="projectnumber">v1.2</span>
+   &#160;<span id="projectnumber">v1.3</span>
    </div>
   </td>
  </tr>
@@ -83,6 +83,9 @@
 <li>PAGE_BACKLOG_IMPORT
 : <a class="el" href="general_8php.html#aa5293b5de387288c6df85f14ea53d829">general.php</a>
 </li>
+<li>PAGE_BACKUP
+: <a class="el" href="general_8php.html#a6dc1d550fab4998a821a34ff67b5f845">general.php</a>
+</li>
 <li>PAGE_BURNDOWN_CHART
 : <a class="el" href="general_8php.html#a4a8b88529b6bcf8d6518407d336bb03e">general.php</a>
 </li>
@@ -97,6 +100,9 @@
 </li>
 <li>PAGE_DONATE
 : <a class="el" href="general_8php.html#a2b6cf247da21204ad1d4778422cd3f5d">general.php</a>
+</li>
+<li>PAGE_EVENT
+: <a class="el" href="general_8php.html#a19d1c2e8e175022f7f4031394312504a">general.php</a>
 </li>
 <li>PAGE_GENERAL
 : <a class="el" href="general_8php.html#a388d8cf4172bf021fccf632c680643d3">general.php</a>
@@ -176,6 +182,15 @@
 <li>plaatscrum_backlog_form()
 : <a class="el" href="backlog_8php.html#a5e4a64f2617f246c9b5514f4c572bbbf">backlog.php</a>
 </li>
+<li>plaatscrum_backup()
+: <a class="el" href="backup_8php.html#a9f0c605f42b58f6adc3965247289b4bc">backup.php</a>
+</li>
+<li>plaatscrum_backup_event()
+: <a class="el" href="cron_8php.html#a16637bfa90eaa1fa6119e7432dee5bee">cron.php</a>
+</li>
+<li>plaatscrum_backup_form()
+: <a class="el" href="backup_8php.html#ac9a6c2d0e0546c20166447a129eec864">backup.php</a>
+</li>
 <li>plaatscrum_board_element()
 : <a class="el" href="general_8php.html#a710a0fec8c8fd701a9e1189ad577ffdb">general.php</a>
 </li>
@@ -215,9 +230,6 @@
 <li>plaatscrum_cron()
 : <a class="el" href="cron_8php.html#a72643a42191b1c43f0c4d97d15a449da">cron.php</a>
 </li>
-<li>plaatscrum_cron_backup()
-: <a class="el" href="cron_8php.html#afd2c5c8d8c357c26c98acb2b02330945">cron.php</a>
-</li>
 <li>plaatscrum_db_check_version()
 : <a class="el" href="database_8php.html#a8e553c19a47028b2633962b934c45aa0">database.php</a>
 </li>
@@ -254,11 +266,26 @@
 <li>plaatscrum_db_fetch_object()
 : <a class="el" href="database_8php.html#ad6bb6dcf3955bfae433f4eb3c1a76a3f">database.php</a>
 </li>
+<li>plaatscrum_db_filter()
+: <a class="el" href="database_8php.html#acd94be54b1a8e56412af91670208ed7d">database.php</a>
+</li>
+<li>plaatscrum_db_filter_insert()
+: <a class="el" href="database_8php.html#a64dc15809ae9944eeacb9f68d5443b08">database.php</a>
+</li>
+<li>plaatscrum_db_filter_update()
+: <a class="el" href="database_8php.html#a89f35ed860cbbe6ded1bc07255f54f23">database.php</a>
+</li>
 <li>plaatscrum_db_history()
 : <a class="el" href="database_8php.html#aee1c635560fe18a794d5790ec311866f">database.php</a>
 </li>
 <li>plaatscrum_db_history_insert()
 : <a class="el" href="database_8php.html#a840526c8835c4a386a32dbbe1a4568a6">database.php</a>
+</li>
+<li>plaatscrum_db_log_insert()
+: <a class="el" href="database_8php.html#a6821e2987382fd561964901edd15c187">database.php</a>
+</li>
+<li>plaatscrum_db_log_user_delete()
+: <a class="el" href="database_8php.html#a626cb2c476078f9b9ef780956b271244">database.php</a>
 </li>
 <li>plaatscrum_db_member()
 : <a class="el" href="database_8php.html#a9061d8b37db5b238855d9f15db2106e6">database.php</a>
@@ -410,6 +437,12 @@
 <li>plaatscrum_debug()
 : <a class="el" href="general_8php.html#a982b64d4e811011d6906bdcf0ee8cb96">general.php</a>
 </li>
+<li>plaatscrum_delete_event()
+: <a class="el" href="event_8php.html#ac8c884e9263eba571edd37e2a5fe30ad">event.php</a>
+</li>
+<li>plaatscrum_delete_file_event()
+: <a class="el" href="backup_8php.html#a3e8da2edf8ab1eb89fcbf261b60787b8">backup.php</a>
+</li>
 <li>plaatscrum_donate()
 : <a class="el" href="donate_8php.html#acb65e991bad45f8aec1e28b3041c51ac">donate.php</a>
 </li>
@@ -421,6 +454,12 @@
 </li>
 <li>plaatscrum_error()
 : <a class="el" href="general_8php.html#a2ed42512a5a149181b9667fac36737aa">general.php</a>
+</li>
+<li>plaatscrum_event()
+: <a class="el" href="event_8php.html#aadc6c00bee078cf3ecfdd174f4213eb1">event.php</a>
+</li>
+<li>plaatscrum_event_form()
+: <a class="el" href="event_8php.html#ab01c5104651ae752dff94ca57dcb4471">event.php</a>
 </li>
 <li>plaatscrum_export()
 : <a class="el" href="export_8php.html#a6cd32246e26b5eea3c826577c6b2b34a">export.php</a>
@@ -473,6 +512,9 @@
 <li>plaatscrum_get()
 : <a class="el" href="general_8php.html#aede4f48d9bef657d0f21d344556102af">general.php</a>
 </li>
+<li>plaatscrum_get_uuid()
+: <a class="el" href="cron_8php.html#aaf88c4b1f73c30387540bb8fe6ebabd0">cron.php</a>
+</li>
 <li>plaatscrum_help()
 : <a class="el" href="help_8php.html#ac6d8bfeb7ec8d3365f13cb4a0608c183">help.php</a>
 </li>
@@ -523,6 +565,9 @@
 </li>
 <li>plaatscrum_link_store()
 : <a class="el" href="general_8php.html#accabdef5f421b4f9b1459409887be20c">general.php</a>
+</li>
+<li>plaatscrum_load_filter()
+: <a class="el" href="filter_8php.html#a6aed474c9549115c9504edbfe4c3fe3d">filter.php</a>
 </li>
 <li>plaatscrum_login()
 : <a class="el" href="login_8php.html#a099809b885b11a7c050d2fae273a8fd3">login.php</a>
@@ -644,6 +689,9 @@
 <li>plaatscrum_resourceboard_ticket()
 : <a class="el" href="resource__board_8php.html#a6fc303d1efb28e3c72a767f16a888dd3">resource_board.php</a>
 </li>
+<li>plaatscrum_search()
+: <a class="el" href="filter_8php.html#a747ad6b7c82e3f1033519d215f133d85">filter.php</a>
+</li>
 <li>plaatscrum_settings()
 : <a class="el" href="settings_8php.html#a8523c0b40cb3342638b8eb56f170e4d6">settings.php</a>
 </li>
@@ -731,9 +779,11 @@
 <li>plaatscrum_token()
 : <a class="el" href="general_8php.html#a4cc56ba897d7acec9393b9eb061f6db4">general.php</a>
 </li>
+<li>plaatscrum_total_points()
+: <a class="el" href="velocity__chart_8php.html#af6ee9e3579dfba4553424dab98e3c04f">velocity_chart.php</a>
+</li>
 <li>plaatscrum_total_status()
-: <a class="el" href="velocity__chart_8php.html#ad9b0fcfebda18ec711ecf8311eef584d">velocity_chart.php</a>
-, <a class="el" href="status__chart_8php.html#ad9b0fcfebda18ec711ecf8311eef584d">status_chart.php</a>
+: <a class="el" href="status__chart_8php.html#a6853f62bc4e044602b2a40bd390a6399">status_chart.php</a>
 </li>
 <li>plaatscrum_ui_all_user()
 : <a class="el" href="general_8php.html#a7292ad09d6aad40f7392fa657a8d22b3">general.php</a>
@@ -776,6 +826,9 @@
 </li>
 <li>plaatscrum_ui_multi_day()
 : <a class="el" href="general_8php.html#a34acd9551619b343f25a1d6692f8c859">general.php</a>
+</li>
+<li>plaatscrum_ui_multi_prio()
+: <a class="el" href="general_8php.html#ad1eefdc84ffdfd8435fdaa5fae2be946">general.php</a>
 </li>
 <li>plaatscrum_ui_multi_status()
 : <a class="el" href="general_8php.html#a7fa90c8f995842cdb8818546e33e9aeb">general.php</a>
@@ -834,9 +887,6 @@
 <li>plaatscrum_user_hack_do()
 : <a class="el" href="user_8php.html#a003adb89be67df8c1b0e319c20ada7d5">user.php</a>
 </li>
-<li>plaatscrum_user_log()
-: <a class="el" href="general_8php.html#a319eec8a0c81b6c9caaa9f552c933c6a">general.php</a>
-</li>
 <li>plaatscrum_user_save_do()
 : <a class="el" href="user_8php.html#ade44178739557cc5db68cef3b36439d6">user.php</a>
 </li>
@@ -849,11 +899,8 @@
 <li>plaatscrum_velocity_chart_form()
 : <a class="el" href="velocity__chart_8php.html#a6f121f5db2a861bc2b3e58b354e70ddd">velocity_chart.php</a>
 </li>
-<li>plaatscrum_velocity_status()
-: <a class="el" href="velocity__chart_8php.html#accc07fc0cb1cb099c402e6a28ad9114d">velocity_chart.php</a>
-</li>
-<li>plaatscrum_write_file()
-: <a class="el" href="general_8php.html#aeedeeeda2f067d90c23a261dc7fb5abc">general.php</a>
+<li>plaatscrum_warn()
+: <a class="el" href="general_8php.html#a4725c72f9bc6f6e057256f1719cdc0dd">general.php</a>
 </li>
 <li>points
 : <a class="el" href="story_8php.html#a40316959e1b0c7817dbbd9dc7b91057d">story.php</a>
