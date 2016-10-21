@@ -33,6 +33,8 @@ function plaatscrum_delete_event() {
 	global $id;
 	
 	plaatscrum_db_log_user_delete($id);
+	
+	$id=0;
 }
 
 /*
@@ -47,6 +49,7 @@ function plaatscrum_event_form() {
 	/* input */
 	global $mid;
 	global $pid;
+	global $id;
 	
 	/* output */
 	global $page;
@@ -62,6 +65,14 @@ function plaatscrum_event_form() {
 	$page .= t('EVENT_CONTENT');
 	$page .= '</p>';
 	
+	$page .= '<div class="fl_left">';
+	$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_PREV.'&id='.$id, t('LINK_PREV'));
+	$page .= '</div>';
+	
+	$page .= '<div class="fl_right">';
+	$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_NEXT.'&id='.$id, t('LINK_NEXT'));
+	$page .= '</div>';
+		
 	$page .= '<table>';
 			
 	$page .= '<thead>';
@@ -95,7 +106,7 @@ function plaatscrum_event_form() {
 	$query  = 'select a.log_id,  a.timestamp, b.name, a.address, a.category, a.description from log a ';
 	$query .= 'left join tuser b on a.user_id=b.user_id ';
 	$query .= 'order by a.log_id desc ';
-	$query .= 'limit 0,100 ';
+	$query .= 'limit '.($id*20).',20 ';
 	$result = plaatscrum_db_query($query);
 	
 	$count = 0;
@@ -133,11 +144,7 @@ function plaatscrum_event_form() {
 	}
 	
 	$page .= '</tbody>';
-	$page .= '</table>';	
-	
-	$page .= '<p>';		
-	$page .= plaatscrum_link('mid='.$mid.'&pid='.$pid.'&eid='.EVENT_BACKUP, t('LINK_BACKUP'));
-	$page .= '</p>';	
+	$page .= '</table>';		
 }
 
 /*
@@ -149,7 +156,7 @@ function plaatscrum_event_form() {
 function plaatscrum_event() {
 
 	/* input */
-	global $mid;
+	global $id;
 	global $pid;
 	global $eid;
 	
@@ -160,11 +167,16 @@ function plaatscrum_event() {
 					plaatscrum_delete_event();
 					break;
 	
-		case EVENT_NEXT: 
+		case EVENT_NEXT:				
+					$id--;
+					if ($id<0) {
+						$id=0;
+					}
 					break;
-	
-		case EVENT_PREV: 
-					break;
+
+		case EVENT_PREV;
+					$id++;
+					break;	
 	}
 	
 	/* Page handler */

@@ -94,6 +94,8 @@ $lang['LINK_NEXT_MONTH'] = 'Next Month';
 $lang['LINK_BACKUPS'] = 'Backups';
 $lang['LINK_BACKUP'] = 'Backup';
 $lang['LINK_EVENTS'] = 'Events';
+$lang['LINK_PREV'] = 'Previous';
+$lang['LINK_NEXT'] = 'Next';
 
 /*
 ** ------------------
@@ -489,7 +491,7 @@ $lang['BACKUP_CONTENT'] = 'Currently the following mysql backups are available:'
 
 $lang['EVENT_TITLE'] = 'EVENTS';
 
-$lang['EVENT_CONTENT'] = 'The are the events with took place recently:';
+$lang['EVENT_CONTENT'] = 'These are the events with took place recently:';
 
 /*
 ** ------------------

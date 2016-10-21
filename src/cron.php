@@ -82,13 +82,13 @@ function plaatscrum_backup_event() {
 		}
 	}
 	
-	$filename = $directory.'plaatscrum-'.plaatscrum_get_uuid().'.sql';
+	$filename = 'plaatscrum-'.plaatscrum_get_uuid().'.sql';
 	
 	/* Create new database backup file */
-	$command = $dump.' --user='.$config["dbuser"].' --password='.$config["dbpass"].' --host='.$config["dbhost"].' '.$config["dbname"].' > '.$filename;
+	$command = $dump.' --user='.$config["dbuser"].' --password='.$config["dbpass"].' --host='.$config["dbhost"].' '.$config["dbname"].' > '.$directory.$filename;
 	system($command);
 	
-	$message = 'Create new backup file '.$filename.'<br/>';
+	$message = 'Create backup file '.$filename.'<br/>';
 	plaatscrum_info($message);
 }
 

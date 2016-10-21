@@ -35,6 +35,8 @@ function plaatscrum_delete_file_event() {
 	
 	$directory = getcwd().'/backup/';
 	
+	plaatscrum_info('Remove backup file '.$filename);
+	
 	unlink ($directory.$filename);
 }
 

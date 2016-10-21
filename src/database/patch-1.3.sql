@@ -15,7 +15,7 @@
 --
 
 UPDATE config SET value="1.3" WHERE token = "database_version";
-UPDATE config SET value="(Build 22-10-2016)" WHERE token = "build_number";
+UPDATE config SET value="(Build 21-10-2016)" WHERE token = "build_number";
 
 ALTER TABLE tuser DROP status;
 ALTER TABLE tuser DROP owner;
