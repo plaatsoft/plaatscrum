@@ -477,6 +477,8 @@ a:hover {
 
 .fl_left{float:left;}
 
+.fl_center{display:inline;}
+
 .fl_right{float:right;}
 
 .imgl, .imgr{border:0px solid #999999; padding:5px;}

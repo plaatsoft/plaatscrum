@@ -18,6 +18,11 @@
 
 $releasenotes = '
 
+<h2>24-10-2016 PlaatScrum v1.4</h2>
+<ul>
+<li>Add new version available check.</li>
+</ul>
+
 <h2>21-10-2016 PlaatScrum v1.3</h2>
 <ul>
 <li>Admin user can now manage user events.</li>

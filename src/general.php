@@ -1242,13 +1242,11 @@ function plaatscrum_ui_banner($menu) {
 	
 	$data1 = plaatscrum_db_config("database_version");		
 	if (isset($data1->id)) {
-		$page .= '<div class="version">';	
-   	$page .= 'v'.$data1->value.' '.plaatscrum_db_config_get('build_number');
-		$page .= '</div>';
+		$page .= 'v<span id="version">';	
+   	$page .= ''.$data1->value.'</span> '.plaatscrum_db_config_get('build_number');
 	}
 	$page .= '</div>';
-	
-	
+		
 	$page .= '<div class="fl_right">';
 	$page .= $menu;
 	$page .= '</div>';
@@ -1276,7 +1274,7 @@ function plaatscrum_ui_banner($menu) {
 	$page .= '<div id="topbar">';
 	
 	$page .= '</div>';
-	
+		
 	return $page;
 }
 
@@ -1288,13 +1286,19 @@ function plaatscrum_ui_footer($renderTime, $queryCount) {
 				
 	$page = '<div id="copyright">';
 	
-	$page .= '<p class="fl_left">';
+	$page .= '<p class="fl_left" style="width:450px;">';
 	$page .= t('COPYRIGHT');
+	$page .= '</p>';
+
+	$page .= '<p class="fl_center">';
+	$page .= '<span id="upgrade" style="color:#e0440e" />';
+	$page .= '<script type="text/javascript" src="js/version.js"></script>';
 	$page .= '</p>';
 	
 	$page .= '<p class="fl_right">';
 	$page .= 'Render time '.round($renderTime).'ms - '.$queryCount.' Queries - '.memory_format(memory_get_peak_usage(true)).'';
 	$page .= '</p>';
+	
 	$page .= '</div>';
 	
 	$page .= '<br class="clear" />';
