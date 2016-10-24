@@ -1,6 +1,6 @@
 /* 
 **  ===========
-**  PlaatEnergy
+**  PlaatScrum
 **  ===========
 **
 **  Created by wplaat
@@ -31,7 +31,7 @@ xmlhttp.onreadystatechange=function() {
 		var current = parseFloat(document.getElementById("version").innerHTML);
 		console.log("current version = ["+current+"]");
 		if (current<latest) {
-			document.getElementById("upgrade").innerHTML = 'PlaatScrum v'+obj.PlaatScrum+' available!'; 
+			document.getElementById("upgrade").innerHTML = 'PlaatSign v'+latest+' available!'; 
 		}
    }
 }
