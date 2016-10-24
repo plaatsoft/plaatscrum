@@ -1286,7 +1286,7 @@ function plaatscrum_ui_footer($renderTime, $queryCount) {
 				
 	$page = '<div id="copyright">';
 	
-	$page .= '<p class="fl_left" style="width:450px;">';
+	$page .= '<p class="fl_left" style="width:420px;">';
 	$page .= t('COPYRIGHT');
 	$page .= '</p>';
 
