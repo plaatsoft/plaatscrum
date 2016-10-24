@@ -38,7 +38,7 @@ xmlhttp.onreadystatechange=function() {
 	
 xmlhttp.open('POST',  'https://service.plaatsoft.nl', true);
 xmlhttp.setRequestHeader('Content-type','application/x-www-form-urlencoded' );
-xmlhttp.send('{"plaatscrum":"'+parseFloat(document.getElementById("version").innerHTML)+'"}');
+xmlhttp.send('{"PlaatScrum":"'+parseFloat(document.getElementById("version").innerHTML)+'"}');
 
 /*
 ** ---------------------
