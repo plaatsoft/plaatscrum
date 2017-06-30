@@ -18,9 +18,10 @@
 
 $releasenotes = '
 
-<h2>24-10-2016 PlaatScrum v1.4</h2>
+<h2>19-12-2016 PlaatScrum v1.4</h2>
 <ul>
 <li>Add new version available check.</li>
+<li>Bugfix: Downchart day calculation improved.</li>
 </ul>
 
 <h2>21-10-2016 PlaatScrum v1.3</h2>

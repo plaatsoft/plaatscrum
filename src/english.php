@@ -350,8 +350,8 @@ $lang['GENERAL_TITLE_TASKS'] = 'TASKS/BUGS/EPICS';
 ** ------------------
 */
 
-$lang['TASKBOARD_TITLE'] = 'TASK BOARD';
-$lang['TASKBOARD_NOTE'] = 'The task board shows all stories and related tasks, bugs and epics group by status.';
+$lang['TASKBOARD_TITLE'] = 'TASKBOARD';
+$lang['TASKBOARD_NOTE'] = 'The taskboard shows all stories and related tasks, bugs and epics group by status.';
 
 $lang['RESOURCEBOARD_TITLE'] = 'RESOURCE BOARD';
 $lang['RESOURCEBOARD_NOTE'] = 'The resource board shows all tasks, bugs and epic group by resource.';

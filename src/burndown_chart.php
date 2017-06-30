@@ -109,7 +109,7 @@ function plaatscrum_burndown_chart_form() {
 	/* Get all workdays from selected sprint */
 	$data = plaatscrum_db_sprint($user->sprint_id);
 	$diff = strtotime($data->end_date) - strtotime($data->start_date);
-	$days = floor($diff /60/60/24);
+	$days = ceil($diff /60/60/24);
 	$step2 = $total2 / ($days+1);
 	
 	$date = strtotime($data->start_date)-(60*60*24);
@@ -131,6 +131,10 @@ function plaatscrum_burndown_chart_form() {
 		
 		$value2 = plaatscrum_burndown_status(STATUS_SKIPPED, date('d-m-Y', $date));
 		$total1 -= $value2;
+		
+		$value3 = plaatscrum_burndown_status(STATUS_ONHOLD, date('d-m-Y', $date));
+		$total1 -= $value3;
+		
 		if ($total1 < 0) {
 			$total1 = 0;
 		}
